@@ -4,7 +4,12 @@ import ReadingForm from '@/components/ReadingForm'
 import styles from '../../scanner.module.css'
 import { Zap } from 'lucide-react'
 
-export default async function AddReadingPage() {
+export default async function AddReadingPage(props: {
+  searchParams: Promise<{ meterId?: string }>
+}) {
+  const searchParams = await props.searchParams
+  const meterId = searchParams.meterId
+
   const supabase = await createClient()
 
   // 1. Get authenticated user
@@ -26,7 +31,7 @@ export default async function AddReadingPage() {
     redirect('/dashboard')
   }
 
-  const activeMeter = meters[0]
+  const activeMeter = (meterId && meters.find((m) => m.id === meterId)) || meters[0]
 
   return (
     <div className={styles.container}>

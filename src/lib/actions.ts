@@ -88,12 +88,16 @@ export async function createMeterAction(formData: FormData) {
     return { error: 'Billing cycle start day must be between 1 and 31.' }
   }
 
-  const { error } = await supabase.from('meters').insert({
-    profile_id: user.id,
-    meter_number: meterNumber,
-    billing_cycle_start_day: billingCycleStartDay,
-    max_usage_limit: maxUsageLimit,
-  })
+  const { data, error } = await supabase
+    .from('meters')
+    .insert({
+      profile_id: user.id,
+      meter_number: meterNumber,
+      billing_cycle_start_day: billingCycleStartDay,
+      max_usage_limit: maxUsageLimit,
+    })
+    .select('id')
+    .single()
 
   if (error) {
     return { error: error.message }
@@ -101,7 +105,7 @@ export async function createMeterAction(formData: FormData) {
 
   revalidatePath('/dashboard')
   revalidatePath('/')
-  return { success: true }
+  return { success: true, meterId: data?.id }
 }
 
 export async function updateLimitAction(formData: FormData) {

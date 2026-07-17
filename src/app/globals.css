@@ -195,3 +195,13 @@ body {
 ::-webkit-scrollbar-thumb:hover {
   background: var(--primary-glow);
 }
+
+.add-meter-text {
+  display: inline;
+}
+
+@media (max-width: 768px) {
+  .add-meter-text {
+    display: none;
+  }
+}

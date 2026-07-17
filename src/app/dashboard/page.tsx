@@ -7,6 +7,8 @@ import LimitEditor from '@/components/LimitEditor'
 import DeleteReadingBtn from '@/components/DeleteReadingBtn'
 import AddReadingButton from '@/components/AddReadingButton'
 import ReadingDateEditor from '@/components/ReadingDateEditor'
+import MeterSelector from '@/components/MeterSelector'
+import ShareWhatsAppBtn from '@/components/ShareWhatsAppBtn'
 import {
   Zap,
   TrendingUp,
@@ -38,7 +40,12 @@ function getBillingCycleStart(startDay: number): Date {
   return new Date(year, month, startDay, 0, 0, 0, 0)
 }
 
-export default async function DashboardPage() {
+export default async function DashboardPage(props: {
+  searchParams: Promise<{ meterId?: string }>
+}) {
+  const searchParams = await props.searchParams
+  const meterId = searchParams.meterId
+
   const supabase = await createClient()
 
   // 1. Get authenticated user
@@ -68,7 +75,7 @@ export default async function DashboardPage() {
     return <OnboardingModal />
   }
 
-  const activeMeter = meters[0]
+  const activeMeter = (meterId && meters.find((m) => m.id === meterId)) || meters[0]
   const limit = Number(activeMeter.max_usage_limit) || 400
 
   // 5. Fetch Readings for Active Meter (sorted desc)
@@ -271,14 +278,17 @@ export default async function DashboardPage() {
 
       {/* Main Content */}
       <main className={styles.main}>
-        <div className={styles.welcomeSection}>
-          <h1 className={styles.greeting}>Dashboard</h1>
-          <p className={styles.subGreeting}>
-            Monitoring Meter ID:{' '}
-            <span style={{ color: 'var(--primary)', fontFamily: 'var(--font-mono)' }}>
-              {activeMeter.meter_number}
-            </span>
-          </p>
+        <div className={styles.welcomeSection} style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: '1rem' }}>
+          <div>
+            <h1 className={styles.greeting}>Dashboard</h1>
+            <p className={styles.subGreeting}>
+              Monitoring Meter ID:{' '}
+              <span style={{ color: 'var(--primary)', fontFamily: 'var(--font-mono)' }}>
+                {activeMeter.meter_number}
+              </span>
+            </p>
+          </div>
+          <MeterSelector meters={meters} activeMeterId={activeMeter.id} />
         </div>
 
         {/* Warning Banner Alerts */}
@@ -665,12 +675,31 @@ export default async function DashboardPage() {
             {/* Quick Actions */}
             <div className={styles.card}>
               <h3 className={styles.cardTitle}>Quick Actions</h3>
+              <div style={{ display: 'flex', flexDirection: 'column', gap: '0.75rem', marginTop: '1rem' }}>
                 <AddReadingButton
                   meterId={activeMeter.id}
                   meterNumber={activeMeter.meter_number}
                   className="glow-btn-solid"
                   style={{ width: '100%', padding: '12px', fontSize: '1rem' }}
                 />
+                <ShareWhatsAppBtn
+                  type="status"
+                  meterNumber={activeMeter.meter_number}
+                  currentUsage={currentUsage}
+                  limit={limit}
+                  dailyAverage={dailyAverage}
+                  daysRemaining={daysRemaining}
+                  projectedUsage={projectedUsage}
+                  slabStatus={
+                    isKeBreached
+                      ? 'UNPROTECTED (Breached)'
+                      : isKeWarning
+                      ? 'AT RISK (Projected Breach)'
+                      : 'PROTECTED (Subsidized)'
+                  }
+                  style={{ width: '100%', padding: '12px', fontSize: '1rem' }}
+                />
+              </div>
             </div>
           </div>
         </div>
@@ -740,7 +769,17 @@ export default async function DashboardPage() {
                           </div>
                         </td>
                         <td className={styles.actionCell}>
-                          <DeleteReadingBtn readingId={reading.id} />
+                          <div style={{ display: 'flex', gap: '0.5rem', justifyContent: 'flex-end', alignItems: 'center' }}>
+                            <ShareWhatsAppBtn
+                              type="reading"
+                              meterNumber={activeMeter.meter_number}
+                              value={Number(reading.reading_value)}
+                              date={new Date(reading.created_at).toLocaleString()}
+                              increment={increment}
+                              notes={reading.notes}
+                            />
+                            <DeleteReadingBtn readingId={reading.id} />
+                          </div>
                         </td>
                       </tr>
                     )
