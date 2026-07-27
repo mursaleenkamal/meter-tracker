@@ -5,6 +5,7 @@ import { useRouter } from 'next/navigation'
 import Link from 'next/link'
 import styles from '../app/scanner.module.css'
 import { addReadingAction } from '@/lib/actions'
+import { saveOfflineReading } from '@/lib/offlineStore'
 import {
   Camera,
   Keyboard,
@@ -14,6 +15,7 @@ import {
   CheckCircle,
   AlertTriangle,
   RefreshCw,
+  WifiOff,
 } from 'lucide-react'
 
 interface ReadingFormProps {
@@ -21,6 +23,15 @@ interface ReadingFormProps {
   meterNumber: string
   onClose?: () => void
   onSuccess?: () => void
+}
+
+function fileToDataURL(file: File): Promise<string> {
+  return new Promise((resolve, reject) => {
+    const reader = new FileReader()
+    reader.onload = () => resolve(reader.result as string)
+    reader.onerror = reject
+    reader.readAsDataURL(file)
+  })
 }
 
 export default function ReadingForm({ meterId, meterNumber, onClose, onSuccess }: ReadingFormProps) {
@@ -40,6 +51,7 @@ export default function ReadingForm({ meterId, meterNumber, onClose, onSuccess }
   
   const [isLoading, setIsLoading] = useState(false)
   const [submitError, setSubmitError] = useState<string | null>(null)
+  const [offlineSuccessMsg, setOfflineSuccessMsg] = useState<string | null>(null)
   const [isBillingReset, setIsBillingReset] = useState(false)
 
   const handleImageChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -99,27 +111,73 @@ export default function ReadingForm({ meterId, meterNumber, onClose, onSuccess }
     e.preventDefault()
     setIsLoading(true)
     setSubmitError(null)
+    setOfflineSuccessMsg(null)
 
-    const formData = new FormData()
-    formData.append('meterId', meterId)
-    formData.append('readingValue', readingValue)
-    formData.append('isBillingReset', String(isBillingReset))
-    if (imageFile) {
-      formData.append('image', imageFile)
+    const parsed = parseFloat(readingValue)
+    if (isNaN(parsed) || parsed < 0) {
+      setSubmitError('Please enter a valid reading value.')
+      setIsLoading(false)
+      return
     }
 
-    const result = await addReadingAction(formData)
-    setIsLoading(false)
-
-    if (result?.error) {
-      setSubmitError(result.error)
-    } else {
-      if (onSuccess) {
-        onSuccess()
-      } else {
-        // Hard redirect to refresh all layout data and cookies
-        window.location.href = '/dashboard'
+    const saveOffline = async (noteSuffix = '(Offline)') => {
+      let imageDataUrl: string | null = null
+      if (imageFile) {
+        try {
+          imageDataUrl = await fileToDataURL(imageFile)
+        } catch (e) {
+          console.error('Error converting image to data URL:', e)
+        }
       }
+
+      saveOfflineReading({
+        meterId,
+        readingValue: parsed,
+        notes: `Logged via Reading Form ${noteSuffix}`,
+        isBillingReset,
+        imageDataUrl,
+        imageFileName: imageFile?.name,
+        imageFileType: imageFile?.type,
+      })
+
+      setIsLoading(false)
+      setOfflineSuccessMsg('Saved offline! Reading logged locally and will auto-sync when internet is restored.')
+      setTimeout(() => {
+        if (onSuccess) onSuccess()
+        else if (onClose) onClose()
+        else window.location.href = '/dashboard'
+      }, 1200)
+    }
+
+    if (typeof window !== 'undefined' && !navigator.onLine) {
+      await saveOffline()
+      return
+    }
+
+    try {
+      const formData = new FormData()
+      formData.append('meterId', meterId)
+      formData.append('readingValue', readingValue)
+      formData.append('isBillingReset', String(isBillingReset))
+      if (imageFile) {
+        formData.append('image', imageFile)
+      }
+
+      const result = await addReadingAction(formData)
+      setIsLoading(false)
+
+      if (result?.error) {
+        setSubmitError(result.error)
+      } else {
+        if (onSuccess) {
+          onSuccess()
+        } else {
+          window.location.href = '/dashboard'
+        }
+      }
+    } catch (netErr) {
+      console.warn('Network submission failed, saving offline:', netErr)
+      await saveOffline('(Offline Fallback)')
     }
   }
 
@@ -164,6 +222,13 @@ export default function ReadingForm({ meterId, meterNumber, onClose, onSuccess }
         <div className={`${styles.alert} ${styles.errorAlert}`} style={{ marginBottom: '0.5rem' }}>
           <AlertTriangle size={18} style={{ flexShrink: 0 }} />
           <span>{submitError}</span>
+        </div>
+      )}
+
+      {offlineSuccessMsg && (
+        <div className={`${styles.alert} ${styles.errorAlert}`} style={{ marginBottom: '0.5rem', background: 'rgba(239, 68, 68, 0.1)', borderColor: 'rgba(239, 68, 68, 0.3)', color: '#fca5a5' }}>
+          <WifiOff size={18} style={{ flexShrink: 0 }} />
+          <span>{offlineSuccessMsg}</span>
         </div>
       )}
 

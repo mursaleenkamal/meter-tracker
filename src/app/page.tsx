@@ -6,6 +6,7 @@ import { Zap, Camera, TrendingUp, Key, ChevronRight, FileText } from 'lucide-rea
 import QuickReadingForm from '@/components/QuickReadingForm'
 import DeleteReadingBtn from '@/components/DeleteReadingBtn'
 import AddReadingButton from '@/components/AddReadingButton'
+import OfflineReadingsList from '@/components/OfflineReadingsList'
 
 // Helper function to calculate the start of the current billing cycle
 function getBillingCycleStart(startDay: number): Date {
@@ -191,6 +192,8 @@ export default async function LandingPage() {
                 {daysRemaining}d left
               </div>
             </div>
+
+            <OfflineReadingsList meterId={activeMeter.id} />
 
             <QuickReadingForm
               meterId={activeMeter.id}

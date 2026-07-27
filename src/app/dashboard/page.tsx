@@ -9,6 +9,7 @@ import AddReadingButton from '@/components/AddReadingButton'
 import ReadingDateEditor from '@/components/ReadingDateEditor'
 import MeterSelector from '@/components/MeterSelector'
 import ShareWhatsAppBtn from '@/components/ShareWhatsAppBtn'
+import OfflineReadingsList from '@/components/OfflineReadingsList'
 import {
   Zap,
   TrendingUp,
@@ -703,6 +704,9 @@ export default async function DashboardPage(props: {
             </div>
           </div>
         </div>
+
+        {/* Offline Pending Readings List */}
+        <OfflineReadingsList meterId={activeMeter.id} />
 
         {/* Reading History Table */}
         <div className={styles.card}>

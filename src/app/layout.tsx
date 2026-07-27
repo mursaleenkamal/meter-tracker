@@ -14,6 +14,9 @@ export const metadata: Metadata = {
     'VoltTrack is a secure, premium dashboard for tracking your electric meter unit usage. Upload meter photos for automated OCR scans, input manual readings, and set maximum unit limits with warning alerts.',
 }
 
+import NetworkSyncBar from '@/components/NetworkSyncBar'
+import AppPreloader from '@/components/AppPreloader'
+
 export default function RootLayout({
   children,
 }: Readonly<{
@@ -21,7 +24,11 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" className={outfit.variable}>
-      <body>{children}</body>
+      <body>
+        <AppPreloader />
+        {children}
+        <NetworkSyncBar />
+      </body>
     </html>
   )
 }

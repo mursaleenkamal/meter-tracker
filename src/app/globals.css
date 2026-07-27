@@ -205,3 +205,43 @@ body {
     display: none;
   }
 }
+
+/* Electric Loader Keyframes & Utility Styles */
+@keyframes electric-spin-cw {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+@keyframes electric-spin-ccw {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(-360deg); }
+}
+
+@keyframes electric-pulse-bolt {
+  0%, 100% { transform: scale(1); filter: drop-shadow(0 0 12px var(--primary)); opacity: 0.9; }
+  50% { transform: scale(1.15); filter: drop-shadow(0 0 24px var(--primary)) drop-shadow(0 0 45px rgba(0, 240, 255, 0.8)); opacity: 1; }
+}
+
+@keyframes electric-shimmer {
+  0% { background-position: -200% 0; }
+  100% { background-position: 200% 0; }
+}
+
+.electric-spin-cw {
+  animation: electric-spin-cw 2.5s linear infinite;
+}
+
+.electric-spin-ccw {
+  animation: electric-spin-ccw 1.8s linear infinite;
+}
+
+.electric-pulse-bolt {
+  animation: electric-pulse-bolt 1.5s ease-in-out infinite;
+}
+
+.electric-shimmer-bar {
+  background: linear-gradient(90deg, #00f0ff 0%, #8b5cf6 50%, #00f0ff 100%);
+  background-size: 200% 100%;
+  animation: electric-shimmer 2s linear infinite;
+}
+

@@ -2,7 +2,8 @@
 
 import { useState } from 'react'
 import { addReadingAction } from '@/lib/actions'
-import { Loader2, Plus, AlertTriangle, Check } from 'lucide-react'
+import { saveOfflineReading } from '@/lib/offlineStore'
+import { Loader2, Plus, AlertTriangle, Check, WifiOff } from 'lucide-react'
 
 interface QuickReadingFormProps {
   meterId: string
@@ -19,6 +20,7 @@ export default function QuickReadingForm({
   const [isLoading, setIsLoading] = useState(false)
   const [error, setError] = useState<string | null>(null)
   const [success, setSuccess] = useState(false)
+  const [isOfflineSuccess, setIsOfflineSuccess] = useState(false)
   const [isBillingReset, setIsBillingReset] = useState(false)
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
@@ -26,6 +28,7 @@ export default function QuickReadingForm({
     setIsLoading(false)
     setError(null)
     setSuccess(false)
+    setIsOfflineSuccess(false)
 
     const parsedValue = parseFloat(readingValue)
     if (isNaN(parsedValue) || parsedValue < 0) {
@@ -41,24 +44,51 @@ export default function QuickReadingForm({
     }
 
     setIsLoading(true)
-    const formData = new FormData()
-    formData.append('meterId', meterId)
-    formData.append('readingValue', readingValue)
-    formData.append('notes', 'Logged from Quick Access')
-    formData.append('isBillingReset', String(isBillingReset))
 
-    const result = await addReadingAction(formData)
-    setIsLoading(false)
-
-    if (result?.error) {
-      setError(result.error)
-    } else {
-      setSuccess(true)
+    // Handle offline mode directly if navigator.onLine is false
+    if (typeof window !== 'undefined' && !navigator.onLine) {
+      saveOfflineReading({
+        meterId,
+        readingValue: parsedValue,
+        notes: 'Logged from Quick Access (Offline)',
+        isBillingReset,
+      })
+      setIsLoading(false)
+      setIsOfflineSuccess(true)
       setReadingValue('')
-      // Reload page to refresh the display
-      setTimeout(() => {
-        window.location.reload()
-      }, 1000)
+      return
+    }
+
+    try {
+      const formData = new FormData()
+      formData.append('meterId', meterId)
+      formData.append('readingValue', readingValue)
+      formData.append('notes', 'Logged from Quick Access')
+      formData.append('isBillingReset', String(isBillingReset))
+
+      const result = await addReadingAction(formData)
+      setIsLoading(false)
+
+      if (result?.error) {
+        setError(result.error)
+      } else {
+        setSuccess(true)
+        setReadingValue('')
+        setTimeout(() => {
+          window.location.reload()
+        }, 1000)
+      }
+    } catch (netErr) {
+      console.warn('Network request failed, storing reading offline:', netErr)
+      saveOfflineReading({
+        meterId,
+        readingValue: parsedValue,
+        notes: 'Logged from Quick Access (Offline Fallback)',
+        isBillingReset,
+      })
+      setIsLoading(false)
+      setIsOfflineSuccess(true)
+      setReadingValue('')
     }
   }
 
@@ -128,6 +158,27 @@ export default function QuickReadingForm({
         >
           <Check size={14} style={{ flexShrink: 0 }} />
           <span>Reading logged successfully! Refreshing...</span>
+        </div>
+      )}
+
+      {isOfflineSuccess && (
+        <div
+          className="fade-in"
+          style={{
+            background: 'rgba(239, 68, 68, 0.08)',
+            border: '1px solid rgba(239, 68, 68, 0.2)',
+            color: '#fca5a5',
+            padding: '8px 12px',
+            borderRadius: '6px',
+            fontSize: '0.82rem',
+            marginBottom: '1rem',
+            display: 'flex',
+            alignItems: 'center',
+            gap: '0.5rem',
+          }}
+        >
+          <WifiOff size={14} style={{ flexShrink: 0 }} />
+          <span>Saved offline! Reading recorded locally and will auto-sync when online.</span>
         </div>
       )}
 
