@@ -3,10 +3,10 @@
 import { useState } from 'react'
 import Link from 'next/link'
 import styles from '../auth.module.css'
-import { signUpAction } from '@/lib/actions'
-import { Zap, AlertTriangle, CheckCircle, Loader2 } from 'lucide-react'
+import { updatePasswordAction } from '@/lib/actions'
+import { Zap, AlertTriangle, CheckCircle, Loader2, KeyRound } from 'lucide-react'
 
-export default function RegisterPage() {
+export default function ResetPasswordPage() {
   const [error, setError] = useState<string | null>(null)
   const [success, setSuccess] = useState<string | null>(null)
   const [isLoading, setIsLoading] = useState(false)
@@ -18,15 +18,17 @@ export default function RegisterPage() {
     setSuccess(null)
 
     const formData = new FormData(e.currentTarget)
-    const result = await signUpAction(formData)
+    const result = await updatePasswordAction(formData)
 
     setIsLoading(false)
 
     if (result?.error) {
       setError(result.error)
     } else if (result?.success) {
-      setSuccess(result.message || 'Registration successful!')
-      e.currentTarget.reset()
+      setSuccess(result.message || 'Password updated successfully!')
+      setTimeout(() => {
+        window.location.href = '/dashboard'
+      }, 1500)
     }
   }
 
@@ -38,8 +40,8 @@ export default function RegisterPage() {
             <Zap className={styles.logoIcon} size={24} fill="var(--primary)" />
             <span>VoltTrack</span>
           </Link>
-          <h2 className={styles.title}>Create Account</h2>
-          <p className={styles.subtitle}>Sign up to start tracking your energy usage</p>
+          <h2 className={styles.title}>Set New Password</h2>
+          <p className={styles.subtitle}>Enter a new password for your account</p>
         </div>
 
         {error && (
@@ -53,84 +55,45 @@ export default function RegisterPage() {
           <div className={`${styles.alert} ${styles.successAlert}`}>
             <CheckCircle size={18} style={{ flexShrink: 0 }} />
             <div>
-              <p style={{ fontWeight: 600 }}>Account Registered!</p>
+              <p style={{ fontWeight: 600 }}>Password Reset!</p>
               <p style={{ fontSize: '0.8rem', marginTop: '0.2rem' }}>{success}</p>
-              <p style={{ fontSize: '0.8rem', marginTop: '0.5rem' }}>
-                You can now{' '}
-                <Link href="/login" className={styles.link} style={{ textDecoration: 'underline' }}>
-                  Log In
-                </Link>
-              </p>
+              <p style={{ fontSize: '0.8rem', marginTop: '0.2rem' }}>Redirecting to dashboard...</p>
             </div>
           </div>
         )}
 
         <form onSubmit={handleSubmit} className={styles.form}>
           <div className={styles.inputGroup}>
-            <label htmlFor="fullName" className={styles.label}>
-              Full Name
-            </label>
-            <input
-              type="text"
-              id="fullName"
-              name="fullName"
-              className={styles.input}
-              placeholder="John Doe"
-              required
-              disabled={isLoading}
-            />
-          </div>
-
-          <div className={styles.inputGroup}>
-            <label htmlFor="email" className={styles.label}>
-              Email Address
-            </label>
-            <input
-              type="email"
-              id="email"
-              name="email"
-              className={styles.input}
-              placeholder="john@example.com"
-              required
-              disabled={isLoading}
-            />
-          </div>
-
-          <div className={styles.inputGroup}>
-            <label htmlFor="whatsappNumber" className={styles.label}>
-              WhatsApp Number <span style={{ color: 'var(--text-muted)', fontWeight: 400 }}>(Optional)</span>
-            </label>
-            <div className={styles.phoneInputWrapper}>
-              <div className={styles.phonePrefix}>🇵🇰 +92</div>
-              <input
-                type="tel"
-                id="whatsappNumber"
-                name="whatsappNumber"
-                className={styles.phoneInput}
-                placeholder="300 1234567"
-                disabled={isLoading}
-              />
-            </div>
-            <p style={{ fontSize: '0.76rem', color: 'var(--text-muted)' }}>
-              Enter your mobile number for WhatsApp alerts and updates.
-            </p>
-          </div>
-
-          <div className={styles.inputGroup}>
-            <label htmlFor="password" className={styles.label}>
-              Password
+            <label htmlFor="newPassword" className={styles.label}>
+              New Password
             </label>
             <input
               type="password"
-              id="password"
-              name="password"
+              id="newPassword"
+              name="newPassword"
               className={styles.input}
               placeholder="••••••••"
               required
+              minLength={6}
               disabled={isLoading}
             />
           </div>
 
+          <div className={styles.inputGroup}>
+            <label htmlFor="confirmPassword" className={styles.label}>
+              Confirm New Password
+            </label>
+            <input
+              type="password"
+              id="confirmPassword"
+              name="confirmPassword"
+              className={styles.input}
+              placeholder="••••••••"
+              required
+              minLength={6}
+              disabled={isLoading}
+            />
+          </div>
 
           <button
             type="submit"
@@ -148,20 +111,16 @@ export default function RegisterPage() {
             {isLoading ? (
               <>
                 <Loader2 className="animate-spin" size={18} />
-                Creating Profile...
+                Updating Password...
               </>
             ) : (
-              'Create Account'
+              <>
+                <KeyRound size={18} />
+                Save New Password
+              </>
             )}
           </button>
         </form>
-
-        <p className={styles.footerText}>
-          Already registered?{' '}
-          <Link href="/login" className={styles.link}>
-            Sign in
-          </Link>
-        </p>
       </div>
     </div>
   )

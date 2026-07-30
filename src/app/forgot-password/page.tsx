@@ -3,26 +3,30 @@
 import { useState } from 'react'
 import Link from 'next/link'
 import styles from '../auth.module.css'
-import { signInAction } from '@/lib/actions'
-import { Zap, AlertTriangle, Loader2 } from 'lucide-react'
+import { resetPasswordAction } from '@/lib/actions'
+import { Zap, AlertTriangle, CheckCircle, Loader2, ArrowLeft, Mail } from 'lucide-react'
 
-export default function LoginPage() {
+export default function ForgotPasswordPage() {
   const [error, setError] = useState<string | null>(null)
+  const [success, setSuccess] = useState<string | null>(null)
   const [isLoading, setIsLoading] = useState(false)
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
     setIsLoading(true)
     setError(null)
+    setSuccess(null)
 
     const formData = new FormData(e.currentTarget)
-    const result = await signInAction(formData)
+    const result = await resetPasswordAction(formData)
+
+    setIsLoading(false)
 
     if (result?.error) {
       setError(result.error)
-      setIsLoading(false)
-    } else {
-      window.location.href = '/dashboard'
+    } else if (result?.success) {
+      setSuccess(result.message || 'Password reset link has been sent to your email.')
+      e.currentTarget.reset()
     }
   }
 
@@ -34,14 +38,24 @@ export default function LoginPage() {
             <Zap className={styles.logoIcon} size={24} fill="var(--primary)" />
             <span>VoltTrack</span>
           </Link>
-          <h2 className={styles.title}>Welcome Back</h2>
-          <p className={styles.subtitle}>Enter credentials to access your dashboard</p>
+          <h2 className={styles.title}>Reset Password</h2>
+          <p className={styles.subtitle}>Enter your email to receive a password reset link</p>
         </div>
 
         {error && (
           <div className={`${styles.alert} ${styles.errorAlert}`}>
             <AlertTriangle size={18} style={{ flexShrink: 0 }} />
             <span>{error}</span>
+          </div>
+        )}
+
+        {success && (
+          <div className={`${styles.alert} ${styles.successAlert}`}>
+            <CheckCircle size={18} style={{ flexShrink: 0 }} />
+            <div>
+              <p style={{ fontWeight: 600 }}>Reset Email Sent!</p>
+              <p style={{ fontSize: '0.8rem', marginTop: '0.2rem' }}>{success}</p>
+            </div>
           </div>
         )}
 
@@ -61,27 +75,6 @@ export default function LoginPage() {
             />
           </div>
 
-          <div className={styles.inputGroup}>
-            <div className={styles.labelRow}>
-              <label htmlFor="password" className={styles.label}>
-                Password
-              </label>
-              <Link href="/forgot-password" className={styles.link} style={{ fontSize: '0.8rem' }}>
-                Forgot password?
-              </Link>
-            </div>
-            <input
-              type="password"
-              id="password"
-              name="password"
-              className={styles.input}
-              placeholder="••••••••"
-              required
-              disabled={isLoading}
-            />
-          </div>
-
-
           <button
             type="submit"
             className="glow-btn-solid styles.submitBtn"
@@ -98,18 +91,21 @@ export default function LoginPage() {
             {isLoading ? (
               <>
                 <Loader2 className="animate-spin" size={18} />
-                Verifying Credentials...
+                Sending Reset Link...
               </>
             ) : (
-              'Sign In'
+              <>
+                <Mail size={18} />
+                Send Reset Link
+              </>
             )}
           </button>
         </form>
 
         <p className={styles.footerText}>
-          Don't have an account?{' '}
-          <Link href="/register" className={styles.link}>
-            Sign up
+          <Link href="/login" className={styles.link} style={{ display: 'inline-flex', alignItems: 'center', gap: '0.35rem' }}>
+            <ArrowLeft size={16} />
+            Back to Sign In
           </Link>
         </p>
       </div>

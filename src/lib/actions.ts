@@ -12,17 +12,32 @@ export async function signUpAction(formData: FormData) {
   const email = formData.get('email') as string
   const password = formData.get('password') as string
   const fullName = formData.get('fullName') as string
+  const whatsappInput = formData.get('whatsappNumber') as string
 
   if (!email || !password || !fullName) {
-    return { error: 'All fields are required.' }
+    return { error: 'Full name, email, and password are required.' }
   }
 
-  const { error } = await supabase.auth.signUp({
+  let formattedPhone: string | undefined = undefined
+  if (whatsappInput && whatsappInput.trim().length > 0) {
+    let cleanDigits = whatsappInput.replace(/[^0-9]/g, '')
+    if (cleanDigits.startsWith('92')) {
+      cleanDigits = cleanDigits.substring(2)
+    } else if (cleanDigits.startsWith('03')) {
+      cleanDigits = cleanDigits.substring(1)
+    }
+    if (cleanDigits.length > 0) {
+      formattedPhone = `+92${cleanDigits}`
+    }
+  }
+
+  const { data, error } = await supabase.auth.signUp({
     email,
     password,
     options: {
       data: {
         full_name: fullName,
+        phone_number: formattedPhone || null,
       },
       emailRedirectTo: `${process.env.NEXT_PUBLIC_SUPABASE_URL}/auth/callback`,
     },
@@ -30,6 +45,18 @@ export async function signUpAction(formData: FormData) {
 
   if (error) {
     return { error: error.message }
+  }
+
+  if (data?.user) {
+    await supabase.from('profiles').upsert(
+      {
+        id: data.user.id,
+        full_name: fullName,
+        phone_number: formattedPhone || null,
+        updated_at: new Date().toISOString(),
+      },
+      { onConflict: 'id' }
+    )
   }
 
   return { success: true, message: 'Registration successful! Please check your email to verify your account or proceed.' }
@@ -58,12 +85,65 @@ export async function signInAction(formData: FormData) {
   return { success: true }
 }
 
+export async function resetPasswordAction(formData: FormData) {
+  const supabase = await createClient()
+  const email = formData.get('email') as string
+
+  if (!email) {
+    return { error: 'Please enter your email address.' }
+  }
+
+  const origin = process.env.NEXT_PUBLIC_SITE_URL || 'http://localhost:3000'
+  const { error } = await supabase.auth.resetPasswordForEmail(email, {
+    redirectTo: `${origin}/auth/callback?next=/reset-password`,
+  })
+
+  if (error) {
+    return { error: error.message }
+  }
+
+  return {
+    success: true,
+    message: 'Password reset link has been sent to your email. Please check your inbox.',
+  }
+}
+
+export async function updatePasswordAction(formData: FormData) {
+  const supabase = await createClient()
+  const newPassword = formData.get('newPassword') as string
+  const confirmPassword = formData.get('confirmPassword') as string
+
+  if (!newPassword || !confirmPassword) {
+    return { error: 'All fields are required.' }
+  }
+
+  if (newPassword !== confirmPassword) {
+    return { error: 'Passwords do not match.' }
+  }
+
+  if (newPassword.length < 6) {
+    return { error: 'Password must be at least 6 characters.' }
+  }
+
+  const { error } = await supabase.auth.updateUser({
+    password: newPassword,
+  })
+
+  if (error) {
+    return { error: error.message }
+  }
+
+  revalidatePath('/', 'layout')
+  return { success: true, message: 'Password updated successfully!' }
+}
+
 export async function signOutAction() {
   const supabase = await createClient()
   await supabase.auth.signOut()
   revalidatePath('/', 'layout')
   redirect('/login')
 }
+
 
 // Meter Actions
 
