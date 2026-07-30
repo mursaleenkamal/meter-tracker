@@ -6,6 +6,8 @@ import { redirect } from 'next/navigation'
 
 // Auth Actions
 
+import { createClient as createSupabaseAdmin } from '@supabase/supabase-js'
+
 export async function signUpAction(formData: FormData) {
   const supabase = await createClient()
 
@@ -31,26 +33,76 @@ export async function signUpAction(formData: FormData) {
     }
   }
 
-  const { data, error } = await supabase.auth.signUp({
-    email,
-    password,
-    options: {
-      data: {
+  let userId: string | undefined = undefined
+
+  const serviceRoleKey = process.env.SUPABASE_SERVICE_ROLE_KEY
+  const adminSupabase = serviceRoleKey
+    ? createSupabaseAdmin(process.env.NEXT_PUBLIC_SUPABASE_URL!, serviceRoleKey, {
+        auth: { autoRefreshToken: false, persistSession: false },
+      })
+    : null
+
+  // 1. Create User (auto-confirm email using Admin API if service key present)
+  if (adminSupabase) {
+    const { data: adminData, error: adminErr } = await adminSupabase.auth.admin.createUser({
+      email,
+      password,
+      email_confirm: true,
+      user_metadata: {
         full_name: fullName,
         phone_number: formattedPhone || null,
       },
-      emailRedirectTo: `${process.env.NEXT_PUBLIC_SUPABASE_URL}/auth/callback`,
-    },
-  })
+    })
 
-  if (error) {
-    return { error: error.message }
+    if (adminErr) {
+      if (
+        adminErr.message.toLowerCase().includes('already registered') ||
+        adminErr.message.toLowerCase().includes('already exists')
+      ) {
+        return { error: 'An account with this email address already exists. Please sign in.' }
+      }
+      return { error: adminErr.message }
+    }
+    userId = adminData.user.id
+  } else {
+    const { data: signUpData, error: signUpErr } = await supabase.auth.signUp({
+      email,
+      password,
+      options: {
+        data: {
+          full_name: fullName,
+          phone_number: formattedPhone || null,
+        },
+      },
+    })
+
+    if (signUpErr) {
+      return { error: signUpErr.message }
+    }
+    userId = signUpData.user?.id
   }
 
-  if (data?.user) {
+  // 2. Immediately Sign In User (bypass email verification)
+  const { error: signInErr } = await supabase.auth.signInWithPassword({
+    email,
+    password,
+  })
+
+  if (signInErr) {
+    if (signInErr.message.toLowerCase().includes('email not confirmed')) {
+      return {
+        error:
+          'Account created! In your Supabase Dashboard, please go to Authentication > Providers > Email and turn OFF "Confirm email" to enable instant login without email verification.',
+      }
+    }
+    return { error: signInErr.message }
+  }
+
+  // 3. Save profile in Supabase profiles table
+  if (userId) {
     await supabase.from('profiles').upsert(
       {
-        id: data.user.id,
+        id: userId,
         full_name: fullName,
         phone_number: formattedPhone || null,
         updated_at: new Date().toISOString(),
@@ -59,8 +111,14 @@ export async function signUpAction(formData: FormData) {
     )
   }
 
-  return { success: true, message: 'Registration successful! Please check your email to verify your account or proceed.' }
+  revalidatePath('/', 'layout')
+  return {
+    success: true,
+    autoLogin: true,
+    message: 'Welcome to VoltTrack! Your account has been registered successfully.',
+  }
 }
+
 
 export async function signInAction(formData: FormData) {
   const supabase = await createClient()

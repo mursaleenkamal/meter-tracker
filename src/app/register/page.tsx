@@ -24,11 +24,13 @@ export default function RegisterPage() {
 
     if (result?.error) {
       setError(result.error)
+      setIsLoading(false)
     } else if (result?.success) {
-      setSuccess(result.message || 'Registration successful!')
-      e.currentTarget.reset()
+      setSuccess(result.message || 'Account registered successfully!')
+      window.location.href = '/dashboard'
     }
   }
+
 
   return (
     <div className={styles.container}>
