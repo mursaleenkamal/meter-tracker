@@ -14,7 +14,7 @@ export interface Reading {
 }
 
 // Register service worker if supported
-export async function registerServiceWorker() {
+export async function registerServiceWorker(): Promise<ServiceWorkerRegistration | null> {
   if (typeof window !== 'undefined' && 'serviceWorker' in navigator) {
     try {
       const registration = await navigator.serviceWorker.register('/sw.js')
@@ -37,37 +37,75 @@ export async function requestNotificationPermission(): Promise<NotificationPermi
     return 'granted'
   }
 
-  const permission = await Notification.requestPermission()
-  if (permission === 'granted') {
-    await registerServiceWorker()
+  try {
+    const permission = await Notification.requestPermission()
+    if (permission === 'granted') {
+      await registerServiceWorker()
+    }
+    return permission
+  } catch (e) {
+    console.error('Error requesting notification permission:', e)
+    return 'denied'
   }
-
-  return permission
 }
 
-// Send a web push notification via Service Worker or Notification API
-export async function sendWebNotification(title: string, body: string, url: string = '/dashboard') {
-  if (typeof window === 'undefined' || !('Notification' in window)) return
-
-  if (Notification.permission !== 'granted') return
-
-  const reg = await registerServiceWorker()
-
-  if (reg && reg.showNotification) {
-    reg.showNotification(title, {
-      body,
-      icon: '/favicon.ico',
-      badge: '/favicon.ico',
-      data: { url },
-      tag: 'volttrack-reminder',
-    })
-  } else {
-    new Notification(title, {
-      body,
-      icon: '/favicon.ico',
-      data: { url },
-    })
+// Send a web push notification with robust fallbacks
+export async function sendWebNotification(title: string, body: string, url: string = '/dashboard'): Promise<boolean> {
+  if (typeof window === 'undefined' || !('Notification' in window)) {
+    return false
   }
+
+  let perm = Notification.permission
+  if (perm === 'default') {
+    perm = await requestNotificationPermission()
+  }
+
+  if (perm !== 'granted') {
+    console.warn('Notification permission not granted:', perm)
+    return false
+  }
+
+  let sent = false
+
+  // Method 1: Service Worker showNotification
+  if ('serviceWorker' in navigator) {
+    try {
+      await registerServiceWorker()
+      const reg = await navigator.serviceWorker.ready
+      if (reg && reg.showNotification) {
+        await reg.showNotification(title, {
+          body,
+          icon: '/favicon.ico',
+          badge: '/favicon.ico',
+          data: { url },
+          tag: 'volttrack-alert-' + Date.now(),
+        })
+        sent = true
+      }
+    } catch (swErr) {
+      console.warn('Service Worker notification failed, trying native Notification API:', swErr)
+    }
+  }
+
+  // Method 2: Standard HTML5 Notification API Fallback
+  if (!sent) {
+    try {
+      const n = new Notification(title, {
+        body,
+        icon: '/favicon.ico',
+        data: { url },
+      })
+      n.onclick = () => {
+        window.focus()
+        window.location.href = url
+      }
+      sent = true
+    } catch (nErr) {
+      console.error('HTML5 Notification API failed:', nErr)
+    }
+  }
+
+  return sent
 }
 
 // Helper: Calculate days between dates
