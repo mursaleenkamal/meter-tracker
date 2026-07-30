@@ -4,20 +4,31 @@ import { useEffect, useState } from 'react'
 import ElectricLoader from './ElectricLoader'
 
 export default function AppPreloader() {
-  const [isVisible, setIsVisible] = useState<boolean>(true)
+  const [isVisible, setIsVisible] = useState<boolean>(false)
   const [isFading, setIsFading] = useState<boolean>(false)
 
   useEffect(() => {
-    // Show smooth initial splash screen on first app launch or refresh
-    const timer = setTimeout(() => {
-      setIsFading(true)
-      const hideTimer = setTimeout(() => {
+    // Only show preloader on first session launch to prevent page load delays
+    if (typeof window !== 'undefined') {
+      const hasShown = sessionStorage.getItem('vt_preloader_shown')
+      if (hasShown) {
         setIsVisible(false)
-      }, 500)
-      return () => clearTimeout(hideTimer)
-    }, 700)
+        return
+      }
 
-    return () => clearTimeout(timer)
+      setIsVisible(true)
+      sessionStorage.setItem('vt_preloader_shown', 'true')
+
+      const timer = setTimeout(() => {
+        setIsFading(true)
+        const hideTimer = setTimeout(() => {
+          setIsVisible(false)
+        }, 300)
+        return () => clearTimeout(hideTimer)
+      }, 300)
+
+      return () => clearTimeout(timer)
+    }
   }, [])
 
   if (!isVisible) return null
@@ -33,11 +44,11 @@ export default function AppPreloader() {
         zIndex: 999999,
         background: '#060913',
         opacity: isFading ? 0 : 1,
-        transition: 'opacity 0.5s cubic-bezier(0.4, 0, 0.2, 1)',
+        transition: 'opacity 0.3s cubic-bezier(0.4, 0, 0.2, 1)',
         pointerEvents: isFading ? 'none' : 'auto',
       }}
     >
-      <ElectricLoader fullScreen message="Initializing Meter Tracking Systems..." />
+      <ElectricLoader fullScreen message="Loading VoltTrack..." />
     </div>
   )
 }

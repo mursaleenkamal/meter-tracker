@@ -61,23 +61,17 @@ export default async function DashboardPage(props: {
     redirect('/login')
   }
 
-  // 2. Fetch User Profile
-  const { data: profile } = await supabase
-    .from('profiles')
-    .select('*')
-    .eq('id', user.id)
-    .single()
+  // 2. Fetch User Profile and Meters concurrently in parallel
+  const [{ data: profile }, { data: meters, error: metersError }] = await Promise.all([
+    supabase.from('profiles').select('*').eq('id', user.id).single(),
+    supabase.from('meters').select('*').eq('profile_id', user.id),
+  ])
 
-  // 3. Fetch User Meters
-  const { data: meters, error: metersError } = await supabase
-    .from('meters')
-    .select('*')
-    .eq('profile_id', user.id)
-
-  // 4. Onboarding flow: If no meters exist, render Onboarding Setup Overlay
+  // 3. Onboarding flow: If no meters exist, render Onboarding Setup Overlay
   if (!meters || meters.length === 0) {
     return <OnboardingModal />
   }
+
 
   const activeMeter = (meterId && meters.find((m) => m.id === meterId)) || meters[0]
   const limit = Number(activeMeter.max_usage_limit) || 400
