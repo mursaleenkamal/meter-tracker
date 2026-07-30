@@ -243,9 +243,30 @@ export async function verifyWhatsAppCodeAction(
     }
   }
 
+  // Ensure full_name and phone_number are saved in Supabase profiles table
+  const {
+    data: { user },
+  } = await supabase.auth.getUser()
+
+  if (user) {
+    const profilePayload = {
+      id: user.id,
+      full_name: fullName || user.user_metadata?.full_name || `WhatsApp User (${formattedPhone})`,
+      phone_number: formattedPhone,
+      updated_at: new Date().toISOString(),
+    }
+
+    if (adminSupabase) {
+      await adminSupabase.from('profiles').upsert(profilePayload, { onConflict: 'id' })
+    } else {
+      await supabase.from('profiles').upsert(profilePayload, { onConflict: 'id' })
+    }
+  }
+
   revalidatePath('/', 'layout')
   return { success: true }
 }
+
 
 export async function signInWithPhonePasswordAction(formData: FormData) {
   const phoneInput = formData.get('phone') as string
@@ -285,9 +306,26 @@ export async function signInWithPhonePasswordAction(formData: FormData) {
     }
   }
 
+  const {
+    data: { user },
+  } = await supabase.auth.getUser()
+
+  if (user) {
+    await supabase.from('profiles').upsert(
+      {
+        id: user.id,
+        full_name: user.user_metadata?.full_name || `WhatsApp User (${formattedPhone})`,
+        phone_number: formattedPhone,
+        updated_at: new Date().toISOString(),
+      },
+      { onConflict: 'id' }
+    )
+  }
+
   revalidatePath('/', 'layout')
   return { success: true }
 }
+
 
 
 
