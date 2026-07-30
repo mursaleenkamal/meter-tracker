@@ -10,6 +10,9 @@ import ReadingDateEditor from '@/components/ReadingDateEditor'
 import MeterSelector from '@/components/MeterSelector'
 import ShareWhatsAppBtn from '@/components/ShareWhatsAppBtn'
 import OfflineReadingsList from '@/components/OfflineReadingsList'
+import NotificationBell from '@/components/NotificationBell'
+import PushReminderChecker from '@/components/PushReminderChecker'
+
 import {
   Zap,
   TrendingUp,
@@ -247,6 +250,8 @@ export default async function DashboardPage(props: {
 
   return (
     <div className={styles.container}>
+      <PushReminderChecker activeMeter={activeMeter} readings={readings || []} />
+
       {/* Top Navbar */}
       <nav className={styles.navbar}>
         <div className={styles.logo}>
@@ -255,7 +260,8 @@ export default async function DashboardPage(props: {
             Volt<span>Track</span>
           </span>
         </div>
-        <div className={styles.userInfo}>
+        <div className={styles.userInfo} style={{ display: 'flex', alignItems: 'center', gap: '1rem' }}>
+          <NotificationBell />
           <span className={styles.userName}>
             Welcome, <strong>{profile?.full_name || user.email}</strong>
           </span>
@@ -276,6 +282,7 @@ export default async function DashboardPage(props: {
           </form>
         </div>
       </nav>
+
 
       {/* Main Content */}
       <main className={styles.main}>
