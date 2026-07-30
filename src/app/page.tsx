@@ -354,10 +354,17 @@ export default async function LandingPage() {
         </section>
       </main>
 
-      <footer className={styles.footer}>
+      <footer className={styles.footer} style={{ display: 'flex', flexDirection: 'column', gap: '1rem', alignItems: 'center' }}>
+        <div style={{ display: 'flex', gap: '1.5rem', flexWrap: 'wrap', justifyContent: 'center', fontSize: '0.88rem' }}>
+          <Link href="/privacy-policy" style={{ color: 'var(--text-secondary)', textDecoration: 'none' }}>Privacy Policy</Link>
+          <Link href="/terms-of-service" style={{ color: 'var(--text-secondary)', textDecoration: 'none' }}>Terms of Service</Link>
+          <Link href="/about" style={{ color: 'var(--text-secondary)', textDecoration: 'none' }}>About Us</Link>
+          <Link href="/contact" style={{ color: 'var(--text-secondary)', textDecoration: 'none' }}>Contact Us</Link>
+          <Link href="/disclaimer" style={{ color: 'var(--text-secondary)', textDecoration: 'none' }}>Disclaimer</Link>
+        </div>
         <div>&copy; {new Date().getFullYear()} VoltTrack Systems. All rights reserved.</div>
-        <div>Designed for smart efficiency & electricity monitoring.</div>
       </footer>
+
 
       {/* JSON-LD Structured Data Schema for Search Engines */}
       <script
