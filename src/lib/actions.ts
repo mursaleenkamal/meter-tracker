@@ -65,6 +65,133 @@ export async function signOutAction() {
   redirect('/login')
 }
 
+// WhatsApp Auth Actions (Method 1: Click-to-WhatsApp Free Deep Link Auth)
+
+function formatPhoneNumber(phone: string): string {
+  let cleaned = phone.replace(/[^0-9+]/g, '')
+  if (cleaned.startsWith('03')) {
+    cleaned = '+92' + cleaned.substring(1)
+  } else if (!cleaned.startsWith('+') && cleaned.length > 0) {
+    cleaned = '+' + cleaned
+  }
+  return cleaned
+}
+
+export async function signUpWhatsAppAction(formData: FormData) {
+  const phoneInput = formData.get('phone') as string
+  const fullName = formData.get('fullName') as string
+
+  if (!phoneInput || !fullName) {
+    return { error: 'Full name and WhatsApp phone number are required.' }
+  }
+
+  const phone = formatPhoneNumber(phoneInput)
+  if (phone.length < 8) {
+    return { error: 'Please enter a valid WhatsApp phone number with country code (e.g. +923001234567).' }
+  }
+
+  const codeNum = Math.floor(100000 + Math.random() * 900000)
+  const code = `VT-${codeNum}`
+
+  return {
+    success: true,
+    phone,
+    fullName,
+    code,
+    message: 'WhatsApp code generated. Please open WhatsApp to verify.',
+  }
+}
+
+export async function signInWhatsAppAction(formData: FormData) {
+  const phoneInput = formData.get('phone') as string
+
+  if (!phoneInput) {
+    return { error: 'WhatsApp phone number is required.' }
+  }
+
+  const phone = formatPhoneNumber(phoneInput)
+  if (phone.length < 8) {
+    return { error: 'Please enter a valid WhatsApp phone number.' }
+  }
+
+  const codeNum = Math.floor(100000 + Math.random() * 900000)
+  const code = `VT-${codeNum}`
+
+  return {
+    success: true,
+    phone,
+    code,
+    message: 'WhatsApp code generated.',
+  }
+}
+
+export async function verifyWhatsAppCodeAction(
+  phone: string,
+  userEnteredCode: string,
+  expectedCode: string,
+  fullName?: string
+) {
+  if (!userEnteredCode) {
+    return { error: 'Please enter the verification code.' }
+  }
+
+  const cleanEntered = userEnteredCode.trim().toUpperCase()
+  const cleanExpected = expectedCode.trim().toUpperCase()
+
+  // Verify code matching (accept with or without VT- prefix)
+  const isMatch =
+    cleanEntered === cleanExpected ||
+    cleanEntered === cleanExpected.replace('VT-', '') ||
+    `VT-${cleanEntered}` === cleanExpected
+
+  if (!isMatch) {
+    return { error: 'Invalid verification code. Please check your WhatsApp code and try again.' }
+  }
+
+  const supabase = await createClient()
+  const cleanPhone = phone.replace(/[^0-9]/g, '')
+  const dummyEmail = `wa_${cleanPhone}@whatsapp.volttrack.app`
+  const dummyPassword = `WaAuth_${cleanPhone}_VoltTrack#2026`
+
+  // 1. Attempt to sign in existing user
+  let { error: signInError } = await supabase.auth.signInWithPassword({
+    email: dummyEmail,
+    password: dummyPassword,
+  })
+
+  // 2. If user doesn't exist yet, sign them up
+  if (signInError) {
+    const { error: signUpError } = await supabase.auth.signUp({
+      email: dummyEmail,
+      password: dummyPassword,
+      options: {
+        data: {
+          full_name: fullName || `WhatsApp User (${phone})`,
+          phone_number: phone,
+        },
+      },
+    })
+
+    if (signUpError) {
+      return { error: signUpError.message }
+    }
+
+    // Try signing in after successful signup
+    const { error: secondSignInError } = await supabase.auth.signInWithPassword({
+      email: dummyEmail,
+      password: dummyPassword,
+    })
+
+    if (secondSignInError) {
+      return { error: secondSignInError.message }
+    }
+  }
+
+  revalidatePath('/', 'layout')
+  return { success: true }
+}
+
+
 // Meter Actions
 
 export async function createMeterAction(formData: FormData) {

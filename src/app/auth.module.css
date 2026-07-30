@@ -151,8 +151,106 @@
   color: #a7f3d0;
 }
 
+/* Auth Tabs & WhatsApp Styling */
+.tabContainer {
+  display: flex;
+  background: rgba(6, 9, 19, 0.8);
+  border: 1px solid var(--border-color);
+  border-radius: 10px;
+  padding: 4px;
+  gap: 4px;
+  width: 100%;
+}
+
+.tab {
+  flex: 1;
+  padding: 10px 14px;
+  border: none;
+  background: transparent;
+  color: var(--text-secondary);
+  font-family: var(--font-sans);
+  font-size: 0.88rem;
+  font-weight: 500;
+  border-radius: 7px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  transition: all var(--transition-fast);
+}
+
+.tab:hover {
+  color: #fff;
+}
+
+.activeTab {
+  background: var(--card-bg-hover);
+  color: var(--primary);
+  border: 1px solid var(--border-color-active);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.4);
+}
+
+.activeTabWhatsapp {
+  background: rgba(37, 211, 102, 0.12);
+  color: #25D366;
+  border: 1px solid rgba(37, 211, 102, 0.4);
+  box-shadow: 0 0 12px rgba(37, 211, 102, 0.2);
+}
+
+.whatsappBtn {
+  background: #25D366;
+  color: #060913;
+  border: none;
+  padding: 14px;
+  border-radius: 8px;
+  font-weight: 700;
+  font-size: 0.98rem;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.6rem;
+  transition: all var(--transition-normal);
+  box-shadow: 0 0 15px rgba(37, 211, 102, 0.4);
+  text-decoration: none;
+}
+
+.whatsappBtn:hover {
+  background: #20bd5a;
+  box-shadow: 0 0 25px rgba(37, 211, 102, 0.7);
+  transform: translateY(-2px);
+  color: #000;
+}
+
+.codeBox {
+  background: rgba(6, 9, 19, 0.8);
+  border: 1px dashed rgba(37, 211, 102, 0.5);
+  border-radius: 10px;
+  padding: 1.25rem;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.codeBadge {
+  font-family: var(--font-mono);
+  font-size: 1.8rem;
+  font-weight: 700;
+  letter-spacing: 4px;
+  color: #25D366;
+  text-shadow: 0 0 10px rgba(37, 211, 102, 0.5);
+  background: rgba(37, 211, 102, 0.08);
+  padding: 8px 18px;
+  border-radius: 8px;
+  border: 1px solid rgba(37, 211, 102, 0.3);
+}
+
 @media (max-width: 480px) {
   .card {
     padding: 2rem 1.5rem;
   }
 }
+
