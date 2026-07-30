@@ -245,3 +245,8 @@ body {
   animation: electric-shimmer 2s linear infinite;
 }
 
+.animate-spin {
+  animation: electric-spin-cw 1s linear infinite;
+}
+
+

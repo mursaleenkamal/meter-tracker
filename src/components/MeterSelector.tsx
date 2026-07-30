@@ -1,8 +1,8 @@
 'use client'
 
-import { useState } from 'react'
+import { useState, useTransition, useEffect } from 'react'
 import { useRouter, usePathname } from 'next/navigation'
-import { Plus, Check, ChevronDown } from 'lucide-react'
+import { Plus, Check, ChevronDown, Loader2 } from 'lucide-react'
 import AddMeterModal from './AddMeterModal'
 
 interface Meter {
@@ -21,20 +21,64 @@ export default function MeterSelector({ meters, activeMeterId }: MeterSelectorPr
   const pathname = usePathname()
   const [isOpen, setIsOpen] = useState(false)
   const [isAddOpen, setIsAddOpen] = useState(false)
+  const [isPending, startTransition] = useTransition()
+  const [loadingMeterId, setLoadingMeterId] = useState<string | null>(null)
 
   const activeMeter = meters.find((m) => m.id === activeMeterId) || meters[0]
 
+  useEffect(() => {
+    if (!isPending) {
+      setLoadingMeterId(null)
+    }
+  }, [isPending])
+
   const handleSelect = (id: string) => {
     setIsOpen(false)
-    router.push(`${pathname}?meterId=${id}`)
+    if (id === activeMeter.id) return
+
+    setLoadingMeterId(id)
+    startTransition(() => {
+      router.push(`${pathname}?meterId=${id}`)
+    })
   }
+
+  const targetMeter = meters.find((m) => m.id === loadingMeterId) || activeMeter
 
   return (
     <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem', position: 'relative' }}>
+      {/* Floating loading toast indicator when meter switch is pending */}
+      {isPending && (
+        <div
+          style={{
+            position: 'fixed',
+            top: '1.25rem',
+            right: '1.25rem',
+            zIndex: 999999,
+            background: 'rgba(13, 21, 39, 0.95)',
+            backdropFilter: 'var(--glass-filter)',
+            border: '1px solid var(--primary)',
+            borderRadius: '10px',
+            padding: '10px 18px',
+            boxShadow: '0 0 20px var(--primary-glow)',
+            display: 'flex',
+            alignItems: 'center',
+            gap: '0.75rem',
+            color: '#fff',
+          }}
+          className="fade-in"
+        >
+          <Loader2 size={18} className="animate-spin" style={{ color: 'var(--primary)' }} />
+          <span style={{ fontSize: '0.85rem', fontFamily: 'var(--font-mono)', color: '#fff' }}>
+            Switching to Meter <strong style={{ color: 'var(--primary)' }}>{targetMeter.meter_number}</strong>...
+          </span>
+        </div>
+      )}
+
       {/* Custom dropdown */}
       <div style={{ position: 'relative' }}>
         <button
-          onClick={() => setIsOpen(!isOpen)}
+          onClick={() => !isPending && setIsOpen(!isOpen)}
+          disabled={isPending}
           style={{
             background: 'var(--card-bg)',
             backdropFilter: 'var(--glass-filter)',
@@ -46,22 +90,28 @@ export default function MeterSelector({ meters, activeMeterId }: MeterSelectorPr
             alignItems: 'center',
             gap: '0.75rem',
             fontSize: '0.95rem',
-            cursor: 'pointer',
+            cursor: isPending ? 'wait' : 'pointer',
             minWidth: '220px',
             justifyContent: 'space-between',
             transition: 'all var(--transition-fast)',
+            opacity: isPending ? 0.85 : 1,
           }}
           className="hover-glow"
         >
           <span style={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-start' }}>
             <span style={{ fontSize: '0.7rem', color: 'var(--text-muted)', textTransform: 'uppercase', letterSpacing: '0.5px' }}>
-              Select Meter
+              {isPending ? 'Loading Meter...' : 'Select Meter'}
             </span>
-            <span style={{ fontFamily: 'var(--font-mono)', fontWeight: 600, color: 'var(--primary)' }}>
-              {activeMeter.meter_number}
+            <span style={{ fontFamily: 'var(--font-mono)', fontWeight: 600, color: 'var(--primary)', display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
+              {targetMeter.meter_number}
             </span>
           </span>
-          <ChevronDown size={16} style={{ color: 'var(--text-muted)', transform: isOpen ? 'rotate(180deg)' : 'none', transition: 'transform 0.2s' }} />
+
+          {isPending ? (
+            <Loader2 size={18} className="animate-spin" style={{ color: 'var(--primary)' }} />
+          ) : (
+            <ChevronDown size={16} style={{ color: 'var(--text-muted)', transform: isOpen ? 'rotate(180deg)' : 'none', transition: 'transform 0.2s' }} />
+          )}
         </button>
 
         {isOpen && (
@@ -98,6 +148,8 @@ export default function MeterSelector({ meters, activeMeterId }: MeterSelectorPr
             >
               {meters.map((meter) => {
                 const isActive = meter.id === activeMeterId
+                const isSelectedLoading = loadingMeterId === meter.id
+
                 return (
                   <button
                     key={meter.id}
@@ -132,7 +184,11 @@ export default function MeterSelector({ meters, activeMeterId }: MeterSelectorPr
                     }}
                   >
                     <span>{meter.meter_number}</span>
-                    {isActive && <Check size={14} style={{ color: 'var(--primary)' }} />}
+                    {isSelectedLoading ? (
+                      <Loader2 size={14} className="animate-spin" style={{ color: 'var(--primary)' }} />
+                    ) : isActive ? (
+                      <Check size={14} style={{ color: 'var(--primary)' }} />
+                    ) : null}
                   </button>
                 )
               })}
@@ -181,9 +237,13 @@ export default function MeterSelector({ meters, activeMeterId }: MeterSelectorPr
         onClose={() => setIsAddOpen(false)}
         onSuccess={(newId) => {
           setIsAddOpen(false)
-          router.push(`${pathname}?meterId=${newId}`)
+          setLoadingMeterId(newId)
+          startTransition(() => {
+            router.push(`${pathname}?meterId=${newId}`)
+          })
         }}
       />
     </div>
   )
 }
+
