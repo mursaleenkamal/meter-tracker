@@ -151,9 +151,16 @@ export async function verifyWhatsAppCodeAction(
   }
 
   const supabase = await createClient()
-  const cleanPhone = phone.replace(/[^0-9]/g, '')
-  const dummyEmail = `wa${cleanPhone}@volttrack.com`
-  const dummyPassword = `WaAuth_${cleanPhone}_VoltTrack#2026`
+
+  // Format clean phone number with + sign (e.g. +923002485885)
+  let formattedPhone = phone.replace(/[^0-9+]/g, '')
+  if (formattedPhone.startsWith('03')) {
+    formattedPhone = '+92' + formattedPhone.substring(1)
+  } else if (!formattedPhone.startsWith('+') && formattedPhone.length > 0) {
+    formattedPhone = '+' + formattedPhone
+  }
+
+  const waPassword = `WaAuth_${formattedPhone}_VoltTrack#2026`
 
   const serviceRoleKey = process.env.SUPABASE_SERVICE_ROLE_KEY
   const adminSupabase = serviceRoleKey
@@ -162,53 +169,68 @@ export async function verifyWhatsAppCodeAction(
       })
     : null
 
-  // 1. Attempt to sign in existing user
+  // 1. Attempt to sign in existing user via Phone & Password
   let { error: signInError } = await supabase.auth.signInWithPassword({
-    email: dummyEmail,
-    password: dummyPassword,
+    phone: formattedPhone,
+    password: waPassword,
   })
 
-  // Auto-confirm if email is unconfirmed using service role key
-  if (signInError && signInError.message.toLowerCase().includes('email not confirmed')) {
-    if (adminSupabase) {
-      const { data: usersData } = await adminSupabase.auth.admin.listUsers()
-      const existingUser = usersData?.users.find((u) => u.email === dummyEmail)
-      if (existingUser) {
-        await adminSupabase.auth.admin.updateUserById(existingUser.id, {
-          email_confirm: true,
-        })
-        const retry = await supabase.auth.signInWithPassword({
-          email: dummyEmail,
-          password: dummyPassword,
-        })
-        signInError = retry.error
-      }
-    }
-  }
-
-  // 2. If user doesn't exist yet or needs registration
+  // 2. If user doesn't exist yet, register user by Phone Number
   if (signInError) {
     if (adminSupabase) {
       const { error: adminCreateError } = await adminSupabase.auth.admin.createUser({
-        email: dummyEmail,
-        password: dummyPassword,
-        email_confirm: true,
+        phone: formattedPhone,
+        password: waPassword,
+        phone_confirm: true,
         user_metadata: {
-          full_name: fullName || `WhatsApp User (${phone})`,
-          phone_number: phone,
+          full_name: fullName || `WhatsApp User (${formattedPhone})`,
+          phone_number: formattedPhone,
         },
       })
-      if (adminCreateError && !adminCreateError.message.includes('already registered')) {
-        return { error: adminCreateError.message }
+
+      if (
+        adminCreateError &&
+        !adminCreateError.message.toLowerCase().includes('already registered') &&
+        !adminCreateError.message.toLowerCase().includes('already exists')
+      ) {
+        // Fallback: If phone provider is disabled in admin settings, create with phone-identifier email
+        const cleanPhoneDigits = formattedPhone.replace(/[^0-9]/g, '')
+        const fallbackEmail = `wa${cleanPhoneDigits}@volttrack.com`
+
+        const { error: fallbackCreateErr } = await adminSupabase.auth.admin.createUser({
+          email: fallbackEmail,
+          password: waPassword,
+          email_confirm: true,
+          user_metadata: {
+            full_name: fullName || `WhatsApp User (${formattedPhone})`,
+            phone_number: formattedPhone,
+          },
+        })
+
+        if (fallbackCreateErr) {
+          return { error: fallbackCreateErr.message }
+        }
+
+        const { error: fallbackSignInErr } = await supabase.auth.signInWithPassword({
+          email: fallbackEmail,
+          password: waPassword,
+        })
+
+        if (fallbackSignInErr) {
+          return { error: fallbackSignInErr.message }
+        }
+
+        revalidatePath('/', 'layout')
+        return { success: true }
       }
     } else {
       const { error: signUpError } = await supabase.auth.signUp({
-        email: dummyEmail,
-        password: dummyPassword,
+        phone: formattedPhone,
+        password: waPassword,
         options: {
           data: {
-            full_name: fullName || `WhatsApp User (${phone})`,
-            phone_number: phone,
+            full_name: fullName || `WhatsApp User (${formattedPhone})`,
+            phone_number: formattedPhone,
           },
         },
       })
@@ -218,19 +240,13 @@ export async function verifyWhatsAppCodeAction(
       }
     }
 
-    // Try signing in after user creation/confirmation
+    // Try signing in after creating phone user
     const { error: secondSignInError } = await supabase.auth.signInWithPassword({
-      email: dummyEmail,
-      password: dummyPassword,
+      phone: formattedPhone,
+      password: waPassword,
     })
 
     if (secondSignInError) {
-      if (secondSignInError.message.toLowerCase().includes('email not confirmed')) {
-        return {
-          error:
-            'Supabase Auth requires email confirmation. In your Supabase Dashboard, go to Authentication > Settings (or Providers > Email) and turn OFF "Confirm email".',
-        }
-      }
       return { error: secondSignInError.message }
     }
   }
@@ -238,6 +254,7 @@ export async function verifyWhatsAppCodeAction(
   revalidatePath('/', 'layout')
   return { success: true }
 }
+
 
 
 
