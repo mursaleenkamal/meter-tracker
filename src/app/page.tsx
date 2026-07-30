@@ -356,8 +356,31 @@ export default async function LandingPage() {
 
       <footer className={styles.footer}>
         <div>&copy; {new Date().getFullYear()} VoltTrack Systems. All rights reserved.</div>
-        <div>Designed for smart efficiency.</div>
+        <div>Designed for smart efficiency & electricity monitoring.</div>
       </footer>
+
+      {/* JSON-LD Structured Data Schema for Search Engines */}
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            '@context': 'https://schema.org',
+            '@type': 'WebApplication',
+            name: 'VoltTrack',
+            url: process.env.NEXT_PUBLIC_SITE_URL || 'https://volttrack.app',
+            description:
+              'Smart electricity meter and unit consumption tracker with AI OCR photo scanning, sub-meter billing calculations, peak charge alerts, and Web Push notifications.',
+            applicationCategory: 'UtilitiesApplication',
+            operatingSystem: 'All',
+            offers: {
+              '@type': 'Offer',
+              price: '0.00',
+              priceCurrency: 'USD',
+            },
+          }),
+        }}
+      />
     </div>
   )
 }
+
