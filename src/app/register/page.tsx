@@ -15,6 +15,7 @@ export default function RegisterPage() {
   // WhatsApp state
   const [waData, setWaData] = useState<{ phone: string; fullName: string; code: string } | null>(null)
   const [enteredCode, setEnteredCode] = useState('')
+  const [customPassword, setCustomPassword] = useState('')
 
   const handleEmailSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
@@ -68,7 +69,8 @@ export default function RegisterPage() {
       waData.phone,
       enteredCode,
       waData.code,
-      waData.fullName
+      waData.fullName,
+      customPassword
     )
 
     setIsLoading(false)
@@ -79,6 +81,7 @@ export default function RegisterPage() {
       window.location.href = '/dashboard'
     }
   }
+
 
   const userPhoneClean = waData?.phone ? waData.phone.replace(/[^0-9]/g, '') : ''
   const supportPhone = process.env.NEXT_PUBLIC_WHATSAPP_SUPPORT_NUMBER
@@ -325,6 +328,23 @@ export default function RegisterPage() {
                       style={{ textAlign: 'center', fontFamily: 'var(--font-mono)', fontSize: '1.1rem', letterSpacing: '2px' }}
                     />
                   </div>
+
+                  <div className={styles.inputGroup}>
+                    <label htmlFor="customPassword" className={styles.label}>
+                      3. Set Account Password (for future sign ins)
+                    </label>
+                    <input
+                      type="password"
+                      id="customPassword"
+                      value={customPassword}
+                      onChange={(e) => setCustomPassword(e.target.value)}
+                      className={styles.input}
+                      placeholder="Create a password (min 6 characters)"
+                      minLength={6}
+                      disabled={isLoading}
+                    />
+                  </div>
+
 
                   <button
                     type="submit"

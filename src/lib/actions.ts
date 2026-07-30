@@ -249,6 +249,10 @@ export async function verifyWhatsAppCodeAction(
   } = await supabase.auth.getUser()
 
   if (user) {
+    if (customPassword) {
+      await supabase.auth.updateUser({ password: customPassword })
+    }
+
     const profilePayload = {
       id: user.id,
       full_name: fullName || user.user_metadata?.full_name || `WhatsApp User (${formattedPhone})`,
@@ -266,6 +270,7 @@ export async function verifyWhatsAppCodeAction(
   revalidatePath('/', 'layout')
   return { success: true }
 }
+
 
 
 export async function signInWithPhonePasswordAction(formData: FormData) {
