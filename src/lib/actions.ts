@@ -160,7 +160,9 @@ export async function verifyWhatsAppCodeAction(
     formattedPhone = '+' + formattedPhone
   }
 
-  const waPassword = `WaAuth_${formattedPhone}_VoltTrack#2026`
+  const cleanPhoneDigits = formattedPhone.replace(/[^0-9]/g, '')
+  const waAuthEmail = `wa${cleanPhoneDigits}@volttrack.com`
+  const waPassword = `WaAuth_${cleanPhoneDigits}_VoltTrack#2026`
 
   const serviceRoleKey = process.env.SUPABASE_SERVICE_ROLE_KEY
   const adminSupabase = serviceRoleKey
@@ -169,22 +171,23 @@ export async function verifyWhatsAppCodeAction(
       })
     : null
 
-  // 1. Attempt to sign in existing user via Phone & Password
+  // 1. Attempt to sign in existing WhatsApp user
   let { error: signInError } = await supabase.auth.signInWithPassword({
-    phone: formattedPhone,
+    email: waAuthEmail,
     password: waPassword,
   })
 
-  // 2. If user doesn't exist yet, register user by Phone Number
+  // 2. If user doesn't exist yet, register user under free WhatsApp phone identity
   if (signInError) {
     if (adminSupabase) {
       const { error: adminCreateError } = await adminSupabase.auth.admin.createUser({
-        phone: formattedPhone,
+        email: waAuthEmail,
         password: waPassword,
-        phone_confirm: true,
+        email_confirm: true,
         user_metadata: {
           full_name: fullName || `WhatsApp User (${formattedPhone})`,
           phone_number: formattedPhone,
+          auth_provider: 'whatsapp',
         },
       })
 
@@ -193,103 +196,47 @@ export async function verifyWhatsAppCodeAction(
         !adminCreateError.message.toLowerCase().includes('already registered') &&
         !adminCreateError.message.toLowerCase().includes('already exists')
       ) {
-        // Fallback: If phone provider is disabled in admin settings, create with phone-identifier email
-        const cleanPhoneDigits = formattedPhone.replace(/[^0-9]/g, '')
-        const fallbackEmail = `wa${cleanPhoneDigits}@volttrack.com`
-
-        const { error: fallbackCreateErr } = await adminSupabase.auth.admin.createUser({
-          email: fallbackEmail,
-          password: waPassword,
-          email_confirm: true,
-          user_metadata: {
-            full_name: fullName || `WhatsApp User (${formattedPhone})`,
-            phone_number: formattedPhone,
-          },
-        })
-
-        if (fallbackCreateErr) {
-          return { error: fallbackCreateErr.message }
-        }
-
-        const { error: fallbackSignInErr } = await supabase.auth.signInWithPassword({
-          email: fallbackEmail,
-          password: waPassword,
-        })
-
-        if (fallbackSignInErr) {
-          return { error: fallbackSignInErr.message }
-        }
-
-        revalidatePath('/', 'layout')
-        return { success: true }
+        return { error: adminCreateError.message }
       }
     } else {
       const { error: signUpError } = await supabase.auth.signUp({
-        phone: formattedPhone,
+        email: waAuthEmail,
         password: waPassword,
         options: {
           data: {
             full_name: fullName || `WhatsApp User (${formattedPhone})`,
             phone_number: formattedPhone,
+            auth_provider: 'whatsapp',
           },
         },
       })
 
       if (signUpError) {
-        if (
-          signUpError.message.toLowerCase().includes('phone signups are disabled') ||
-          signUpError.message.toLowerCase().includes('disabled')
-        ) {
-          const cleanPhoneDigits = formattedPhone.replace(/[^0-9]/g, '')
-          const fallbackEmail = `wa${cleanPhoneDigits}@volttrack.com`
-
-          // Attempt fallback email registration
-          await supabase.auth.signUp({
-            email: fallbackEmail,
-            password: waPassword,
-            options: {
-              data: {
-                full_name: fullName || `WhatsApp User (${formattedPhone})`,
-                phone_number: formattedPhone,
-              },
-            },
-          })
-
-          const { error: fallbackSignInErr } = await supabase.auth.signInWithPassword({
-            email: fallbackEmail,
-            password: waPassword,
-          })
-
-          if (fallbackSignInErr) {
-            return {
-              error:
-                'Phone signups are currently disabled in Supabase. Please go to Supabase Dashboard > Authentication > Providers > Phone and click "Enable Phone Provider" to allow direct phone signups.',
-            }
-          }
-
-          revalidatePath('/', 'layout')
-          return { success: true }
-        }
-
         return { error: signUpError.message }
       }
     }
 
-
-    // Try signing in after creating phone user
-    const { error: secondSignInError } = await supabase.auth.signInWithPassword({
-      phone: formattedPhone,
+    // Sign in after user creation
+    const { error: finalSignInErr } = await supabase.auth.signInWithPassword({
+      email: waAuthEmail,
       password: waPassword,
     })
 
-    if (secondSignInError) {
-      return { error: secondSignInError.message }
+    if (finalSignInErr) {
+      if (finalSignInErr.message.toLowerCase().includes('email not confirmed')) {
+        return {
+          error:
+            'Registration complete! In your Supabase Dashboard, please go to Authentication > Providers > Email and turn OFF "Confirm email" to allow instant login.',
+        }
+      }
+      return { error: finalSignInErr.message }
     }
   }
 
   revalidatePath('/', 'layout')
   return { success: true }
 }
+
 
 
 
