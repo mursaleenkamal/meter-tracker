@@ -236,9 +236,45 @@ export async function verifyWhatsAppCodeAction(
       })
 
       if (signUpError) {
+        if (
+          signUpError.message.toLowerCase().includes('phone signups are disabled') ||
+          signUpError.message.toLowerCase().includes('disabled')
+        ) {
+          const cleanPhoneDigits = formattedPhone.replace(/[^0-9]/g, '')
+          const fallbackEmail = `wa${cleanPhoneDigits}@volttrack.com`
+
+          // Attempt fallback email registration
+          await supabase.auth.signUp({
+            email: fallbackEmail,
+            password: waPassword,
+            options: {
+              data: {
+                full_name: fullName || `WhatsApp User (${formattedPhone})`,
+                phone_number: formattedPhone,
+              },
+            },
+          })
+
+          const { error: fallbackSignInErr } = await supabase.auth.signInWithPassword({
+            email: fallbackEmail,
+            password: waPassword,
+          })
+
+          if (fallbackSignInErr) {
+            return {
+              error:
+                'Phone signups are currently disabled in Supabase. Please go to Supabase Dashboard > Authentication > Providers > Phone and click "Enable Phone Provider" to allow direct phone signups.',
+            }
+          }
+
+          revalidatePath('/', 'layout')
+          return { success: true }
+        }
+
         return { error: signUpError.message }
       }
     }
+
 
     // Try signing in after creating phone user
     const { error: secondSignInError } = await supabase.auth.signInWithPassword({
