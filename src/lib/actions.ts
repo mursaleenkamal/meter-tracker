@@ -150,8 +150,9 @@ export async function verifyWhatsAppCodeAction(
 
   const supabase = await createClient()
   const cleanPhone = phone.replace(/[^0-9]/g, '')
-  const dummyEmail = `wa_${cleanPhone}@whatsapp.volttrack.app`
+  const dummyEmail = `wa${cleanPhone}@volttrack.com`
   const dummyPassword = `WaAuth_${cleanPhone}_VoltTrack#2026`
+
 
   // 1. Attempt to sign in existing user
   let { error: signInError } = await supabase.auth.signInWithPassword({
