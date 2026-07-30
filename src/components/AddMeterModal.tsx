@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from 'react'
 import { createMeterAction } from '@/lib/actions'
-import { X, Zap, AlertTriangle, Loader2 } from 'lucide-react'
+import { X, Zap, AlertTriangle, Loader2, Gauge, Calendar, Activity, PlusCircle } from 'lucide-react'
 import styles from '../app/dashboard.module.css'
 
 interface AddMeterModalProps {
@@ -56,10 +56,10 @@ export default function AddMeterModal({ isOpen, onClose, onSuccess }: AddMeterMo
       <div
         className={`${styles.setupCard} fade-in`}
         style={{
-          maxWidth: '550px',
+          maxWidth: '540px',
           padding: '2.5rem 2rem',
           position: 'relative',
-          gap: '1rem',
+          gap: '1.25rem',
           maxHeight: '90vh',
           overflowY: 'auto',
         }}
@@ -72,91 +72,113 @@ export default function AddMeterModal({ isOpen, onClose, onSuccess }: AddMeterMo
             position: 'absolute',
             top: '1.25rem',
             right: '1.25rem',
-            background: 'transparent',
-            border: 'none',
+            background: 'rgba(255, 255, 255, 0.06)',
+            border: '1px solid rgba(255, 255, 255, 0.1)',
             color: 'var(--text-muted)',
             cursor: 'pointer',
-            padding: '0.25rem',
-            borderRadius: '6px',
+            padding: '0.4rem',
+            borderRadius: '8px',
             transition: 'all var(--transition-fast)',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
           }}
           className="hover-glow"
           title="Close modal"
           aria-label="Close modal"
         >
-          <X size={20} className={styles.closeIcon} />
+          <X size={18} />
         </button>
 
-        <div style={{ display: 'flex', justifyContent: 'center', marginBottom: '0.5rem' }}>
-          <Zap className={styles.logoIcon} size={32} fill="var(--primary)" />
+        {/* Header Badge */}
+        <div className={styles.setupHeader}>
+          <div className={styles.setupIconBadge}>
+            <Zap size={28} fill="var(--primary)" style={{ color: 'var(--primary)', filter: 'drop-shadow(0 0 8px var(--primary-glow))' }} />
+          </div>
+          <h2 className={styles.setupTitle}>Add Another Meter</h2>
+          <p className={styles.setupText}>
+            Add an additional electricity meter to your profile to track another connection, floor, or property.
+          </p>
         </div>
-        <h2 className={styles.setupTitle}>Add Another Meter</h2>
-        <p className={styles.setupText}>
-          Add a new electricity meter to your profile to track another connection or area.
-        </p>
 
         {error && (
-          <div className={`${styles.alert} ${styles.errorAlert}`} style={{ display: 'flex', gap: '0.5rem', alignItems: 'center' }}>
+          <div className={`${styles.alert} ${styles.errorAlert}`}>
             <AlertTriangle size={18} style={{ flexShrink: 0 }} />
             <span>{error}</span>
           </div>
         )}
 
         <form onSubmit={handleSubmit} className={styles.formGrid}>
+          {/* Meter Identifier Input */}
           <div className={styles.inputGroup}>
             <label htmlFor="meterNumber" className={styles.label}>
+              <Gauge size={15} style={{ color: 'var(--primary)' }} />
               Meter Serial Number / Identifier
             </label>
-            <input
-              type="text"
-              id="meterNumber"
-              name="meterNumber"
-              placeholder="e.g. EM-883492-Y"
-              className={styles.input}
-              required
-              disabled={isLoading}
-            />
+            <div className={styles.inputWithIcon}>
+              <input
+                type="text"
+                id="meterNumber"
+                name="meterNumber"
+                placeholder="e.g. EM-883492-Y or Floor 2 Meter"
+                className={styles.modalInput}
+                required
+                disabled={isLoading}
+              />
+            </div>
+            <p className={styles.inputHelperText}>
+              Enter a unique identifier or label for this meter connection.
+            </p>
           </div>
 
+          {/* Billing Cycle Start Day Input */}
           <div className={styles.inputGroup}>
             <label htmlFor="billingCycleStartDay" className={styles.label}>
+              <Calendar size={15} style={{ color: 'var(--primary)' }} />
               Billing Cycle Start Day (1 - 31)
             </label>
-            <input
-              type="number"
-              id="billingCycleStartDay"
-              name="billingCycleStartDay"
-              min="1"
-              max="31"
-              defaultValue="1"
-              className={styles.input}
-              required
-              disabled={isLoading}
-            />
-            <p style={{ fontSize: '0.78rem', color: 'var(--text-muted)' }}>
-              The day of the month your monthly electricity billing cycle restarts.
+            <div className={styles.inputWithIcon}>
+              <input
+                type="number"
+                id="billingCycleStartDay"
+                name="billingCycleStartDay"
+                min="1"
+                max="31"
+                defaultValue="1"
+                className={styles.modalInput}
+                required
+                disabled={isLoading}
+              />
+            </div>
+            <p className={styles.inputHelperText}>
+              The day of the month when your electricity billing cycle restarts for this meter.
             </p>
           </div>
 
+          {/* Maximum Usage Limit Input */}
           <div className={styles.inputGroup}>
             <label htmlFor="maxUsageLimit" className={styles.label}>
-              Maximum Usage Limit (Units)
+              <Activity size={15} style={{ color: 'var(--primary)' }} />
+              Monthly Target Usage Limit (Units / kWh)
             </label>
-            <input
-              type="number"
-              id="maxUsageLimit"
-              name="maxUsageLimit"
-              min="1"
-              defaultValue="400"
-              className={styles.input}
-              required
-              disabled={isLoading}
-            />
-            <p style={{ fontSize: '0.78rem', color: 'var(--text-muted)' }}>
-              Your desired monthly unit budget. Warnings will trigger once usage hits 80%.
+            <div className={styles.inputWithIcon}>
+              <input
+                type="number"
+                id="maxUsageLimit"
+                name="maxUsageLimit"
+                min="1"
+                defaultValue="400"
+                className={styles.modalInput}
+                required
+                disabled={isLoading}
+              />
+            </div>
+            <p className={styles.inputHelperText}>
+              Your desired monthly unit budget for this meter profile.
             </p>
           </div>
 
+          {/* Action Button */}
           <button
             type="submit"
             className="glow-btn-solid"
@@ -165,8 +187,11 @@ export default function AddMeterModal({ isOpen, onClose, onSuccess }: AddMeterMo
               display: 'flex',
               alignItems: 'center',
               justifyContent: 'center',
-              gap: '0.5rem',
-              marginTop: '0.5rem',
+              gap: '0.6rem',
+              marginTop: '0.75rem',
+              padding: '14px',
+              fontSize: '1rem',
+              borderRadius: '10px',
               width: '100%',
             }}
           >
@@ -176,7 +201,10 @@ export default function AddMeterModal({ isOpen, onClose, onSuccess }: AddMeterMo
                 Creating Meter Profile...
               </>
             ) : (
-              'Add Meter'
+              <>
+                <PlusCircle size={18} />
+                Create New Meter Profile
+              </>
             )}
           </button>
         </form>

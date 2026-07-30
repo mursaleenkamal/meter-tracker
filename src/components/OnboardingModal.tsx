@@ -3,7 +3,7 @@
 import { useState } from 'react'
 import { createMeterAction } from '@/lib/actions'
 import styles from '../app/dashboard.module.css'
-import { Zap, AlertTriangle, Loader2 } from 'lucide-react'
+import { Zap, AlertTriangle, Loader2, Gauge, Calendar, Activity, CheckCircle2 } from 'lucide-react'
 
 export default function OnboardingModal() {
   const [error, setError] = useState<string | null>(null)
@@ -28,13 +28,16 @@ export default function OnboardingModal() {
   return (
     <div className={styles.setupOverlay}>
       <div className={`${styles.setupCard} fade-in`}>
-        <div style={{ display: 'flex', justifyContent: 'center', marginBottom: '0.5rem' }}>
-          <Zap className={styles.logoIcon} size={32} fill="var(--primary)" />
+        {/* Header Badge */}
+        <div className={styles.setupHeader}>
+          <div className={styles.setupIconBadge}>
+            <Zap size={28} fill="var(--primary)" style={{ color: 'var(--primary)', filter: 'drop-shadow(0 0 8px var(--primary-glow))' }} />
+          </div>
+          <h2 className={styles.setupTitle}>Configure Your Electric Meter</h2>
+          <p className={styles.setupText}>
+            Welcome to VoltTrack! Set up your primary meter configuration below to unlock real-time tracking, billing cycle insights, and usage alerts.
+          </p>
         </div>
-        <h2 className={styles.setupTitle}>Configure Your Meter</h2>
-        <p className={styles.setupText}>
-          Welcome to VoltTrack! To start monitoring your electricity consumption, please set up your primary electric meter profile below.
-        </p>
 
         {error && (
           <div className={`${styles.alert} ${styles.errorAlert}`}>
@@ -44,60 +47,76 @@ export default function OnboardingModal() {
         )}
 
         <form onSubmit={handleSubmit} className={styles.formGrid}>
+          {/* Meter Identifier Input */}
           <div className={styles.inputGroup}>
             <label htmlFor="meterNumber" className={styles.label}>
+              <Gauge size={15} style={{ color: 'var(--primary)' }} />
               Meter Serial Number / Identifier
             </label>
-            <input
-              type="text"
-              id="meterNumber"
-              name="meterNumber"
-              placeholder="e.g. EM-992384-X"
-              className={styles.input}
-              required
-              disabled={isLoading}
-            />
+            <div className={styles.inputWithIcon}>
+              <input
+                type="text"
+                id="meterNumber"
+                name="meterNumber"
+                placeholder="e.g. EM-992384-X or Home Meter #1"
+                className={styles.modalInput}
+                required
+                disabled={isLoading}
+              />
+            </div>
+            <p className={styles.inputHelperText}>
+              Enter your physical meter's serial number or nickname for easy identification.
+            </p>
           </div>
 
+          {/* Billing Cycle Start Day Input */}
           <div className={styles.inputGroup}>
             <label htmlFor="billingCycleStartDay" className={styles.label}>
+              <Calendar size={15} style={{ color: 'var(--primary)' }} />
               Billing Cycle Start Day (1 - 31)
             </label>
-            <input
-              type="number"
-              id="billingCycleStartDay"
-              name="billingCycleStartDay"
-              min="1"
-              max="31"
-              defaultValue="1"
-              className={styles.input}
-              required
-              disabled={isLoading}
-            />
-            <p style={{ fontSize: '0.78rem', color: 'var(--text-muted)' }}>
-              The day of the month your monthly electricity billing cycle restarts.
+            <div className={styles.inputWithIcon}>
+              <input
+                type="number"
+                id="billingCycleStartDay"
+                name="billingCycleStartDay"
+                min="1"
+                max="31"
+                defaultValue="1"
+                className={styles.modalInput}
+                required
+                disabled={isLoading}
+              />
+            </div>
+            <p className={styles.inputHelperText}>
+              The day of the month when your electric company resets your billing cycle.
             </p>
           </div>
 
+          {/* Maximum Usage Limit Input */}
           <div className={styles.inputGroup}>
             <label htmlFor="maxUsageLimit" className={styles.label}>
-              Maximum Usage Limit (Units)
+              <Activity size={15} style={{ color: 'var(--primary)' }} />
+              Monthly Target Usage Limit (Units / kWh)
             </label>
-            <input
-              type="number"
-              id="maxUsageLimit"
-              name="maxUsageLimit"
-              min="1"
-              defaultValue="400"
-              className={styles.input}
-              required
-              disabled={isLoading}
-            />
-            <p style={{ fontSize: '0.78rem', color: 'var(--text-muted)' }}>
-              Your desired monthly unit budget. Warnings will trigger once usage hits 80%.
+            <div className={styles.inputWithIcon}>
+              <input
+                type="number"
+                id="maxUsageLimit"
+                name="maxUsageLimit"
+                min="1"
+                defaultValue="400"
+                className={styles.modalInput}
+                required
+                disabled={isLoading}
+              />
+            </div>
+            <p className={styles.inputHelperText}>
+              Your desired monthly unit budget. Automatic push alerts will trigger when usage reaches 80%.
             </p>
           </div>
 
+          {/* Action Button */}
           <button
             type="submit"
             className="glow-btn-solid"
@@ -106,17 +125,23 @@ export default function OnboardingModal() {
               display: 'flex',
               alignItems: 'center',
               justifyContent: 'center',
-              gap: '0.5rem',
-              marginTop: '0.5rem',
+              gap: '0.6rem',
+              marginTop: '0.75rem',
+              padding: '14px',
+              fontSize: '1rem',
+              borderRadius: '10px',
             }}
           >
             {isLoading ? (
               <>
                 <Loader2 className="animate-spin" size={18} />
-                Saving Profile...
+                Initializing Meter Profile...
               </>
             ) : (
-              'Confirm Meter Setup'
+              <>
+                <CheckCircle2 size={18} />
+                Save & Access Dashboard
+              </>
             )}
           </button>
         </form>
