@@ -131,7 +131,8 @@ export async function verifyWhatsAppCodeAction(
   phone: string,
   userEnteredCode: string,
   expectedCode: string,
-  fullName?: string
+  fullName?: string,
+  customPassword?: string
 ) {
   if (!userEnteredCode) {
     return { error: 'Please enter the verification code.' }
@@ -162,7 +163,8 @@ export async function verifyWhatsAppCodeAction(
 
   const cleanPhoneDigits = formattedPhone.replace(/[^0-9]/g, '')
   const waAuthEmail = `wa${cleanPhoneDigits}@volttrack.com`
-  const waPassword = `WaAuth_${cleanPhoneDigits}_VoltTrack#2026`
+  const defaultWaPassword = `WaAuth_${cleanPhoneDigits}_VoltTrack#2026`
+  const waPassword = customPassword || defaultWaPassword
 
   const serviceRoleKey = process.env.SUPABASE_SERVICE_ROLE_KEY
   const adminSupabase = serviceRoleKey
@@ -171,11 +173,19 @@ export async function verifyWhatsAppCodeAction(
       })
     : null
 
-  // 1. Attempt to sign in existing WhatsApp user
+  // 1. Attempt to sign in existing WhatsApp user (try custom password first, then default)
   let { error: signInError } = await supabase.auth.signInWithPassword({
     email: waAuthEmail,
     password: waPassword,
   })
+
+  if (signInError && customPassword) {
+    const retry = await supabase.auth.signInWithPassword({
+      email: waAuthEmail,
+      password: defaultWaPassword,
+    })
+    if (!retry.error) signInError = null
+  }
 
   // 2. If user doesn't exist yet, register user under free WhatsApp phone identity
   if (signInError) {
@@ -236,6 +246,49 @@ export async function verifyWhatsAppCodeAction(
   revalidatePath('/', 'layout')
   return { success: true }
 }
+
+export async function signInWithPhonePasswordAction(formData: FormData) {
+  const phoneInput = formData.get('phone') as string
+  const password = formData.get('password') as string
+
+  if (!phoneInput || !password) {
+    return { error: 'WhatsApp phone number and password are required.' }
+  }
+
+  let formattedPhone = phoneInput.replace(/[^0-9+]/g, '')
+  if (formattedPhone.startsWith('03')) {
+    formattedPhone = '+92' + formattedPhone.substring(1)
+  } else if (!formattedPhone.startsWith('+') && formattedPhone.length > 0) {
+    formattedPhone = '+' + formattedPhone
+  }
+
+  const cleanPhoneDigits = formattedPhone.replace(/[^0-9]/g, '')
+  const waAuthEmail = `wa${cleanPhoneDigits}@volttrack.com`
+
+  const supabase = await createClient()
+
+  // 1. Try custom password
+  let { error: signInError } = await supabase.auth.signInWithPassword({
+    email: waAuthEmail,
+    password: password,
+  })
+
+  // 2. Try default password fallback
+  if (signInError) {
+    const defaultWaPassword = `WaAuth_${cleanPhoneDigits}_VoltTrack#2026`
+    const { error: defaultErr } = await supabase.auth.signInWithPassword({
+      email: waAuthEmail,
+      password: defaultWaPassword,
+    })
+    if (defaultErr) {
+      return { error: 'Invalid phone number or password.' }
+    }
+  }
+
+  revalidatePath('/', 'layout')
+  return { success: true }
+}
+
 
 
 

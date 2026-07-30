@@ -209,7 +209,7 @@ export default function LoginPage() {
                     disabled={isLoading}
                   />
                   <p style={{ fontSize: '0.78rem', color: 'var(--text-muted)' }}>
-                    Enter your WhatsApp number registered with VoltTrack.
+                    Enter your registered WhatsApp phone number to generate an instant login code.
                   </p>
                 </div>
 
@@ -227,12 +227,13 @@ export default function LoginPage() {
                   ) : (
                     <>
                       <MessageSquare size={18} />
-                      Sign In via WhatsApp
+                      Sign In via WhatsApp Code
                     </>
                   )}
                 </button>
               </form>
             ) : (
+
               <div className="fade-in" style={{ display: 'flex', flexDirection: 'column', gap: '1.25rem' }}>
                 <div className={styles.codeBox}>
                   <span style={{ fontSize: '0.8rem', color: 'var(--text-secondary)' }}>Your Verification Code</span>
