@@ -74,11 +74,18 @@ export default function LoginPage() {
     }
   }
 
-  const waNumber = process.env.NEXT_PUBLIC_WHATSAPP_SUPPORT_NUMBER || '923000000000'
+  const userPhoneClean = waData?.phone ? waData.phone.replace(/[^0-9]/g, '') : ''
+  const supportPhone = process.env.NEXT_PUBLIC_WHATSAPP_SUPPORT_NUMBER
+  const targetNumber = supportPhone || userPhoneClean
+
   const waText = encodeURIComponent(
     `Hello VoltTrack! Verification Code: ${waData?.code}`
   )
-  const waLink = `https://wa.me/${waNumber}?text=${waText}`
+
+  const waLink = targetNumber
+    ? `https://wa.me/${targetNumber}?text=${waText}`
+    : `https://wa.me/?text=${waText}`
+
 
   return (
     <div className={styles.container}>
