@@ -22,7 +22,19 @@ interface ReadingShareProps {
   notes: string | null
 }
 
-type ShareWhatsAppBtnProps = (StatusShareProps | ReadingShareProps) & {
+interface MonthlyShareProps {
+  type: 'monthly'
+  meterNumber: string
+  monthLabel: string
+  totalUnits: number
+  dailyAverage: number
+  startReading: number
+  endReading: number
+  slabStatus: string
+  readingCount: number
+}
+
+type ShareWhatsAppBtnProps = (StatusShareProps | ReadingShareProps | MonthlyShareProps) & {
   className?: string
   style?: React.CSSProperties
 }
@@ -44,6 +56,19 @@ export default function ShareWhatsAppBtn(props: ShareWhatsAppBtnProps) {
       `📅 *Cycle Info:* ${daysRemaining} days left in billing period.`,
       `\n_Shared via VoltTrack_`
     ].join('\n')
+  } else if (type === 'monthly') {
+    const { monthLabel, totalUnits, dailyAverage, startReading, endReading, slabStatus, readingCount } = props
+    text = [
+      `📊 *VoltTrack Monthly Consumption Report*`,
+      `*Meter ID:* ${meterNumber}`,
+      `📅 *Billing Month:* ${monthLabel}`,
+      `⚡ *Total Consumption:* ${totalUnits.toFixed(0)} Units`,
+      `📈 *Daily Average:* ${dailyAverage.toFixed(1)} Units/day`,
+      `🔢 *Dial Start -> End:* ${startReading.toFixed(0)} ➔ ${endReading.toFixed(0)}`,
+      `🛡️ *Slab Status:* ${slabStatus}`,
+      `📝 *Logs Recorded:* ${readingCount}`,
+      `\n_Shared via VoltTrack_`
+    ].join('\n')
   } else {
     const { value, date, increment, notes } = props
     const incText = increment !== null ? `+${increment.toFixed(0)} Units` : 'Initial Baseline'
@@ -60,7 +85,8 @@ export default function ShareWhatsAppBtn(props: ShareWhatsAppBtnProps) {
 
   const whatsappUrl = `https://api.whatsapp.com/send?text=${encodeURIComponent(text)}`
 
-  if (type === 'status') {
+  if (type === 'status' || type === 'monthly') {
+    const label = type === 'status' ? 'Share Status' : 'Share Monthly Report'
     return (
       <a
         href={whatsappUrl}
@@ -73,9 +99,9 @@ export default function ShareWhatsAppBtn(props: ShareWhatsAppBtnProps) {
           justifyContent: 'center',
           gap: '0.5rem',
           textDecoration: 'none',
-          padding: '10px 16px',
+          padding: type === 'monthly' ? '6px 12px' : '10px 16px',
           borderRadius: '8px',
-          fontSize: '0.9rem',
+          fontSize: type === 'monthly' ? '0.82rem' : '0.9rem',
           fontWeight: 600,
           background: 'rgba(37, 211, 102, 0.1)',
           border: '1px solid rgba(37, 211, 102, 0.3)',
@@ -96,7 +122,7 @@ export default function ShareWhatsAppBtn(props: ShareWhatsAppBtnProps) {
           e.currentTarget.style.boxShadow = '0 0 10px rgba(37, 211, 102, 0.1)'
         }}
       >
-        <Share2 size={16} /> Share Status
+        <Share2 size={type === 'monthly' ? 14 : 16} /> {label}
       </a>
     )
   }

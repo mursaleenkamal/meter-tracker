@@ -7,6 +7,7 @@ import QuickReadingForm from '@/components/QuickReadingForm'
 import DeleteReadingBtn from '@/components/DeleteReadingBtn'
 import AddReadingButton from '@/components/AddReadingButton'
 import OfflineReadingsList from '@/components/OfflineReadingsList'
+import DashboardReadingHistory from '@/components/DashboardReadingHistory'
 
 // Helper function to calculate the start of the current billing cycle
 function getBillingCycleStart(startDay: number): Date {
@@ -201,87 +202,14 @@ export default async function LandingPage() {
               latestReadingValue={latestReadingValue}
             />
 
-            {/* Reading History Table on Front Page */}
-            <div className={dashboardStyles.card} style={{ marginTop: '2rem', textAlign: 'left' }}>
-              <div className={dashboardStyles.cardHeader}>
-                <h3 className={dashboardStyles.cardTitle}>
-                  <FileText size={18} /> Recent Meter Reading Logs
-                </h3>
-                <span style={{ fontSize: '0.85rem', color: 'var(--text-secondary)' }}>
-                  Total logged ({readings.length})
-                </span>
-              </div>
-
-              {readings.length === 0 ? (
-                <div className={dashboardStyles.noReadings}>
-                  No readings recorded yet. Log your first reading above!
-                </div>
-              ) : (
-                <div className={dashboardStyles.tableContainer}>
-                  <table className={dashboardStyles.historyTable}>
-                    <thead>
-                      <tr>
-                        <th>Reading (Units)</th>
-                        <th>Consumption (Diff)</th>
-                        <th>Date logged</th>
-                        <th className={dashboardStyles.actionCell}>Actions</th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      {readings.slice(0, 5).map((reading, index) => {
-                        const nextOldest = readings[index + 1]
-                        const increment = nextOldest
-                          ? Number(reading.reading_value) - Number(nextOldest.reading_value)
-                          : null
-
-                        return (
-                          <tr key={reading.id}>
-                            <td>
-                              <div className={dashboardStyles.valueCell}>
-                                {Number(reading.reading_value).toFixed(0)}
-                              </div>
-                            </td>
-                            <td>
-                              {reading.is_billing_reset ? (
-                                <span className={dashboardStyles.incrementBadge} style={{ background: 'rgba(16, 185, 129, 0.08)', color: 'var(--success)', borderColor: 'rgba(16, 185, 129, 0.2)', display: 'inline-block' }}>
-                                  Billing Reset (Baseline)
-                                </span>
-                              ) : increment !== null && increment >= 0 ? (
-                                <span className={dashboardStyles.incrementBadge} style={{ display: 'inline-block' }}>
-                                  +{increment.toFixed(0)} Units
-                                </span>
-                              ) : index === readings.length - 1 ? (
-                                <span className={dashboardStyles.incrementBadge} style={{ background: 'rgba(0, 240, 255, 0.08)', color: 'var(--primary)', borderColor: 'var(--primary-glow)', display: 'inline-block' }}>
-                                  Initial Baseline
-                                </span>
-                              ) : (
-                                <span style={{ color: 'var(--text-muted)' }}>-</span>
-                              )}
-                            </td>
-                            <td className={dashboardStyles.dateCell}>
-                              <div>{new Date(reading.created_at).toLocaleDateString()}</div>
-                              <div style={{ fontSize: '0.75rem', color: 'var(--text-muted)', marginTop: '0.2rem' }}>
-                                {new Date(reading.created_at).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}
-                              </div>
-                            </td>
-                            <td className={dashboardStyles.actionCell}>
-                              <DeleteReadingBtn readingId={reading.id} />
-                            </td>
-                          </tr>
-                        )
-                      })}
-                    </tbody>
-                  </table>
-                  
-                  {readings.length > 5 && (
-                    <div style={{ textAlign: 'center', marginTop: '1.25rem' }}>
-                      <Link href="/dashboard" className="glow-btn-accent" style={{ textDecoration: 'none', display: 'inline-flex', padding: '6px 16px', fontSize: '0.85rem' }}>
-                        View All Logs in Dashboard
-                      </Link>
-                    </div>
-                  )}
-                </div>
-              )}
+            {/* Monthly History & Reading Logs */}
+            <div style={{ marginTop: '2rem', textAlign: 'left' }}>
+              <DashboardReadingHistory
+                readings={readings}
+                meterNumber={activeMeter.meter_number}
+                maxLimit={limit}
+                billingCycleStartDay={activeMeter.billing_cycle_start_day || 1}
+              />
             </div>
           </div>
         )}
