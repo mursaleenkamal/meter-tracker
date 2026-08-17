@@ -202,7 +202,7 @@ export default async function LandingPage() {
               latestReadingValue={latestReadingValue}
             />
 
-            {/* Monthly History & Reading Logs */}
+            {/* Reading Logs */}
             <div style={{ marginTop: '2rem', textAlign: 'left' }}>
               <DashboardReadingHistory
                 readings={readings}

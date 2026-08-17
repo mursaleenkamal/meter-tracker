@@ -710,7 +710,7 @@ export default async function DashboardPage(props: {
         {/* Offline Pending Readings List */}
         <OfflineReadingsList meterId={activeMeter.id} />
 
-        {/* Monthly Consumption History & Reading Logs */}
+        {/* Reading Logs */}
         <DashboardReadingHistory
           readings={readings || []}
           meterNumber={activeMeter.meter_number}
