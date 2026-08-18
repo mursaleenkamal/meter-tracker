@@ -36,7 +36,7 @@ export default function ForgotPasswordPage() {
         <div className={styles.header}>
           <Link href="/" className={styles.logo}>
             <Zap className={styles.logoIcon} size={24} fill="var(--primary)" />
-            <span>VoltTrack</span>
+            <span>Read Meter</span>
           </Link>
           <h2 className={styles.title}>Reset Password</h2>
           <p className={styles.subtitle}>Enter your email to receive a password reset link</p>

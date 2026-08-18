@@ -14,12 +14,13 @@ export interface OfflineReading {
   createdAt: string
 }
 
-const STORAGE_KEY = 'volt_track_offline_readings'
+const STORAGE_KEY = 'read_meter_offline_readings'
+const LEGACY_STORAGE_KEY = 'volt_track_offline_readings'
 
 export function getOfflineReadings(): OfflineReading[] {
   if (typeof window === 'undefined') return []
   try {
-    const raw = localStorage.getItem(STORAGE_KEY)
+    const raw = localStorage.getItem(STORAGE_KEY) || localStorage.getItem(LEGACY_STORAGE_KEY)
     if (!raw) return []
     return JSON.parse(raw) as OfflineReading[]
   } catch (err) {

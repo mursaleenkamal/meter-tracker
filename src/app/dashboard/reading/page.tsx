@@ -50,7 +50,7 @@ export default async function AddReadingPage(props: {
         <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', fontFamily: 'var(--font-sans)', fontSize: '1.4rem', fontWeight: 700, color: '#fff' }}>
           <Zap style={{ color: 'var(--primary)', filter: 'drop-shadow(0 0 5px var(--primary-glow))' }} size={22} fill="var(--primary)" />
           <span>
-            Volt<span style={{ color: 'var(--primary)' }}>Track</span>
+            Read<span style={{ color: 'var(--primary)' }}>Meter</span>
           </span>
         </div>
       </nav>

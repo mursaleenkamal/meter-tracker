@@ -11,34 +11,40 @@ const outfit = Outfit({
   variable: '--font-outfit',
 })
 
-const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://volttrack.app'
+const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://www.readmeter.online'
 
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
   title: {
-    default: 'VoltTrack - Smart Electricity Meter & Unit Consumption Tracker',
-    template: '%s | VoltTrack',
+    default: 'Read Meter - Smart Electricity Meter & Unit Consumption Tracker',
+    template: '%s | Read Meter',
   },
   description:
-    'Track your electricity meter unit consumption in real-time with VoltTrack. AI meter photo OCR scanning, sub-meter billing calculations, peak charge alerts, and Web Push notifications for tenants and homeowners.',
+    'Read Meter is the smart electricity monitoring platform. Track your power meter units in real-time, scan dials with AI OCR camera scanner, calculate sub-meter billing, avoid peak slab penalties, and receive Web Push reminders.',
   keywords: [
-    'electricity meter tracker',
+    'Read Meter',
+    'read meter online',
+    'electricity meter reader',
     'smart meter tracker',
     'electric unit calculator',
     'sub meter billing calculator',
     'tenant electricity meter app',
+    'meter reading OCR scan',
+    'AI meter scanner',
     'K-Electric meter tracker',
     'LESCO meter tracker',
     'FESCO meter tracker',
     'IESCO electricity calculator',
     'PESCO sub meter app',
     'electricity bill estimator',
-    'meter reading OCR scan',
     'electricity unit budget alerts',
+    'power consumption tracker',
   ],
-  authors: [{ name: 'VoltTrack Team' }],
-  creator: 'VoltTrack',
-  publisher: 'VoltTrack',
+  authors: [{ name: 'Read Meter Team', url: siteUrl }],
+  creator: 'Read Meter',
+  publisher: 'Read Meter',
+  applicationName: 'Read Meter',
+  category: 'Utilities & Energy Management',
   robots: {
     index: true,
     follow: true,
@@ -54,24 +60,24 @@ export const metadata: Metadata = {
     type: 'website',
     locale: 'en_US',
     url: siteUrl,
-    title: 'VoltTrack - Smart Electricity Meter & Unit Consumption Tracker',
+    title: 'Read Meter - Smart Electricity Meter & Unit Consumption Tracker',
     description:
-      'Monitor your electric meter readings, calculate billing cycle units, avoid peak charge penalties, and get web push reminders.',
-    siteName: 'VoltTrack',
+      'Monitor your electric meter readings, calculate billing cycle units, avoid peak charge penalties, and get web push reminders with Read Meter.',
+    siteName: 'Read Meter',
     images: [
       {
         url: '/og-image.png',
         width: 1200,
         height: 630,
-        alt: 'VoltTrack Smart Electricity Meter Tracker Dashboard',
+        alt: 'Read Meter - Smart Electricity Meter Tracker Dashboard',
       },
     ],
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'VoltTrack - Smart Electricity Meter & Unit Tracker',
+    title: 'Read Meter - Smart Electricity Meter & Unit Tracker',
     description:
-      'Track electricity unit consumption, sub-meter billing, and receive reading push notifications.',
+      'Track electricity unit consumption, scan meter dials with AI OCR, and manage sub-meter billing accurately.',
     images: ['/og-image.png'],
   },
   alternates: {

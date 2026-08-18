@@ -252,7 +252,7 @@ export default async function DashboardPage(props: {
         <div className={styles.logo}>
           <Zap className={styles.logoIcon} size={22} fill="var(--primary)" />
           <span className={styles.logoText}>
-            Volt<span>Track</span>
+            Read<span>Meter</span>
           </span>
         </div>
         <div className={styles.userInfo} style={{ display: 'flex', alignItems: 'center', gap: '1rem' }}>

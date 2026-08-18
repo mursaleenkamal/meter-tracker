@@ -112,7 +112,7 @@ export default async function LandingPage() {
         <div className={styles.logo}>
           <Zap className={styles.logoIcon} size={28} fill="var(--primary)" />
           <span className={styles.logoText}>
-            Volt<span>Track</span>
+            Read<span>Meter</span>
           </span>
         </div>
         <div>
@@ -134,7 +134,7 @@ export default async function LandingPage() {
           Take Control of Your <span>Electric Meter Units</span>
         </h1>
         <p className={`${styles.description} fade-in`}>
-          VoltTrack helps you monitor, budget, and optimize your electrical unit consumption. Upload pictures of your meter dials for instant OCR readings or log usage manually.
+          Read Meter helps you monitor, budget, and optimize your electrical unit consumption. Upload pictures of your meter dials for instant OCR readings or log usage manually.
         </p>
 
         {user && activeMeter && (
@@ -290,29 +290,80 @@ export default async function LandingPage() {
           <Link href="/contact" style={{ color: 'var(--text-secondary)', textDecoration: 'none' }}>Contact Us</Link>
           <Link href="/disclaimer" style={{ color: 'var(--text-secondary)', textDecoration: 'none' }}>Disclaimer</Link>
         </div>
-        <div>&copy; {new Date().getFullYear()} VoltTrack Systems. All rights reserved.</div>
+        <div>&copy; {new Date().getFullYear()} Read Meter Systems. All rights reserved.</div>
       </footer>
-
 
       {/* JSON-LD Structured Data Schema for Search Engines */}
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{
-          __html: JSON.stringify({
-            '@context': 'https://schema.org',
-            '@type': 'WebApplication',
-            name: 'VoltTrack',
-            url: process.env.NEXT_PUBLIC_SITE_URL || 'https://volttrack.app',
-            description:
-              'Smart electricity meter and unit consumption tracker with AI OCR photo scanning, sub-meter billing calculations, peak charge alerts, and Web Push notifications.',
-            applicationCategory: 'UtilitiesApplication',
-            operatingSystem: 'All',
-            offers: {
-              '@type': 'Offer',
-              price: '0.00',
-              priceCurrency: 'USD',
+          __html: JSON.stringify([
+            {
+              '@context': 'https://schema.org',
+              '@type': 'WebApplication',
+              name: 'Read Meter',
+              url: process.env.NEXT_PUBLIC_SITE_URL || 'https://www.readmeter.online',
+              description:
+                'Smart electricity meter and unit consumption tracker with AI OCR photo scanning, sub-meter billing calculations, peak charge alerts, and Web Push notifications.',
+              applicationCategory: 'UtilitiesApplication',
+              operatingSystem: 'All',
+              offers: {
+                '@type': 'Offer',
+                price: '0.00',
+                priceCurrency: 'USD',
+              },
+              featureList: [
+                'AI OCR Camera Dial Scanning',
+                'Real-Time Electricity Unit Calculation',
+                'Sub-Meter Billing Split',
+                'K-Electric Protected Slab Warning',
+                'Browser Web Push Reading Reminders',
+                'Offline Reading Queue Support',
+              ],
             },
-          }),
+            {
+              '@context': 'https://schema.org',
+              '@type': 'Organization',
+              name: 'Read Meter',
+              url: process.env.NEXT_PUBLIC_SITE_URL || 'https://www.readmeter.online',
+              logo: `${process.env.NEXT_PUBLIC_SITE_URL || 'https://www.readmeter.online'}/favicon.ico`,
+              contactPoint: {
+                '@type': 'ContactPoint',
+                email: 'support@readmeter.online',
+                contactType: 'customer support',
+              },
+            },
+            {
+              '@context': 'https://schema.org',
+              '@type': 'FAQPage',
+              mainEntity: [
+                {
+                  '@type': 'Question',
+                  name: 'How does Read Meter calculate electricity units?',
+                  acceptedAnswer: {
+                    '@type': 'Answer',
+                    text: 'Read Meter tracks your meter dial values relative to your monthly billing cycle reset date. By comparing your latest logged reading against the baseline reading, it calculates exact units consumed, daily consumption rates, and projected month-end totals.',
+                  },
+                },
+                {
+                  '@type': 'Question',
+                  name: 'Can I scan my electricity meter with a camera?',
+                  acceptedAnswer: {
+                    '@type': 'Answer',
+                    text: 'Yes! Read Meter includes an in-browser AI OCR scanner. Simply snap or upload a clear photo of your meter dial, and the digits will be extracted automatically without sending raw photos to external servers.',
+                  },
+                },
+                {
+                  '@type': 'Question',
+                  name: 'Does Read Meter support protected tariff slabs like K-Electric?',
+                  acceptedAnswer: {
+                    '@type': 'Answer',
+                    text: 'Yes, Read Meter provides built-in slab protection analytics that warn you before exceeding subsidized unit limits (such as the 200 units threshold for K-Electric/LESCO), helping you avoid non-protected rate surges.',
+                  },
+                },
+              ],
+            },
+          ]),
         }}
       />
     </div>

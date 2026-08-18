@@ -4,8 +4,8 @@ import { Zap, Info, Gauge, Cpu, Bell, ShieldCheck } from 'lucide-react'
 import type { Metadata } from 'next'
 
 export const metadata: Metadata = {
-  title: 'About Us | VoltTrack Smart Electricity Monitoring',
-  description: 'Learn about VoltTrack, our mission to simplify sub-meter electricity tracking, OCR photo reading technology, and unit consumption management.',
+  title: 'About Us | Read Meter Smart Electricity Monitoring',
+  description: 'Learn about Read Meter, our mission to simplify sub-meter electricity tracking, AI OCR photo reading technology, and unit consumption management.',
 }
 
 export default function AboutPage() {
@@ -14,7 +14,7 @@ export default function AboutPage() {
       <header className={styles.header}>
         <Link href="/" className={styles.logo}>
           <Zap size={22} fill="var(--primary)" style={{ color: 'var(--primary)' }} />
-          <span>VoltTrack</span>
+          <span>Read Meter</span>
         </Link>
         <Link href="/login" className="glow-btn" style={{ textDecoration: 'none', fontSize: '0.85rem', padding: '6px 14px' }}>
           Sign In
@@ -27,18 +27,18 @@ export default function AboutPage() {
             <Info size={20} />
             <span style={{ fontSize: '0.85rem', fontWeight: 600, textTransform: 'uppercase', letterSpacing: '1px' }}>Product Overview</span>
           </div>
-          <h1 className={styles.pageTitle}>About VoltTrack</h1>
+          <h1 className={styles.pageTitle}>About Read Meter</h1>
           <p className={styles.pageMeta}>Smart Electricity Unit & Sub-Meter Management</p>
         </div>
 
         <div className={styles.contentCard}>
           <p>
-            <strong>VoltTrack</strong> is a web platform designed to simplify electric meter monitoring for homeowners, tenants, property managers, and shared electricity sub-meter connections.
+            <strong>Read Meter</strong> is a web platform designed to simplify electric meter monitoring for homeowners, tenants, property managers, and shared electricity sub-meter connections.
           </p>
 
           <h2>Our Mission</h2>
           <p>
-            Electricity costs and complex monthly tariff slabs make it difficult for households to monitor unit consumption in real time. VoltTrack provides intuitive tracking, AI OCR camera scanning, and predictive alerts so users can avoid peak tariff surcharges and optimize power usage.
+            Electricity costs and complex monthly tariff slabs make it difficult for households to monitor unit consumption in real time. Read Meter provides intuitive tracking, AI OCR camera scanning, and predictive alerts so users can avoid peak tariff surcharges and optimize power usage.
           </p>
 
           <h2>Core Platform Features</h2>
@@ -49,9 +49,9 @@ export default function AboutPage() {
             <li><strong><ShieldCheck size={15} style={{ verticalAlign: 'middle', marginRight: '5px' }} /> Multi-Meter Support:</strong> Track multiple electricity connections (e.g. Home, Office, Rental Units) under one account.</li>
           </ul>
 
-          <h2>Why Choose VoltTrack?</h2>
+          <h2>Why Choose Read Meter?</h2>
           <p>
-            Unlike static spreadsheets, VoltTrack automatically adjusts for monthly billing cycle start dates, stores historical reading records, calculates daily average consumption, and provides mobile offline support.
+            Unlike static spreadsheets, Read Meter automatically adjusts for monthly billing cycle start dates, stores historical reading records, calculates daily average consumption, and provides mobile offline support.
           </p>
         </div>
       </main>
@@ -65,8 +65,9 @@ export default function AboutPage() {
           <Link href="/contact" className={styles.footerLink}>Contact Us</Link>
           <Link href="/disclaimer" className={styles.footerLink}>Disclaimer</Link>
         </div>
-        <div>&copy; {new Date().getFullYear()} VoltTrack. All rights reserved.</div>
+        <div>&copy; {new Date().getFullYear()} Read Meter. All rights reserved.</div>
       </footer>
     </div>
   )
 }
+

@@ -38,7 +38,7 @@ export default function NotificationBell() {
     if (perm === 'granted') {
       const sent = await sendWebNotification(
         '⚡ Push Alerts Activated!',
-        'VoltTrack will now notify you when your meter reading is due or when you have not taken a reading for 3+ days.',
+        'Read Meter will now notify you when your meter reading is due or when you have not taken a reading for 3+ days.',
         '/dashboard'
       )
       triggerToast(sent ? '⚡ Push Alerts Enabled & Test Notification Sent!' : '⚡ Push Alerts Enabled!')
@@ -62,7 +62,7 @@ export default function NotificationBell() {
     }
 
     const success = await sendWebNotification(
-      '⚡ VoltTrack Test Notification',
+      '⚡ Read Meter Test Notification',
       'Push alert working perfectly! You will receive reading reminders here.',
       '/dashboard'
     )

@@ -47,19 +47,19 @@ export default function ShareWhatsAppBtn(props: ShareWhatsAppBtnProps) {
   if (type === 'status') {
     const { currentUsage, limit, dailyAverage, daysRemaining, projectedUsage, slabStatus } = props
     text = [
-      `⚡ *VoltTrack Status Update*`,
+      `⚡ *Read Meter Status Update*`,
       `*Meter ID:* ${meterNumber}`,
       `*Current Usage:* ${currentUsage.toFixed(0)} Units (of ${limit.toFixed(0)} limit)`,
       `*Daily Average:* ${dailyAverage.toFixed(1)} Units/day`,
       `*Projected Month End:* ${projectedUsage.toFixed(0)} Units`,
       `*Slab Status:* ${slabStatus}`,
       `📅 *Cycle Info:* ${daysRemaining} days left in billing period.`,
-      `\n_Shared via VoltTrack_`
+      `\n_Shared via Read Meter (https://www.readmeter.online)_`
     ].join('\n')
   } else if (type === 'monthly') {
     const { monthLabel, totalUnits, dailyAverage, startReading, endReading, slabStatus, readingCount } = props
     text = [
-      `📊 *VoltTrack Monthly Consumption Report*`,
+      `📊 *Read Meter Monthly Consumption Report*`,
       `*Meter ID:* ${meterNumber}`,
       `📅 *Billing Month:* ${monthLabel}`,
       `⚡ *Total Consumption:* ${totalUnits.toFixed(0)} Units`,
@@ -67,19 +67,19 @@ export default function ShareWhatsAppBtn(props: ShareWhatsAppBtnProps) {
       `🔢 *Dial Start -> End:* ${startReading.toFixed(0)} ➔ ${endReading.toFixed(0)}`,
       `🛡️ *Slab Status:* ${slabStatus}`,
       `📝 *Logs Recorded:* ${readingCount}`,
-      `\n_Shared via VoltTrack_`
+      `\n_Shared via Read Meter (https://www.readmeter.online)_`
     ].join('\n')
   } else {
     const { value, date, increment, notes } = props
     const incText = increment !== null ? `+${increment.toFixed(0)} Units` : 'Initial Baseline'
     text = [
-      `⚡ *VoltTrack Reading Log*`,
+      `⚡ *Read Meter Reading Log*`,
       `*Meter ID:* ${meterNumber}`,
       `*Logged Value:* ${value.toFixed(0)} Units`,
       `*Increment:* ${incText}`,
       `*Logged Date:* ${date}`,
       notes ? `*Notes:* ${notes}` : '',
-      `\n_Shared via VoltTrack_`
+      `\n_Shared via Read Meter (https://www.readmeter.online)_`
     ].filter(Boolean).join('\n')
   }
 

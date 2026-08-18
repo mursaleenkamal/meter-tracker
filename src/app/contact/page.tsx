@@ -25,7 +25,7 @@ export default function ContactPage() {
       <header className={styles.header}>
         <Link href="/" className={styles.logo}>
           <Zap size={22} fill="var(--primary)" style={{ color: 'var(--primary)' }} />
-          <span>VoltTrack</span>
+          <span>Read Meter</span>
         </Link>
         <Link href="/login" className="glow-btn" style={{ textDecoration: 'none', fontSize: '0.85rem', padding: '6px 14px' }}>
           Sign In
@@ -49,7 +49,7 @@ export default function ContactPage() {
 
               <h2 style={{ border: 'none', padding: 0, margin: 0 }}>Message Received!</h2>
               <p style={{ textAlign: 'center' }}>
-                Thank you for contacting VoltTrack support. Our team will review your inquiry and get back to you within 24 hours.
+                Thank you for contacting Read Meter support. Our team will review your inquiry and get back to you within 24 hours.
               </p>
               <button
                 onClick={() => setSubmitted(false)}
@@ -147,7 +147,7 @@ export default function ContactPage() {
 
           <h2>Direct Support Email</h2>
           <p>
-            You can also email our support team directly at <strong>support@volttrack.app</strong>.
+            You can also email our support team directly at <strong>support@readmeter.online</strong>.
           </p>
         </div>
       </main>
@@ -161,7 +161,7 @@ export default function ContactPage() {
           <Link href="/contact" className={styles.footerLink}>Contact Us</Link>
           <Link href="/disclaimer" className={styles.footerLink}>Disclaimer</Link>
         </div>
-        <div>&copy; {new Date().getFullYear()} VoltTrack. All rights reserved.</div>
+        <div>&copy; {new Date().getFullYear()} Read Meter. All rights reserved.</div>
       </footer>
     </div>
   )

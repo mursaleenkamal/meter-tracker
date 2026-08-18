@@ -4,8 +4,8 @@ import { Zap, ShieldCheck } from 'lucide-react'
 import type { Metadata } from 'next'
 
 export const metadata: Metadata = {
-  title: 'Privacy Policy | VoltTrack',
-  description: 'Learn how VoltTrack protects your personal data, electric meter reading records, and account information in accordance with privacy laws and Google AdSense guidelines.',
+  title: 'Privacy Policy | Read Meter',
+  description: 'Learn how Read Meter protects your personal data, electric meter reading records, and account information in accordance with privacy laws and Google AdSense guidelines.',
 }
 
 export default function PrivacyPolicyPage() {
@@ -14,7 +14,7 @@ export default function PrivacyPolicyPage() {
       <header className={styles.header}>
         <Link href="/" className={styles.logo}>
           <Zap size={22} fill="var(--primary)" style={{ color: 'var(--primary)' }} />
-          <span>VoltTrack</span>
+          <span>Read Meter</span>
         </Link>
         <Link href="/login" className="glow-btn" style={{ textDecoration: 'none', fontSize: '0.85rem', padding: '6px 14px' }}>
           Sign In
@@ -33,11 +33,11 @@ export default function PrivacyPolicyPage() {
 
         <div className={styles.contentCard}>
           <p>
-            At VoltTrack ("we", "our", "us"), accessible from volttrack.app, one of our main priorities is the privacy of our visitors and registered users. This Privacy Policy document contains types of information that is collected and recorded by VoltTrack and how we use it.
+            At Read Meter ("we", "our", "us"), accessible from readmeter.online, one of our main priorities is the privacy of our visitors and registered users. This Privacy Policy document contains types of information that is collected and recorded by Read Meter and how we use it.
           </p>
 
           <h2>1. Information We Collect</h2>
-          <p>When you register and use VoltTrack, we collect necessary personal and technical information to provide meter unit tracking services:</p>
+          <p>When you register and use Read Meter, we collect necessary personal and technical information to provide meter unit tracking services:</p>
           <ul>
             <li><strong>Account Data:</strong> Email address, full name, and optional phone number provided during account registration.</li>
             <li><strong>Meter Usage Records:</strong> Meter serial numbers, reading values, photos uploaded for OCR scanning, and billing cycle settings.</li>
@@ -55,7 +55,7 @@ export default function PrivacyPolicyPage() {
 
           <h2>3. Cookies & Web Beacons</h2>
           <p>
-            VoltTrack uses standard session cookies to keep you securely signed in to your account. These essential cookies do not track your browsing activity across external websites. Third-party vendor services (such as Google AdSense and analytics tools) may use cookies or web beacons to serve relevant advertisements based on past visits.
+            Read Meter uses standard session cookies to keep you securely signed in to your account. These essential cookies do not track your browsing activity across external websites. Third-party vendor services (such as Google AdSense and analytics tools) may use cookies or web beacons to serve relevant advertisements based on past visits.
           </p>
 
           <h2>4. Data Storage & Security</h2>
@@ -65,7 +65,7 @@ export default function PrivacyPolicyPage() {
 
           <h2>5. Third-Party Services</h2>
           <p>
-            VoltTrack integrates verified third-party cloud services for infrastructure and analytics:
+            Read Meter integrates verified third-party cloud services for infrastructure and analytics:
           </p>
           <ul>
             <li><strong>Supabase:</strong> User authentication & encrypted cloud database.</li>
@@ -80,7 +80,7 @@ export default function PrivacyPolicyPage() {
 
           <h2>7. Contact Us</h2>
           <p>
-            If you have additional questions or require more information about our Privacy Policy, do not hesitate to contact us at support@volttrack.app or via our <Link href="/contact" style={{ color: 'var(--primary)' }}>Contact Page</Link>.
+            If you have additional questions or require more information about our Privacy Policy, do not hesitate to contact us at support@readmeter.online or via our <Link href="/contact" style={{ color: 'var(--primary)' }}>Contact Page</Link>.
           </p>
         </div>
       </main>
@@ -94,8 +94,9 @@ export default function PrivacyPolicyPage() {
           <Link href="/contact" className={styles.footerLink}>Contact Us</Link>
           <Link href="/disclaimer" className={styles.footerLink}>Disclaimer</Link>
         </div>
-        <div>&copy; {new Date().getFullYear()} VoltTrack. All rights reserved.</div>
+        <div>&copy; {new Date().getFullYear()} Read Meter. All rights reserved.</div>
       </footer>
     </div>
   )
 }
+

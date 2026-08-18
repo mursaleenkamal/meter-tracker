@@ -4,7 +4,7 @@ import { Zap, AlertTriangle } from 'lucide-react'
 import type { Metadata } from 'next'
 
 export const metadata: Metadata = {
-  title: 'Disclaimer | VoltTrack',
+  title: 'Disclaimer | Read Meter',
   description: 'Legal disclaimer and accuracy notes regarding utility bill calculations and electric meter unit estimations.',
 }
 
@@ -14,7 +14,7 @@ export default function DisclaimerPage() {
       <header className={styles.header}>
         <Link href="/" className={styles.logo}>
           <Zap size={22} fill="var(--primary)" style={{ color: 'var(--primary)' }} />
-          <span>VoltTrack</span>
+          <span>Read Meter</span>
         </Link>
         <Link href="/login" className="glow-btn" style={{ textDecoration: 'none', fontSize: '0.85rem', padding: '6px 14px' }}>
           Sign In
@@ -33,12 +33,12 @@ export default function DisclaimerPage() {
 
         <div className={styles.contentCard}>
           <p>
-            The information provided by VoltTrack ("we", "us", or "our") on volttrack.app is for general informational and tracking purposes only. All information on the site is provided in good faith.
+            The information provided by Read Meter ("we", "us", or "our") on readmeter.online is for general informational and tracking purposes only. All information on the site is provided in good faith.
           </p>
 
           <h2>1. Utility Calculation Disclaimers</h2>
           <p>
-            VoltTrack calculates electricity unit consumption based on user-entered meter reading values and billing cycle configurations. While our application uses precise mathematical formulas to estimate unit usage, daily averages, and slab progress:
+            Read Meter calculates electricity unit consumption based on user-entered meter reading values and billing cycle configurations. While our application uses precise mathematical formulas to estimate unit usage, daily averages, and slab progress:
           </p>
           <ul>
             <li>Calculations are estimates and do not replace official utility company monthly invoices.</li>
@@ -48,12 +48,12 @@ export default function DisclaimerPage() {
 
           <h2>2. Sub-Meter Usage Notice</h2>
           <p>
-            When using VoltTrack for shared sub-meters (e.g., landlord/tenant arrangements or multi-portion houses), VoltTrack acts as an independent utility logging tool. Parties are encouraged to mutually agree upon billing cycle start dates and baseline readings.
+            When using Read Meter for shared sub-meters (e.g., landlord/tenant arrangements or multi-portion houses), Read Meter acts as an independent utility logging tool. Parties are encouraged to mutually agree upon billing cycle start dates and baseline readings.
           </p>
 
           <h2>3. External Links Disclaimer</h2>
           <p>
-            VoltTrack may contain links to third-party websites or external services (such as WhatsApp API deep links). Such external links are not investigated or monitored for accuracy by us.
+            Read Meter may contain links to third-party websites or external services (such as WhatsApp API deep links). Such external links are not investigated or monitored for accuracy by us.
           </p>
 
           <h2>4. OCR Camera Scanning Disclaimer</h2>
@@ -72,8 +72,9 @@ export default function DisclaimerPage() {
           <Link href="/contact" className={styles.footerLink}>Contact Us</Link>
           <Link href="/disclaimer" className={styles.footerLink}>Disclaimer</Link>
         </div>
-        <div>&copy; {new Date().getFullYear()} VoltTrack. All rights reserved.</div>
+        <div>&copy; {new Date().getFullYear()} Read Meter. All rights reserved.</div>
       </footer>
     </div>
   )
 }
+

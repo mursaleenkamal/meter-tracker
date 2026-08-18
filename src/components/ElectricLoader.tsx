@@ -9,7 +9,7 @@ interface ElectricLoaderProps {
 }
 
 export default function ElectricLoader({
-  message = 'Loading VoltTrack...',
+  message = 'Loading Read Meter...',
   fullScreen = false,
   showBrand = true,
 }: ElectricLoaderProps) {
@@ -143,7 +143,7 @@ export default function ElectricLoader({
               gap: '0.3rem',
             }}
           >
-            Volt<span style={{ color: 'var(--primary)' }}>Track</span>
+            Read<span style={{ color: 'var(--primary)' }}>Meter</span>
           </div>
         )}
 

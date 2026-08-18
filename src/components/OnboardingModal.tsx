@@ -35,7 +35,7 @@ export default function OnboardingModal() {
           </div>
           <h2 className={styles.setupTitle}>Configure Your Electric Meter</h2>
           <p className={styles.setupText}>
-            Welcome to VoltTrack! Set up your primary meter configuration below to unlock real-time tracking, billing cycle insights, and usage alerts.
+            Welcome to Read Meter! Set up your primary meter configuration below to unlock real-time tracking, billing cycle insights, and usage alerts.
           </p>
         </div>
 

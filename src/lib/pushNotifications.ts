@@ -78,7 +78,7 @@ export async function sendWebNotification(title: string, body: string, url: stri
           icon: '/favicon.ico',
           badge: '/favicon.ico',
           data: { url },
-          tag: 'volttrack-alert-' + Date.now(),
+          tag: 'readmeter-alert-' + Date.now(),
         })
         sent = true
       }
@@ -156,7 +156,7 @@ export function checkMeterReadingReminders(activeMeter: Meter, readings: Reading
 
     if (daysSinceReading >= 3) {
       sendWebNotification(
-        '⚡ VoltTrack Reading Reminder',
+        '⚡ Read Meter Reading Reminder',
         `No meter reading recorded in ${daysSinceReading} days for Meter ${activeMeter.meter_number}. Update your reading to keep tracking accurate!`,
         '/dashboard'
       )
@@ -164,7 +164,7 @@ export function checkMeterReadingReminders(activeMeter: Meter, readings: Reading
     }
   } else {
     sendWebNotification(
-      '⚡ Welcome to VoltTrack!',
+      '⚡ Welcome to Read Meter!',
       `You haven't recorded any readings for Meter ${activeMeter.meter_number} yet. Record your first reading now!`,
       '/dashboard'
     )

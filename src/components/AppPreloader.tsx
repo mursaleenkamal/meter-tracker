@@ -48,7 +48,7 @@ export default function AppPreloader() {
         pointerEvents: isFading ? 'none' : 'auto',
       }}
     >
-      <ElectricLoader fullScreen message="Loading VoltTrack..." />
+      <ElectricLoader fullScreen message="Loading Read Meter..." />
     </div>
   )
 }

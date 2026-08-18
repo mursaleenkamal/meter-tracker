@@ -115,7 +115,7 @@ export async function signUpAction(formData: FormData) {
   return {
     success: true,
     autoLogin: true,
-    message: 'Welcome to VoltTrack! Your account has been registered successfully.',
+    message: 'Welcome to Read Meter! Your account has been registered successfully.',
   }
 }
 

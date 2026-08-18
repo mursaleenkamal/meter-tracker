@@ -11,7 +11,7 @@ export default function Loading() {
         background: '#060913',
       }}
     >
-      <ElectricLoader fullScreen message="Loading VoltTrack..." />
+      <ElectricLoader fullScreen message="Loading Read Meter..." />
     </div>
   )
 }

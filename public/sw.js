@@ -1,5 +1,5 @@
-// VoltTrack Service Worker for Fast Asset Caching & Push Notifications
-const CACHE_NAME = 'volttrack-v1-cache'
+// Read Meter Service Worker for Fast Asset Caching & Push Notifications
+const CACHE_NAME = 'readmeter-v1-cache'
 const STATIC_ASSETS = ['/favicon.ico']
 
 self.addEventListener('install', (event) => {
@@ -52,7 +52,7 @@ self.addEventListener('fetch', (event) => {
 // Handle background push events
 self.addEventListener('push', (event) => {
   let data = {
-    title: 'VoltTrack Reading Reminder',
+    title: 'Read Meter Reading Reminder',
     body: 'Time to record your electric meter reading!',
     icon: '/favicon.ico',
     badge: '/favicon.ico',
