@@ -1,15 +1,24 @@
 'use client'
 
-import { useState } from 'react'
+import { Suspense, useEffect, useState } from 'react'
 import Link from 'next/link'
+import { useSearchParams } from 'next/navigation'
 import styles from '../auth.module.css'
 import { resetPasswordAction } from '@/lib/actions'
 import { Zap, AlertTriangle, CheckCircle, Loader2, ArrowLeft, Mail } from 'lucide-react'
 
-export default function ForgotPasswordPage() {
+function ForgotPasswordForm() {
+  const searchParams = useSearchParams()
   const [error, setError] = useState<string | null>(null)
   const [success, setSuccess] = useState<string | null>(null)
   const [isLoading, setIsLoading] = useState(false)
+
+  useEffect(() => {
+    const urlError = searchParams.get('error')
+    if (urlError) {
+      setError(decodeURIComponent(urlError))
+    }
+  }, [searchParams])
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
@@ -110,5 +119,20 @@ export default function ForgotPasswordPage() {
         </p>
       </div>
     </div>
+  )
+}
+
+export default function ForgotPasswordPage() {
+  return (
+    <Suspense fallback={
+      <div className={styles.container}>
+        <div className={styles.card} style={{ textAlign: 'center', padding: '3rem 1.5rem' }}>
+          <Loader2 className="animate-spin" size={32} style={{ margin: '0 auto', color: 'var(--primary)' }} />
+          <p style={{ marginTop: '1rem', color: 'var(--text-muted)' }}>Loading...</p>
+        </div>
+      </div>
+    }>
+      <ForgotPasswordForm />
+    </Suspense>
   )
 }
