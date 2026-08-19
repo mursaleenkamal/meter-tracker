@@ -1,6 +1,6 @@
 // Read Meter Service Worker for Fast Asset Caching & Push Notifications
-const CACHE_NAME = 'readmeter-v1-cache'
-const STATIC_ASSETS = ['/favicon.ico']
+const CACHE_NAME = 'readmeter-v2-cache'
+const STATIC_ASSETS = ['/favicon.ico', '/favicon-32x32.png', '/icon-192.png', '/icon-512.png', '/apple-touch-icon.png']
 
 self.addEventListener('install', (event) => {
   event.waitUntil(
@@ -29,7 +29,7 @@ self.addEventListener('activate', (event) => {
 self.addEventListener('fetch', (event) => {
   const url = new URL(event.request.url)
 
-  if (event.request.method === 'GET' && (url.pathname.startsWith('/_next/static/') || url.pathname.endsWith('.css') || url.pathname.endsWith('.woff2'))) {
+  if (event.request.method === 'GET' && (url.pathname.startsWith('/_next/static/') || url.pathname.endsWith('.css') || url.pathname.endsWith('.woff2') || url.pathname.endsWith('.png') || url.pathname.endsWith('.ico'))) {
     event.respondWith(
       caches.match(event.request).then((cachedResponse) => {
         if (cachedResponse) {
@@ -54,8 +54,8 @@ self.addEventListener('push', (event) => {
   let data = {
     title: 'Read Meter Reading Reminder',
     body: 'Time to record your electric meter reading!',
-    icon: '/favicon.ico',
-    badge: '/favicon.ico',
+    icon: '/icon-192.png',
+    badge: '/favicon-32x32.png',
     url: '/dashboard',
   }
 
@@ -69,8 +69,8 @@ self.addEventListener('push', (event) => {
 
   const options = {
     body: data.body,
-    icon: data.icon || '/favicon.ico',
-    badge: data.badge || '/favicon.ico',
+    icon: data.icon || '/icon-192.png',
+    badge: data.badge || '/favicon-32x32.png',
     vibrate: [100, 50, 100],
     data: {
       url: data.url || '/dashboard',
