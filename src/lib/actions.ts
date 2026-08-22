@@ -147,15 +147,23 @@ export async function signInAction(formData: FormData) {
 export async function resetPasswordAction(formData: FormData) {
   const supabase = await createClient()
   const email = formData.get('email') as string
+  const clientOrigin = (formData.get('clientOrigin') as string)?.trim()
 
   if (!email) {
     return { error: 'Please enter your email address.' }
   }
 
   const headerList = await headers()
+  const originHeader = headerList.get('origin')
   const host = headerList.get('x-forwarded-host') || headerList.get('host')
-  const proto = headerList.get('x-forwarded-proto') || (host?.includes('localhost') || host?.includes('127.0.0.1') ? 'http' : 'https')
-  const origin = headerList.get('origin') || (host ? `${proto}://${host}` : process.env.NEXT_PUBLIC_SITE_URL || 'http://localhost:3000')
+  const proto = headerList.get('x-forwarded-proto') || (host && (host.includes('localhost') || host.includes('127.0.0.1')) ? 'http' : 'https')
+
+  let origin = clientOrigin || originHeader || (host ? `${proto}://${host}` : process.env.NEXT_PUBLIC_SITE_URL || 'https://www.readmeter.online')
+
+  if (!origin.startsWith('http://') && !origin.startsWith('https://')) {
+    origin = `https://${origin}`
+  }
+  origin = origin.replace(/\/$/, '')
 
   const { error } = await supabase.auth.resetPasswordForEmail(email, {
     redirectTo: `${origin}/auth/callback?next=/reset-password`,

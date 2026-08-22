@@ -27,6 +27,9 @@ function ForgotPasswordForm() {
     setSuccess(null)
 
     const formData = new FormData(e.currentTarget)
+    if (typeof window !== 'undefined' && window.location.origin) {
+      formData.set('clientOrigin', window.location.origin)
+    }
     const result = await resetPasswordAction(formData)
 
     setIsLoading(false)
