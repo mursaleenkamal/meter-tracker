@@ -38,7 +38,7 @@ function fileToDataURL(file: File): Promise<string> {
   })
 }
 
-export default function ReadingForm({ meterId, meterNumber, onClose, onSuccess }: ReadingFormProps) {
+export default function ReadingForm({ meterId, meterNumber, onClose, onSuccess, isGuest }: ReadingFormProps) {
   const router = useRouter()
   const [activeTab, setActiveTab] = useState<'manual' | 'ocr'>('manual')
   const [readingValue, setReadingValue] = useState('')
