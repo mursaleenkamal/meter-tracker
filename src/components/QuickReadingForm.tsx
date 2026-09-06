@@ -3,7 +3,7 @@
 import { useState } from 'react'
 import { addReadingAction } from '@/lib/actions'
 import { saveOfflineReading } from '@/lib/offlineStore'
-import { Loader2, Plus, AlertTriangle, Check, WifiOff } from 'lucide-react'
+import { Loader2, Plus, AlertTriangle, Check, WifiOff, Calendar } from 'lucide-react'
 
 interface QuickReadingFormProps {
   meterId: string
@@ -22,6 +22,7 @@ export default function QuickReadingForm({
   const [success, setSuccess] = useState(false)
   const [isOfflineSuccess, setIsOfflineSuccess] = useState(false)
   const [isBillingReset, setIsBillingReset] = useState(false)
+  const [nextReadingDate, setNextReadingDate] = useState('')
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
@@ -65,6 +66,9 @@ export default function QuickReadingForm({
       formData.append('readingValue', readingValue)
       formData.append('notes', 'Logged from Quick Access')
       formData.append('isBillingReset', String(isBillingReset))
+      if (nextReadingDate) {
+        formData.append('nextReadingDate', nextReadingDate)
+      }
 
       const result = await addReadingAction(formData)
       setIsLoading(false)
@@ -236,10 +240,59 @@ export default function QuickReadingForm({
           <label htmlFor="quickIsBillingReset" style={{ marginBottom: 0, cursor: 'pointer', display: 'flex', flexDirection: 'column', gap: '0.1rem' }}>
             <span style={{ fontWeight: 600, fontSize: '0.82rem', color: '#fff' }}>Start New Billing Cycle</span>
             <span style={{ fontSize: '0.72rem', color: 'var(--text-muted)', fontWeight: 'normal', lineHeight: '1.3' }}>
-              Check this if this reading resets the monthly K-Electric bill cycle.
+              Check this if this reading resets the monthly bill cycle.
             </span>
           </label>
         </div>
+
+        {isBillingReset && (
+          <div
+            className="fade-in"
+            style={{
+              padding: '0.75rem',
+              borderRadius: '8px',
+              background: 'rgba(37, 99, 235, 0.12)',
+              border: '1px solid rgba(59, 130, 246, 0.3)',
+              display: 'flex',
+              flexDirection: 'column',
+              gap: '0.35rem',
+            }}
+          >
+            <label
+              htmlFor="quickFormNextReadingDate"
+              style={{
+                fontSize: '0.82rem',
+                fontWeight: 600,
+                color: '#fff',
+                display: 'flex',
+                alignItems: 'center',
+                gap: '0.4rem',
+              }}
+            >
+              <Calendar size={14} style={{ color: 'var(--primary)' }} />
+              Expected Reading Last Date:
+            </label>
+            <input
+              type="date"
+              id="quickFormNextReadingDate"
+              value={nextReadingDate}
+              onChange={(e) => setNextReadingDate(e.target.value)}
+              disabled={isLoading}
+              style={{
+                maxWidth: '200px',
+                background: 'rgba(6, 9, 19, 0.7)',
+                border: '1px solid var(--border-color)',
+                borderRadius: '6px',
+                padding: '6px 10px',
+                color: '#fff',
+                fontSize: '0.85rem',
+              }}
+            />
+            <span style={{ fontSize: '0.72rem', color: 'var(--text-muted)' }}>
+              e.g. 30th of September
+            </span>
+          </div>
+        )}
       </form>
     </div>
   )

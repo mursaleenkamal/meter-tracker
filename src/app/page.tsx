@@ -8,6 +8,7 @@ import DeleteReadingBtn from '@/components/DeleteReadingBtn'
 import AddReadingButton from '@/components/AddReadingButton'
 import OfflineReadingsList from '@/components/OfflineReadingsList'
 import DashboardReadingHistory from '@/components/DashboardReadingHistory'
+import InstantMeterCheckWidget from '@/components/InstantMeterCheckWidget'
 
 // Helper function to calculate the start of the current billing cycle
 function getBillingCycleStart(startDay: number): Date {
@@ -115,15 +116,20 @@ export default async function LandingPage() {
             Read<span>Meter</span>
           </span>
         </div>
-        <div>
+        <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem' }}>
           {user ? (
             <Link href="/dashboard" className="glow-btn-accent" style={{ textDecoration: 'none' }}>
               Dashboard
             </Link>
           ) : (
-            <Link href="/login" className="glow-btn" style={{ textDecoration: 'none' }}>
-              Sign In
-            </Link>
+            <>
+              <Link href="/guest" className="glow-btn" style={{ textDecoration: 'none', padding: '6px 14px', fontSize: '0.88rem' }}>
+                ⚡ Try Guest Mode
+              </Link>
+              <Link href="/login" className="glow-btn-accent" style={{ textDecoration: 'none', padding: '6px 14px', fontSize: '0.88rem' }}>
+                Sign In
+              </Link>
+            </>
           )}
         </div>
       </header>
@@ -136,6 +142,8 @@ export default async function LandingPage() {
         <p className={`${styles.description} fade-in`}>
           Read Meter helps you monitor, budget, and optimize your electrical unit consumption. Upload pictures of your meter dials for instant OCR readings or log usage manually.
         </p>
+
+        {!user && <InstantMeterCheckWidget />}
 
         {user && activeMeter && (
           <div className="fade-in" style={{ width: '100%', maxWidth: '800px', margin: '2rem auto 0 auto' }}>
@@ -234,18 +242,27 @@ export default async function LandingPage() {
               )}
             </>
           ) : (
-            <>
-              <Link
-                href="/register"
-                className="glow-btn-solid"
-                style={{ textDecoration: 'none', display: 'inline-flex', alignItems: 'center', gap: '0.5rem' }}
-              >
-                Get Started <ChevronRight size={20} />
+            <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '0.85rem', width: '100%' }}>
+              <div style={{ display: 'flex', gap: '1rem', flexWrap: 'wrap', justifyContent: 'center' }}>
+                <Link
+                  href="/guest"
+                  className="glow-btn-solid"
+                  style={{ textDecoration: 'none', display: 'inline-flex', alignItems: 'center', gap: '0.5rem', padding: '12px 24px', fontSize: '1rem', fontWeight: 600 }}
+                >
+                  ⚡ Start Tracking Free (No Signup) <ChevronRight size={18} />
+                </Link>
+                <Link
+                  href="/register"
+                  className="glow-btn"
+                  style={{ textDecoration: 'none', display: 'inline-flex', alignItems: 'center', gap: '0.5rem', padding: '12px 20px', fontSize: '0.95rem' }}
+                >
+                  Create Account
+                </Link>
+              </div>
+              <Link href="/login" style={{ color: 'var(--text-secondary)', fontSize: '0.88rem', textDecoration: 'underline' }}>
+                Already registered? Sign In
               </Link>
-              <Link href="/login" className="glow-btn" style={{ textDecoration: 'none' }}>
-                Existing Member Login
-              </Link>
-            </>
+            </div>
           )}
         </div>
 

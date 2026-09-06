@@ -379,6 +379,15 @@ export async function addReadingAction(formData: FormData) {
     return { error: insertError.message }
   }
 
+  // 5. Update Expected Meter Reading Last Date if provided
+  const nextReadingDate = formData.get('nextReadingDate') as string
+  if (nextReadingDate && nextReadingDate.trim().length > 0) {
+    await supabase
+      .from('meters')
+      .update({ next_reading_date: nextReadingDate.trim() })
+      .eq('id', meterId)
+  }
+
   revalidatePath('/dashboard')
   revalidatePath('/')
   return { success: true }
@@ -439,3 +448,74 @@ export async function updateNextReadingDateAction(formData: FormData) {
   revalidatePath('/')
   return { success: true }
 }
+
+export async function importGuestReadingsAction(guestData: {
+  meterLimit?: number
+  nextReadingDate?: string
+  readings: Array<{
+    reading_value: number
+    is_billing_reset: boolean
+    notes?: string
+    created_at?: string
+  }>
+}) {
+  const supabase = await createClient()
+  const {
+    data: { user },
+  } = await supabase.auth.getUser()
+  if (!user) return { error: 'Not authenticated.' }
+
+  if (!guestData.readings || guestData.readings.length === 0) {
+    return { success: true, count: 0 }
+  }
+
+  // 1. Get or create user meter
+  const { data: meters } = await supabase
+    .from('meters')
+    .select('*')
+    .eq('profile_id', user.id)
+
+  let activeMeterId = meters?.[0]?.id
+  if (!activeMeterId) {
+    const { data: newMeter, error: meterErr } = await supabase
+      .from('meters')
+      .insert({
+        profile_id: user.id,
+        meter_number: 'Main Meter',
+        max_usage_limit: guestData.meterLimit || 200,
+        billing_cycle_start_day: 1,
+        next_reading_date: guestData.nextReadingDate || null,
+      })
+      .select()
+      .single()
+
+    if (meterErr) return { error: meterErr.message }
+    activeMeterId = newMeter.id
+  } else if (guestData.nextReadingDate) {
+    await supabase
+      .from('meters')
+      .update({ next_reading_date: guestData.nextReadingDate })
+      .eq('id', activeMeterId)
+  }
+
+  // 2. Insert readings in chronological order
+  const sorted = [...guestData.readings].sort(
+    (a, b) => new Date(a.created_at || '').getTime() - new Date(b.created_at || '').getTime()
+  )
+
+  const rowsToInsert = sorted.map((r) => ({
+    meter_id: activeMeterId,
+    reading_value: Number(r.reading_value),
+    notes: r.notes ? `[Imported] ${r.notes}` : '[Imported from Guest Session]',
+    is_billing_reset: !!r.is_billing_reset,
+    created_at: r.created_at || new Date().toISOString(),
+  }))
+
+  const { error: insertErr } = await supabase.from('readings').insert(rowsToInsert)
+  if (insertErr) return { error: insertErr.message }
+
+  revalidatePath('/dashboard')
+  revalidatePath('/')
+  return { success: true, count: rowsToInsert.length }
+}
+

@@ -181,8 +181,9 @@
 }
 
 .statCard {
-  background: rgba(6, 9, 19, 0.4);
+  background: #ffffff;
   border: 1px solid var(--border-color);
+  box-shadow: var(--shadow-sm);
   border-radius: 12px;
   padding: 1.25rem;
   display: flex;

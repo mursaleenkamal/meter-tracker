@@ -114,7 +114,31 @@ function LoginForm() {
           </button>
         </form>
 
-        <p className={styles.footerText}>
+        <div style={{ margin: '1.25rem 0', textAlign: 'center', position: 'relative' }}>
+          <div style={{ height: '1px', background: 'var(--border-color)', width: '100%' }} />
+          <span style={{ position: 'relative', top: '-10px', background: '#0a0f1d', padding: '0 10px', fontSize: '0.78rem', color: 'var(--text-muted)' }}>
+            OR
+          </span>
+        </div>
+
+        <Link
+          href="/guest"
+          className="glow-btn"
+          style={{
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            gap: '0.5rem',
+            width: '100%',
+            textDecoration: 'none',
+            fontSize: '0.9rem',
+            padding: '10px',
+          }}
+        >
+          ⚡ Continue as Guest (Instant Access)
+        </Link>
+
+        <p className={styles.footerText} style={{ marginTop: '1.25rem' }}>
           Don't have an account?{' '}
           <Link href="/register" className={styles.link}>
             Sign up

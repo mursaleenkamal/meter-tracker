@@ -13,6 +13,7 @@ import OfflineReadingsList from '@/components/OfflineReadingsList'
 import NotificationBell from '@/components/NotificationBell'
 import PushReminderChecker from '@/components/PushReminderChecker'
 import DashboardReadingHistory from '@/components/DashboardReadingHistory'
+import GuestDataSyncPrompt from '@/components/GuestDataSyncPrompt'
 
 import {
   Zap,
@@ -281,6 +282,8 @@ export default async function DashboardPage(props: {
 
       {/* Main Content */}
       <main className={styles.main}>
+        <GuestDataSyncPrompt />
+
         <div className={styles.welcomeSection} style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: '1rem' }}>
           <div>
             <h1 className={styles.greeting}>Dashboard</h1>
@@ -544,7 +547,7 @@ export default async function DashboardPage(props: {
                 <svg width="200" height="200" viewBox="0 0 200 200">
                   <defs>
                     <radialGradient id="gaugeGlow" cx="50%" cy="50%" r="50%">
-                      <stop offset="70%" stopColor="#060913" stopOpacity="1" />
+                      <stop offset="70%" stopColor="#ffffff" stopOpacity="1" />
                       <stop offset="100%" stopColor={gaugeColor} stopOpacity="0.15" />
                     </radialGradient>
                   </defs>

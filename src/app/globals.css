@@ -2,38 +2,38 @@
 @import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&family=Share+Tech+Mono&display=swap');
 
 :root {
-  --background: #060913;
-  --bg-gradient: radial-gradient(circle at 50% 50%, #0d1527 0%, #060913 100%);
-  --card-bg: rgba(13, 20, 38, 0.5);
-  --card-bg-hover: rgba(18, 28, 54, 0.65);
-  --border-color: rgba(255, 255, 255, 0.07);
-  --border-color-active: rgba(0, 240, 255, 0.3);
+  --background: #f8fafc;
+  --bg-gradient: radial-gradient(circle at 50% 0%, #e2e8f0 0%, #f8fafc 70%);
+  --card-bg: #ffffff;
+  --card-bg-hover: #ffffff;
+  --border-color: #e2e8f0;
+  --border-color-active: #0284c7;
   
-  --text-primary: #f1f5f9;
-  --text-secondary: #94a3b8;
-  --text-muted: #64748b;
+  --text-primary: #0f172a;
+  --text-secondary: #475569;
+  --text-muted: #94a3b8;
   
-  --primary: #00f0ff;
-  --primary-glow: rgba(0, 240, 255, 0.25);
-  --primary-dark: #00b4c4;
+  --primary: #0284c7;
+  --primary-glow: rgba(2, 132, 199, 0.2);
+  --primary-dark: #0369a1;
   
-  --accent: #8b5cf6;
-  --accent-glow: rgba(139, 92, 246, 0.25);
+  --accent: #7c3aed;
+  --accent-glow: rgba(124, 58, 237, 0.2);
   
-  --success: #10b981;
-  --success-glow: rgba(16, 185, 129, 0.2);
+  --success: #059669;
+  --success-glow: rgba(5, 150, 105, 0.15);
   
-  --warning: #f59e0b;
-  --warning-glow: rgba(245, 158, 11, 0.2);
+  --warning: #d97706;
+  --warning-glow: rgba(217, 119, 6, 0.15);
   
-  --error: #ef4444;
-  --error-glow: rgba(239, 68, 68, 0.2);
+  --error: #dc2626;
+  --error-glow: rgba(220, 38, 38, 0.15);
   
-  --shadow-sm: 0 2px 8px -1px rgba(0, 0, 0, 0.4);
-  --shadow-md: 0 10px 25px -5px rgba(0, 0, 0, 0.5);
-  --shadow-lg: 0 20px 40px -10px rgba(0, 0, 0, 0.7);
+  --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.06), 0 1px 2px rgba(0, 0, 0, 0.04);
+  --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.07), 0 2px 4px -2px rgba(0, 0, 0, 0.05);
+  --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.08), 0 4px 6px -4px rgba(0, 0, 0, 0.04);
   
-  --glass-filter: blur(16px);
+  --glass-filter: blur(12px);
   --font-sans: 'Outfit', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
   --font-mono: 'Share Tech Mono', monospace;
   
@@ -65,79 +65,135 @@ body {
   -webkit-backdrop-filter: var(--glass-filter);
   border: 1px solid var(--border-color);
   border-radius: 16px;
-  box-shadow: var(--shadow-md);
+  box-shadow: var(--shadow-sm);
   transition: all var(--transition-normal);
 }
 
 .glass-panel:hover {
   background: var(--card-bg-hover);
   border-color: var(--border-color-active);
-  box-shadow: var(--shadow-lg), 0 0 15px var(--primary-glow);
+  box-shadow: var(--shadow-md);
 }
 
-/* Glowing Neon Elements */
+/* Glowing Elements */
 .glow-text {
-  text-shadow: 0 0 10px var(--primary-glow);
+  color: var(--primary);
 }
 
 .glow-btn {
-  background: transparent;
+  background: #ffffff;
   color: var(--primary);
-  border: 1px solid var(--primary);
-  padding: 12px 24px;
+  border: 1.5px solid var(--primary);
+  padding: 10px 22px;
   border-radius: 8px;
   font-family: var(--font-sans);
-  font-weight: 500;
+  font-weight: 600;
   cursor: pointer;
   position: relative;
   overflow: hidden;
   transition: all var(--transition-normal);
-  text-shadow: 0 0 4px var(--primary-glow);
-  box-shadow: 0 0 8px var(--primary-glow), inset 0 0 4px var(--primary-glow);
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
 }
 
 .glow-btn:hover {
   background: var(--primary);
-  color: #060913;
-  box-shadow: 0 0 20px var(--primary), inset 0 0 10px rgba(255, 255, 255, 0.5);
-  text-shadow: none;
+  color: #ffffff;
+  box-shadow: 0 4px 12px var(--primary-glow);
 }
 
 .glow-btn-solid {
   background: var(--primary);
-  color: #060913;
+  color: #ffffff;
   border: none;
-  padding: 12px 24px;
+  padding: 10px 22px;
   border-radius: 8px;
   font-weight: 600;
   cursor: pointer;
   transition: all var(--transition-normal);
-  box-shadow: 0 0 15px var(--primary);
+  box-shadow: 0 3px 10px var(--primary-glow);
 }
 
 .glow-btn-solid:hover {
-  background: #ffffff;
-  box-shadow: 0 0 25px #ffffff, 0 0 10px var(--primary);
-  transform: translateY(-2px);
+  background: var(--primary-dark);
+  color: #ffffff;
+  box-shadow: 0 4px 15px var(--primary-glow);
+  transform: translateY(-1px);
 }
 
 .glow-btn-accent {
-  background: transparent;
-  color: var(--accent);
-  border: 1px solid var(--accent);
-  padding: 12px 24px;
+  background: var(--accent);
+  color: #ffffff;
+  border: none;
+  padding: 10px 22px;
   border-radius: 8px;
-  font-weight: 500;
+  font-weight: 600;
   cursor: pointer;
   transition: all var(--transition-normal);
-  box-shadow: 0 0 8px var(--accent-glow), inset 0 0 4px var(--accent-glow);
+  box-shadow: 0 3px 10px var(--accent-glow);
 }
 
 .glow-btn-accent:hover {
-  background: var(--accent);
+  background: #6d28d9;
   color: #ffffff;
-  box-shadow: 0 0 20px var(--accent);
+  box-shadow: 0 4px 15px var(--accent-glow);
 }
+
+/* Global Light Theme Typography & Form Controls */
+h1, h2, h3, h4, h5, h6,
+.title, [class*="title"], [class*="greeting"], [class*="statValue"], [class*="gaugeNumber"] {
+  color: var(--text-primary) !important;
+}
+
+[class*="logo"] {
+  color: var(--text-primary) !important;
+}
+[class*="logo"] span {
+  color: var(--primary) !important;
+}
+
+/* Clean White Panels & Cards */
+[class*="navbar"], [class*="card"] {
+  background: var(--card-bg);
+  border-color: var(--border-color);
+  color: var(--text-primary);
+}
+
+/* Light Theme Inputs */
+input[type="text"],
+input[type="email"],
+input[type="password"],
+input[type="number"],
+input[type="tel"],
+input[type="date"],
+select,
+textarea {
+  background: #ffffff !important;
+  color: var(--text-primary) !important;
+  border: 1px solid var(--border-color) !important;
+}
+input::placeholder, textarea::placeholder {
+  color: var(--text-muted) !important;
+}
+
+/* Modals */
+[class*="setupCard"] {
+  background: #ffffff !important;
+  border: 1px solid var(--border-color) !important;
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.12) !important;
+  color: var(--text-primary);
+}
+[class*="setupCard"] h2, [class*="setupCard"] h3 {
+  color: var(--text-primary) !important;
+}
+
+/* Solid Buttons Text */
+.glow-btn-solid, .glow-btn-accent {
+  color: #ffffff !important;
+}
+.glow-btn-solid * {
+  color: #ffffff !important;
+}
+
 
 /* Animations */
 @keyframes laser-scan {

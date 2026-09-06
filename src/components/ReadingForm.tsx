@@ -6,6 +6,7 @@ import Link from 'next/link'
 import styles from '../app/scanner.module.css'
 import { addReadingAction } from '@/lib/actions'
 import { saveOfflineReading } from '@/lib/offlineStore'
+import { addGuestReading, updateGuestMeter } from '@/lib/guestStore'
 import {
   Camera,
   Keyboard,
@@ -16,6 +17,7 @@ import {
   AlertTriangle,
   RefreshCw,
   WifiOff,
+  Calendar,
 } from 'lucide-react'
 
 interface ReadingFormProps {
@@ -23,7 +25,9 @@ interface ReadingFormProps {
   meterNumber: string
   onClose?: () => void
   onSuccess?: () => void
+  isGuest?: boolean
 }
+
 
 function fileToDataURL(file: File): Promise<string> {
   return new Promise((resolve, reject) => {
@@ -53,6 +57,7 @@ export default function ReadingForm({ meterId, meterNumber, onClose, onSuccess }
   const [submitError, setSubmitError] = useState<string | null>(null)
   const [offlineSuccessMsg, setOfflineSuccessMsg] = useState<string | null>(null)
   const [isBillingReset, setIsBillingReset] = useState(false)
+  const [nextReadingDate, setNextReadingDate] = useState('')
 
   const handleImageChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0]
@@ -149,6 +154,26 @@ export default function ReadingForm({ meterId, meterNumber, onClose, onSuccess }
       }, 1200)
     }
 
+    if (isGuest || meterId.startsWith('guest_')) {
+      if (isBillingReset && nextReadingDate) {
+        updateGuestMeter({ next_reading_date: nextReadingDate })
+      }
+      addGuestReading({
+        reading_value: parsed,
+        is_billing_reset: isBillingReset,
+        notes: activeTab === 'ocr' ? 'Logged via OCR Scanner' : 'Logged Manually',
+      })
+      setIsLoading(false)
+      if (onSuccess) {
+        onSuccess()
+      } else if (onClose) {
+        onClose()
+      } else {
+        window.location.href = '/guest'
+      }
+      return
+    }
+
     if (typeof window !== 'undefined' && !navigator.onLine) {
       await saveOffline()
       return
@@ -159,6 +184,9 @@ export default function ReadingForm({ meterId, meterNumber, onClose, onSuccess }
       formData.append('meterId', meterId)
       formData.append('readingValue', readingValue)
       formData.append('isBillingReset', String(isBillingReset))
+      if (nextReadingDate) {
+        formData.append('nextReadingDate', nextReadingDate)
+      }
       if (imageFile) {
         formData.append('image', imageFile)
       }
@@ -358,10 +386,60 @@ export default function ReadingForm({ meterId, meterNumber, onClose, onSuccess }
           <label htmlFor="isBillingReset" className={styles.label} style={{ marginBottom: 0, cursor: 'pointer', display: 'flex', flexDirection: 'column', gap: '0.15rem' }}>
             <span style={{ fontWeight: 600, fontSize: '0.9rem', color: '#fff' }}>Start New Billing Cycle</span>
             <span style={{ fontSize: '0.78rem', color: 'var(--text-muted)', fontWeight: 'normal', lineHeight: '1.4' }}>
-              Check this if this reading represents the official monthly K-Electric bill reset date.
+              Check this if this reading represents the official monthly bill reset date.
             </span>
           </label>
         </div>
+
+        {isBillingReset && (
+          <div
+            className="fade-in"
+            style={{
+              padding: '0.85rem 1rem',
+              borderRadius: '8px',
+              background: 'rgba(37, 99, 235, 0.1)',
+              border: '1px solid rgba(59, 130, 246, 0.25)',
+              marginBottom: '1rem',
+              display: 'flex',
+              flexDirection: 'column',
+              gap: '0.4rem',
+            }}
+          >
+            <label
+              htmlFor="modalNextReadingDate"
+              style={{
+                fontSize: '0.85rem',
+                fontWeight: 600,
+                color: '#fff',
+                display: 'flex',
+                alignItems: 'center',
+                gap: '0.4rem',
+              }}
+            >
+              <Calendar size={15} style={{ color: 'var(--primary)' }} />
+              Expected Meter Reading Last Date (Cycle End):
+            </label>
+            <input
+              type="date"
+              id="modalNextReadingDate"
+              value={nextReadingDate}
+              onChange={(e) => setNextReadingDate(e.target.value)}
+              disabled={isLoading || isScanning}
+              style={{
+                maxWidth: '240px',
+                background: 'rgba(6, 9, 19, 0.8)',
+                border: '1px solid var(--border-color)',
+                borderRadius: '6px',
+                padding: '8px 12px',
+                color: '#fff',
+                fontSize: '0.88rem',
+              }}
+            />
+            <p style={{ margin: 0, fontSize: '0.76rem', color: 'var(--text-muted)', lineHeight: '1.3' }}>
+              e.g. Specify the expected last date of this cycle (e.g., 30th of September) to calculate your safe daily burn rate.
+            </p>
+          </div>
+        )}
 
         <button
           type="submit"

@@ -10,6 +10,8 @@ interface AddReadingModalProps {
   onClose: () => void
   meterId: string
   meterNumber: string
+  isGuest?: boolean
+  onSuccess?: () => void
 }
 
 export default function AddReadingModal({
@@ -17,6 +19,8 @@ export default function AddReadingModal({
   onClose,
   meterId,
   meterNumber,
+  isGuest,
+  onSuccess,
 }: AddReadingModalProps) {
   // Prevent background scrolling when modal is open
   useEffect(() => {
@@ -72,12 +76,15 @@ export default function AddReadingModal({
         <ReadingForm
           meterId={meterId}
           meterNumber={meterNumber}
+          isGuest={isGuest}
           onClose={onClose}
           onSuccess={() => {
             onClose()
-            // In Next.js App Router, this triggers server components to re-run
-            // their fetch queries without full page reload.
-            window.location.reload()
+            if (onSuccess) {
+              onSuccess()
+            } else {
+              window.location.reload()
+            }
           }}
         />
       </div>

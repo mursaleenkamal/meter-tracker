@@ -1,15 +1,21 @@
 'use client'
 
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import Link from 'next/link'
 import styles from '../auth.module.css'
 import { signUpAction } from '@/lib/actions'
-import { Zap, AlertTriangle, CheckCircle, Loader2 } from 'lucide-react'
+import { hasGuestReadings } from '@/lib/guestStore'
+import { Zap, AlertTriangle, CheckCircle, Loader2, Sparkles } from 'lucide-react'
 
 export default function RegisterPage() {
   const [error, setError] = useState<string | null>(null)
   const [success, setSuccess] = useState<string | null>(null)
   const [isLoading, setIsLoading] = useState(false)
+  const [isGuestActive, setIsGuestActive] = useState(false)
+
+  useEffect(() => {
+    setIsGuestActive(hasGuestReadings())
+  }, [])
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
@@ -43,6 +49,29 @@ export default function RegisterPage() {
           <h2 className={styles.title}>Create Account</h2>
           <p className={styles.subtitle}>Sign up to start tracking your energy usage</p>
         </div>
+
+        {isGuestActive && (
+          <div
+            className="fade-in"
+            style={{
+              background: 'rgba(37, 99, 235, 0.12)',
+              border: '1px solid rgba(59, 130, 246, 0.3)',
+              borderRadius: '10px',
+              padding: '10px 14px',
+              marginBottom: '1rem',
+              display: 'flex',
+              alignItems: 'center',
+              gap: '0.6rem',
+              color: '#93c5fd',
+              fontSize: '0.84rem',
+            }}
+          >
+            <Sparkles size={18} style={{ flexShrink: 0, color: 'var(--primary)' }} />
+            <span>
+              <strong>Guest session detected!</strong> Creating an account will automatically save your existing readings to the cloud.
+            </span>
+          </div>
+        )}
 
         {error && (
           <div className={`${styles.alert} ${styles.errorAlert}`}>
@@ -158,7 +187,31 @@ export default function RegisterPage() {
           </button>
         </form>
 
-        <p className={styles.footerText}>
+        <div style={{ margin: '1.25rem 0', textAlign: 'center', position: 'relative' }}>
+          <div style={{ height: '1px', background: 'var(--border-color)', width: '100%' }} />
+          <span style={{ position: 'relative', top: '-10px', background: '#0a0f1d', padding: '0 10px', fontSize: '0.78rem', color: 'var(--text-muted)' }}>
+            OR
+          </span>
+        </div>
+
+        <Link
+          href="/guest"
+          className="glow-btn"
+          style={{
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            gap: '0.5rem',
+            width: '100%',
+            textDecoration: 'none',
+            fontSize: '0.9rem',
+            padding: '10px',
+          }}
+        >
+          ⚡ Test Without Signing Up (Guest Mode)
+        </Link>
+
+        <p className={styles.footerText} style={{ marginTop: '1.25rem' }}>
           Already registered?{' '}
           <Link href="/login" className={styles.link}>
             Sign in
