@@ -723,8 +723,8 @@ export default function GuestDashboardPage() {
                 <svg width="200" height="200" viewBox="0 0 200 200">
                   <defs>
                     <radialGradient id="guestGaugeGlow" cx="50%" cy="50%" r="50%">
-                      <stop offset="70%" stopColor="#ffffff" stopOpacity="1" />
-                      <stop offset="100%" stopColor={gaugeColor} stopOpacity="0.15" />
+                      <stop offset="60%" stopColor="rgba(10, 16, 34, 0.9)" stopOpacity="1" />
+                      <stop offset="100%" stopColor={gaugeColor} stopOpacity="0.25" />
                     </radialGradient>
                   </defs>
 
@@ -733,7 +733,7 @@ export default function GuestDashboardPage() {
                     cy="100"
                     r={radius}
                     fill="url(#guestGaugeGlow)"
-                    stroke="var(--border-color)"
+                    stroke="rgba(255, 255, 255, 0.08)"
                     strokeWidth="12"
                   />
 
@@ -750,7 +750,7 @@ export default function GuestDashboardPage() {
                     transform="rotate(-90 100 100)"
                     style={{
                       transition: 'stroke-dashoffset var(--transition-slow)',
-                      filter: `drop-shadow(0 0 6px ${gaugeColor})`,
+                      filter: `drop-shadow(0 0 8px ${gaugeColor})`,
                     }}
                   />
                 </svg>
@@ -758,8 +758,8 @@ export default function GuestDashboardPage() {
                 <div className={styles.gaugeTextContainer}>
                   <span className={styles.gaugeNumber}>{currentUsage.toFixed(0)}</span>
                   <span className={styles.gaugeMax}>of {limit} Units</span>
-                  <span className={styles.gaugeLabel} style={{ color: gaugeColor }}>
-                    {usagePercentage.toFixed(0)}% Used
+                  <span className={styles.gaugeLabel} style={{ color: gaugeColor, textShadow: `0 0 8px ${gaugeColor}` }}>
+                    {usagePercentage.toFixed(0)}% USED
                   </span>
                 </div>
               </div>
@@ -769,9 +769,9 @@ export default function GuestDashboardPage() {
                 style={{
                   marginTop: '1.25rem',
                   padding: '0.85rem 1rem',
-                  borderRadius: '8px',
-                  background: '#f8fafc',
-                  border: '1px solid var(--border-color)',
+                  borderRadius: '10px',
+                  background: 'rgba(8, 14, 28, 0.75)',
+                  border: '1px solid rgba(255, 255, 255, 0.08)',
                   display: 'flex',
                   alignItems: 'center',
                   justifyContent: 'space-between',
@@ -786,23 +786,26 @@ export default function GuestDashboardPage() {
                         value={newLimit}
                         onChange={(e) => setNewLimit(e.target.value)}
                         style={{
-                          width: '80px',
-                          padding: '4px 8px',
-                          borderRadius: '4px',
-                          background: '#ffffff',
-                          border: '1px solid var(--border-color)',
-                          color: 'var(--text-primary)',
-                          fontSize: '0.85rem',
+                          width: '85px',
+                          padding: '5px 10px',
+                          borderRadius: '6px',
+                          background: 'rgba(6, 10, 20, 0.9)',
+                          border: '1px solid rgba(0, 240, 255, 0.3)',
+                          color: '#ffffff',
+                          fontSize: '0.9rem',
+                          fontFamily: 'var(--font-mono), monospace',
+                          outline: 'none',
                         }}
                       />
                       <button
                         onClick={handleSaveLimit}
                         style={{
-                          padding: '4px 8px',
+                          padding: '5px 10px',
                           background: 'var(--primary)',
                           border: 'none',
-                          borderRadius: '4px',
-                          color: '#fff',
+                          borderRadius: '6px',
+                          color: '#040915',
+                          fontWeight: 700,
                           cursor: 'pointer',
                         }}
                       >
@@ -810,8 +813,8 @@ export default function GuestDashboardPage() {
                       </button>
                     </div>
                   ) : (
-                    <div style={{ fontSize: '1.1rem', fontWeight: 700, color: 'var(--text-primary)' }}>
-                      {limit} <span style={{ fontSize: '0.8rem', fontWeight: 400, color: 'var(--text-secondary)' }}>Units</span>
+                    <div style={{ fontSize: '1.15rem', fontWeight: 700, color: '#ffffff' }}>
+                      {limit} <span style={{ fontSize: '0.82rem', fontWeight: 400, color: 'var(--text-secondary)' }}>Units</span>
                     </div>
                   )}
                 </div>
@@ -820,15 +823,17 @@ export default function GuestDashboardPage() {
                   <button
                     onClick={() => setIsEditingLimit(true)}
                     style={{
-                      background: 'transparent',
-                      border: 'none',
-                      color: 'var(--text-secondary)',
+                      background: 'rgba(0, 240, 255, 0.08)',
+                      border: '1px solid rgba(0, 240, 255, 0.25)',
+                      borderRadius: '8px',
+                      color: 'var(--primary)',
+                      padding: '6px 12px',
+                      fontSize: '0.82rem',
+                      fontWeight: 600,
                       cursor: 'pointer',
-                      padding: '4px',
                       display: 'flex',
                       alignItems: 'center',
-                      gap: '0.3rem',
-                      fontSize: '0.8rem',
+                      gap: '0.35rem',
                     }}
                   >
                     <Edit2 size={14} /> Edit

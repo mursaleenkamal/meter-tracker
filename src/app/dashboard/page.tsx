@@ -547,8 +547,8 @@ export default async function DashboardPage(props: {
                 <svg width="200" height="200" viewBox="0 0 200 200">
                   <defs>
                     <radialGradient id="gaugeGlow" cx="50%" cy="50%" r="50%">
-                      <stop offset="70%" stopColor="#ffffff" stopOpacity="1" />
-                      <stop offset="100%" stopColor={gaugeColor} stopOpacity="0.15" />
+                      <stop offset="60%" stopColor="rgba(10, 16, 34, 0.9)" stopOpacity="1" />
+                      <stop offset="100%" stopColor={gaugeColor} stopOpacity="0.25" />
                     </radialGradient>
                   </defs>
                   
@@ -558,7 +558,7 @@ export default async function DashboardPage(props: {
                     cy="100"
                     r={radius}
                     fill="url(#gaugeGlow)"
-                    stroke="var(--border-color)"
+                    stroke="rgba(255, 255, 255, 0.08)"
                     strokeWidth="12"
                   />
 

@@ -38,9 +38,11 @@ export default function GuestSignupModal({
           padding: '2.5rem 2rem',
           position: 'relative',
           borderRadius: '20px',
-          background: '#ffffff',
-          border: '1px solid var(--border-color)',
-          boxShadow: '0 20px 60px rgba(0, 0, 0, 0.12)',
+          background: 'rgba(13, 20, 38, 0.95)',
+          backdropFilter: 'blur(20px)',
+          WebkitBackdropFilter: 'blur(20px)',
+          border: '1px solid rgba(0, 240, 255, 0.25)',
+          boxShadow: '0 25px 60px rgba(0, 0, 0, 0.7), 0 0 30px rgba(0, 240, 255, 0.1)',
         }}
         onClick={(e) => e.stopPropagation()}
       >
@@ -115,8 +117,8 @@ export default function GuestSignupModal({
         {/* Value Perks */}
         <div
           style={{
-            background: '#f8fafc',
-            border: '1px solid var(--border-color)',
+            background: 'rgba(8, 14, 28, 0.75)',
+            border: '1px solid rgba(255, 255, 255, 0.08)',
             borderRadius: '12px',
             padding: '1rem 1.25rem',
             marginBottom: '1.5rem',
