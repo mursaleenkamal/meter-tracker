@@ -1,14 +1,20 @@
 import type { Metadata } from 'next'
-import { Outfit } from 'next/font/google'
+import { Outfit, Share_Tech_Mono } from 'next/font/google'
 import './globals.css'
 import { SpeedInsights } from '@vercel/speed-insights/next'
 import NetworkSyncBar from '@/components/NetworkSyncBar'
-import AppPreloader from '@/components/AppPreloader'
 
 const outfit = Outfit({
   subsets: ['latin'],
   display: 'swap',
   variable: '--font-outfit',
+})
+
+const shareTechMono = Share_Tech_Mono({
+  weight: '400',
+  subsets: ['latin'],
+  display: 'swap',
+  variable: '--font-mono',
 })
 
 const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://www.readmeter.online'
@@ -107,9 +113,8 @@ export default function RootLayout({
   children: React.ReactNode
 }>) {
   return (
-    <html lang="en" className={outfit.variable}>
+    <html lang="en" className={`${outfit.variable} ${shareTechMono.variable}`}>
       <body>
-        <AppPreloader />
         {children}
         <NetworkSyncBar />
         <SpeedInsights />

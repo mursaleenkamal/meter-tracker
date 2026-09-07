@@ -59,40 +59,42 @@ export default function InstantMeterCheckWidget() {
       style={{
         width: '100%',
         maxWidth: '560px',
-        margin: '2rem auto 0 auto',
-        padding: '1.75rem',
-        borderRadius: '16px',
+        margin: '1.5rem auto 0 auto',
+        padding: '1.85rem',
+        borderRadius: '18px',
         textAlign: 'left',
-        background: 'var(--card-bg)',
-        border: '1px solid var(--border-color)',
-        boxShadow: 'var(--shadow-md)',
+        background: 'linear-gradient(135deg, rgba(17, 27, 51, 0.75) 0%, rgba(10, 16, 32, 0.85) 100%)',
+        border: '1px solid rgba(255, 255, 255, 0.1)',
+        boxShadow: '0 20px 40px -15px rgba(0,0,0,0.8), 0 0 25px rgba(0, 240, 255, 0.08)',
       }}
     >
       <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '1.25rem' }}>
-        <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
-          <Sparkles size={20} style={{ color: 'var(--primary)' }} />
-          <h3 style={{ margin: 0, fontSize: '1.05rem', fontWeight: 600, color: 'var(--text-primary)' }}>
+        <div style={{ display: 'flex', alignItems: 'center', gap: '0.6rem' }}>
+          <Sparkles size={20} style={{ color: 'var(--primary)', filter: 'drop-shadow(0 0 8px var(--primary-glow))' }} />
+          <h3 style={{ margin: 0, fontSize: '1.1rem', fontWeight: 700, color: 'var(--text-primary)' }}>
             Instant Slab & Unit Check
           </h3>
         </div>
         <span
           style={{
             fontSize: '0.75rem',
-            fontWeight: 600,
-            padding: '3px 8px',
-            borderRadius: '6px',
-            background: 'rgba(2, 132, 199, 0.12)',
+            fontWeight: 700,
+            padding: '4px 10px',
+            borderRadius: '9999px',
+            background: 'rgba(0, 240, 255, 0.1)',
+            border: '1px solid rgba(0, 240, 255, 0.25)',
             color: 'var(--primary)',
+            letterSpacing: '0.3px',
           }}
         >
-          No Signup Required
+          ⚡ No Signup Required
         </span>
       </div>
 
       <form onSubmit={handleStartTracking}>
-        <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '0.75rem', marginBottom: '1rem' }}>
+        <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '0.85rem', marginBottom: '1.1rem' }}>
           <div>
-            <label style={{ display: 'block', fontSize: '0.78rem', color: 'var(--text-secondary)', marginBottom: '0.35rem' }}>
+            <label style={{ display: 'block', fontSize: '0.8rem', fontWeight: 600, color: 'var(--text-secondary)', marginBottom: '0.4rem' }}>
               Previous / Start Reading
             </label>
             <input
@@ -103,18 +105,20 @@ export default function InstantMeterCheckWidget() {
               onChange={(e) => setPrevReading(e.target.value)}
               style={{
                 width: '100%',
-                background: '#ffffff',
-                border: '1px solid var(--border-color)',
-                borderRadius: '8px',
-                padding: '10px 12px',
+                background: 'rgba(6, 10, 20, 0.85)',
+                border: '1px solid rgba(255, 255, 255, 0.12)',
+                borderRadius: '10px',
+                padding: '11px 13px',
                 color: 'var(--text-primary)',
-                fontSize: '0.92rem',
+                fontSize: '0.95rem',
+                fontFamily: 'var(--font-mono), monospace',
+                outline: 'none',
               }}
             />
           </div>
 
           <div>
-            <label style={{ display: 'block', fontSize: '0.78rem', color: 'var(--text-secondary)', marginBottom: '0.35rem' }}>
+            <label style={{ display: 'block', fontSize: '0.8rem', fontWeight: 600, color: 'var(--text-secondary)', marginBottom: '0.4rem' }}>
               Current Reading <span style={{ color: 'var(--primary)' }}>*</span>
             </label>
             <input
@@ -126,12 +130,14 @@ export default function InstantMeterCheckWidget() {
               required
               style={{
                 width: '100%',
-                background: '#ffffff',
-                border: '1px solid var(--border-color)',
-                borderRadius: '8px',
-                padding: '10px 12px',
+                background: 'rgba(6, 10, 20, 0.85)',
+                border: '1px solid rgba(255, 255, 255, 0.12)',
+                borderRadius: '10px',
+                padding: '11px 13px',
                 color: 'var(--text-primary)',
-                fontSize: '0.92rem',
+                fontSize: '0.95rem',
+                fontFamily: 'var(--font-mono), monospace',
+                outline: 'none',
               }}
             />
           </div>

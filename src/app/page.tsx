@@ -1,4 +1,5 @@
 import { createClient } from '@/utils/supabase/server'
+import { cookies } from 'next/headers'
 import Link from 'next/link'
 import styles from './landing.module.css'
 import dashboardStyles from './dashboard.module.css'
@@ -26,11 +27,12 @@ function getBillingCycleStart(startDay: number): Date {
 }
 
 export default async function LandingPage() {
-  const supabase = await createClient()
-  const {
-    data: { user },
-  } = await supabase.auth.getUser()
+  const cookieStore = await cookies()
+  const hasAuthCookie = cookieStore.getAll().some(
+    (c) => c.name.includes('-auth-token') || c.name.startsWith('sb-')
+  )
 
+  let user = null
   let activeMeter = null
   let latestReadingValue: number | null = null
   let readings: any[] = []
@@ -42,7 +44,14 @@ export default async function LandingPage() {
   let dailyAverage = 0
   let projectedUsage = 0
 
-  if (user) {
+  if (hasAuthCookie) {
+    const supabase = await createClient()
+    const {
+      data: { user: authUser },
+    } = await supabase.auth.getUser()
+    user = authUser
+
+    if (user) {
     const { data: meters } = await supabase
       .from('meters')
       .select('*')
@@ -106,6 +115,7 @@ export default async function LandingPage() {
       projectedUsage = currentUsage + (dailyAverage * daysRemaining)
     }
   }
+}
 
   return (
     <div className={styles.container}>
@@ -246,21 +256,21 @@ export default async function LandingPage() {
               <div style={{ display: 'flex', gap: '1rem', flexWrap: 'wrap', justifyContent: 'center' }}>
                 <Link
                   href="/guest"
-                  className="glow-btn-solid"
-                  style={{ textDecoration: 'none', display: 'inline-flex', alignItems: 'center', gap: '0.5rem', padding: '12px 24px', fontSize: '1rem', fontWeight: 600 }}
+                  className="glow-btn"
+                  style={{ textDecoration: 'none', display: 'inline-flex', alignItems: 'center', gap: '0.5rem', padding: '11px 22px', fontSize: '0.95rem', fontWeight: 600 }}
                 >
-                  ⚡ Start Tracking Free (No Signup) <ChevronRight size={18} />
+                  ⚡ Open Live Guest Sandbox <ChevronRight size={18} />
                 </Link>
                 <Link
                   href="/register"
-                  className="glow-btn"
-                  style={{ textDecoration: 'none', display: 'inline-flex', alignItems: 'center', gap: '0.5rem', padding: '12px 20px', fontSize: '0.95rem' }}
+                  className="glow-btn-accent"
+                  style={{ textDecoration: 'none', display: 'inline-flex', alignItems: 'center', gap: '0.5rem', padding: '11px 22px', fontSize: '0.95rem' }}
                 >
-                  Create Account
+                  Create Free Account
                 </Link>
               </div>
-              <Link href="/login" style={{ color: 'var(--text-secondary)', fontSize: '0.88rem', textDecoration: 'underline' }}>
-                Already registered? Sign In
+              <Link href="/login" style={{ color: 'var(--text-secondary)', fontSize: '0.88rem', textDecoration: 'none' }}>
+                Already registered? <span style={{ color: 'var(--primary)', textDecoration: 'underline' }}>Sign In</span>
               </Link>
             </div>
           )}
