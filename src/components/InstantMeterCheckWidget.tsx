@@ -2,7 +2,6 @@
 
 import { useState } from 'react'
 import { useRouter } from 'next/navigation'
-import { addGuestReading, clearGuestState } from '@/lib/guestStore'
 import { Zap, ArrowRight, ShieldCheck, ShieldAlert, Sparkles } from 'lucide-react'
 
 export default function InstantMeterCheckWidget() {
@@ -16,7 +15,7 @@ export default function InstantMeterCheckWidget() {
   const hasValidInputs = !isNaN(prev) && !isNaN(curr) && prev >= 0 && curr >= prev
   const units = hasValidInputs ? curr - prev : 0
 
-  const handleStartTracking = (e: React.FormEvent) => {
+  const handleStartTracking = async (e: React.FormEvent) => {
     e.preventDefault()
     setError(null)
 
@@ -29,6 +28,8 @@ export default function InstantMeterCheckWidget() {
       setError('Current reading must be greater than or equal to previous reading.')
       return
     }
+
+    const { addGuestReading, clearGuestState } = await import('@/lib/guestStore')
 
     // Initialize clean guest state with these readings
     clearGuestState()
@@ -71,9 +72,9 @@ export default function InstantMeterCheckWidget() {
       <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '1.25rem' }}>
         <div style={{ display: 'flex', alignItems: 'center', gap: '0.6rem' }}>
           <Sparkles size={20} style={{ color: 'var(--primary)', filter: 'drop-shadow(0 0 8px var(--primary-glow))' }} />
-          <h3 style={{ margin: 0, fontSize: '1.1rem', fontWeight: 700, color: 'var(--text-primary)' }}>
+          <h2 style={{ margin: 0, fontSize: '1.1rem', fontWeight: 700, color: 'var(--text-primary)' }}>
             Instant Slab & Unit Check
-          </h3>
+          </h2>
         </div>
         <span
           style={{

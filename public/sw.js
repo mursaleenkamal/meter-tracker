@@ -71,7 +71,6 @@ self.addEventListener('push', (event) => {
     body: data.body,
     icon: data.icon || '/icon-192.png',
     badge: data.badge || '/favicon-32x32.png',
-    vibrate: [100, 50, 100],
     data: {
       url: data.url || '/dashboard',
     },

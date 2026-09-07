@@ -1,15 +1,16 @@
 import { createClient } from '@/utils/supabase/server'
 import { cookies } from 'next/headers'
 import Link from 'next/link'
+import dynamic from 'next/dynamic'
 import styles from './landing.module.css'
 import dashboardStyles from './dashboard.module.css'
-import { Zap, Camera, TrendingUp, Key, ChevronRight, FileText } from 'lucide-react'
-import QuickReadingForm from '@/components/QuickReadingForm'
-import DeleteReadingBtn from '@/components/DeleteReadingBtn'
-import AddReadingButton from '@/components/AddReadingButton'
-import OfflineReadingsList from '@/components/OfflineReadingsList'
-import DashboardReadingHistory from '@/components/DashboardReadingHistory'
+import { Zap, Camera, TrendingUp, Key, ChevronRight } from 'lucide-react'
 import InstantMeterCheckWidget from '@/components/InstantMeterCheckWidget'
+
+const QuickReadingForm = dynamic(() => import('@/components/QuickReadingForm'))
+const AddReadingButton = dynamic(() => import('@/components/AddReadingButton'))
+const OfflineReadingsList = dynamic(() => import('@/components/OfflineReadingsList'))
+const DashboardReadingHistory = dynamic(() => import('@/components/DashboardReadingHistory'))
 
 // Helper function to calculate the start of the current billing cycle
 function getBillingCycleStart(startDay: number): Date {
@@ -276,35 +277,38 @@ export default async function LandingPage() {
           )}
         </div>
 
-        <section className={styles.featuresGrid}>
-          <div className={`${styles.featureCard} fade-in`}>
-            <div className={styles.featureIcon}>
-              <Camera size={24} />
+        <section className={styles.featuresSection} aria-label="Core Capabilities">
+          <h2 className={styles.sectionTitle}>Engineered for Real-Time Power Monitoring</h2>
+          <div className={styles.featuresGrid}>
+            <div className={`${styles.featureCard} fade-in`}>
+              <div className={styles.featureIcon}>
+                <Camera size={24} />
+              </div>
+              <h3 className={styles.featureTitle}>AI-Powered OCR scan</h3>
+              <p className={styles.featureText}>
+                Snap a picture of your physical meter dials using your phone's camera. Our browser-side OCR engine parses and extracts digits automatically.
+              </p>
             </div>
-            <h3 className={styles.featureTitle}>AI-Powered OCR scan</h3>
-            <p className={styles.featureText}>
-              Snap a picture of your physical meter dials using your phone's camera. Our browser-side OCR engine parses and extracts digits automatically.
-            </p>
-          </div>
 
-          <div className={`${styles.featureCard} fade-in`}>
-            <div className={`${styles.featureIcon} ${styles.featureIconAccent}`}>
-              <TrendingUp size={24} />
+            <div className={`${styles.featureCard} fade-in`}>
+              <div className={`${styles.featureIcon} ${styles.featureIconAccent}`}>
+                <TrendingUp size={24} />
+              </div>
+              <h3 className={styles.featureTitle}>Usage Limits & Alerts</h3>
+              <p className={styles.featureText}>
+                Set a monthly limit on units. Get visual warnings at 80% capacity and pulsing critical alerts once you breach your budget.
+              </p>
             </div>
-            <h3 className={styles.featureTitle}>Usage Limits & Alerts</h3>
-            <p className={styles.featureText}>
-              Set a monthly limit on units. Get visual warnings at 80% capacity and pulsing critical alerts once you breach your budget.
-            </p>
-          </div>
 
-          <div className={`${styles.featureCard} fade-in`}>
-            <div className={`${styles.featureIcon} ${styles.featureIconSuccess}`}>
-              <Key size={24} />
+            <div className={`${styles.featureCard} fade-in`}>
+              <div className={`${styles.featureIcon} ${styles.featureIconSuccess}`}>
+                <Key size={24} />
+              </div>
+              <h3 className={styles.featureTitle}>Secure Dashboard</h3>
+              <p className={styles.featureText}>
+                Fully authenticated user profiles backed by Supabase. Your meter readings are protected by enterprise-grade Row Level Security.
+              </p>
             </div>
-            <h3 className={styles.featureTitle}>Secure Dashboard</h3>
-            <p className={styles.featureText}>
-              Fully authenticated user profiles backed by Supabase. Your meter readings are protected by enterprise-grade Row Level Security.
-            </p>
           </div>
         </section>
       </main>

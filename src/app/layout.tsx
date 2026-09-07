@@ -1,8 +1,16 @@
-import type { Metadata } from 'next'
+import type { Metadata, Viewport } from 'next'
 import { Outfit, Share_Tech_Mono } from 'next/font/google'
+import dynamic from 'next/dynamic'
 import './globals.css'
 import { SpeedInsights } from '@vercel/speed-insights/next'
-import NetworkSyncBar from '@/components/NetworkSyncBar'
+
+const NetworkSyncBar = dynamic(() => import('@/components/NetworkSyncBar'))
+
+export const viewport: Viewport = {
+  themeColor: '#060913',
+  width: 'device-width',
+  initialScale: 1,
+}
 
 const outfit = Outfit({
   subsets: ['latin'],

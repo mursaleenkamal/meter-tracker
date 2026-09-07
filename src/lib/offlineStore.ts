@@ -1,7 +1,5 @@
 'use client'
 
-import { addReadingAction } from '@/lib/actions'
-
 export interface OfflineReading {
   tempId: string
   meterId: string
@@ -100,6 +98,8 @@ export async function syncOfflineReadings(): Promise<{
   let successCount = 0
   let failCount = 0
   const errors: string[] = []
+
+  const { addReadingAction } = await import('@/lib/actions')
 
   // Sync oldest first so chronological sequence is preserved
   const sortedReadings = [...readings].reverse()
