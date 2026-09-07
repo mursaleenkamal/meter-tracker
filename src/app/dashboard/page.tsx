@@ -256,7 +256,7 @@ export default async function DashboardPage(props: {
             Read<span>Meter</span>
           </span>
         </div>
-        <div className={styles.userInfo} style={{ display: 'flex', alignItems: 'center', gap: '1rem' }}>
+        <div className={styles.userInfo}>
           <NotificationBell />
           <span className={styles.userName}>
             Welcome, <strong>{profile?.full_name || user.email}</strong>
@@ -266,14 +266,15 @@ export default async function DashboardPage(props: {
               type="submit"
               className="glow-btn-accent"
               style={{
-                display: 'flex',
+                display: 'inline-flex',
                 alignItems: 'center',
-                gap: '0.4rem',
-                padding: '8px 16px',
-                fontSize: '0.9rem',
+                gap: '0.35rem',
+                padding: '6px 12px',
+                fontSize: '0.82rem',
+                whiteSpace: 'nowrap',
               }}
             >
-              <LogOut size={16} /> Sign Out
+              <LogOut size={14} /> Sign Out
             </button>
           </form>
         </div>

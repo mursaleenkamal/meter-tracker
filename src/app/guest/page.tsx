@@ -235,30 +235,17 @@ export default function GuestDashboardPage() {
           </span>
         </Link>
 
-        <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem' }}>
-          <div
-            style={{
-              display: 'inline-flex',
-              alignItems: 'center',
-              gap: '0.4rem',
-              padding: '5px 12px',
-              borderRadius: '20px',
-              background: 'rgba(245, 158, 11, 0.12)',
-              border: '1px solid rgba(245, 158, 11, 0.3)',
-              color: '#fef3c7',
-              fontSize: '0.8rem',
-              fontWeight: 600,
-            }}
-          >
+        <div className={styles.navActions}>
+          <div className={styles.guestBadge}>
             <span style={{ width: '8px', height: '8px', borderRadius: '50%', background: 'var(--warning)' }} />
             Guest Mode
           </div>
 
-          <Link href="/register" className="glow-btn-solid" style={{ textDecoration: 'none', padding: '7px 14px', fontSize: '0.85rem' }}>
-            <CloudUpload size={15} style={{ marginRight: '4px' }} /> Save to Cloud
+          <Link href="/register" className="glow-btn-solid" style={{ textDecoration: 'none', padding: '7px 13px', fontSize: '0.82rem', whiteSpace: 'nowrap' }}>
+            <CloudUpload size={14} style={{ marginRight: '4px' }} /> Save to Cloud
           </Link>
 
-          <Link href="/login" className="glow-btn" style={{ textDecoration: 'none', padding: '7px 14px', fontSize: '0.85rem' }}>
+          <Link href="/login" className="glow-btn" style={{ textDecoration: 'none', padding: '7px 13px', fontSize: '0.82rem', whiteSpace: 'nowrap' }}>
             Sign In
           </Link>
         </div>
@@ -268,7 +255,7 @@ export default function GuestDashboardPage() {
       <main className={styles.main}>
 
         {/* Header Title & Actions */}
-        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: '1rem' }}>
+        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', flexWrap: 'wrap', gap: '1rem' }}>
           <div>
             <h1 className={styles.greeting} style={{ fontSize: '1.85rem' }}>
               Electricity Consumption Tracker
@@ -278,7 +265,7 @@ export default function GuestDashboardPage() {
             </p>
           </div>
 
-          <div style={{ display: 'flex', gap: '0.75rem', flexWrap: 'wrap' }}>
+          <div style={{ display: 'flex', gap: '0.75rem', width: 'auto' }}>
             <button
               onClick={() => setIsModalOpen(true)}
               className="glow-btn-solid"
@@ -288,7 +275,7 @@ export default function GuestDashboardPage() {
                 gap: '0.5rem',
                 cursor: 'pointer',
                 padding: '10px 16px',
-                fontSize: '0.9rem',
+                fontSize: '0.88rem',
               }}
             >
               <Camera size={18} /> Camera OCR / Advanced Log
@@ -298,28 +285,15 @@ export default function GuestDashboardPage() {
 
         {/* K-Electric Slab Alert Banner */}
         <div
-          style={{
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'space-between',
-            padding: '1.1rem 1.5rem',
-            borderRadius: '12px',
-            background: isKeBreached
-              ? 'rgba(239, 68, 68, 0.12)'
+          className={`${styles.tariffBanner} ${
+            isKeBreached
+              ? styles.tariffBannerBreach
               : isKeWarning
-              ? 'rgba(245, 158, 11, 0.12)'
-              : 'rgba(16, 185, 129, 0.12)',
-            border: `1px solid ${
-              isKeBreached
-                ? 'rgba(239, 68, 68, 0.3)'
-                : isKeWarning
-                ? 'rgba(245, 158, 11, 0.3)'
-                : 'rgba(16, 185, 129, 0.3)'
-            }`,
-            color: isKeBreached ? '#b91c1c' : isKeWarning ? '#92400e' : '#065f46',
-          }}
+              ? styles.tariffBannerWarning
+              : styles.tariffBannerSafe
+          }`}
         >
-          <div style={{ display: 'flex', alignItems: 'center', gap: '1rem' }}>
+          <div className={styles.tariffBannerContent}>
             {isKeBreached ? (
               <ShieldAlert size={28} style={{ color: 'var(--error)', flexShrink: 0 }} />
             ) : isKeWarning ? (
@@ -328,7 +302,7 @@ export default function GuestDashboardPage() {
               <ShieldCheck size={28} style={{ color: 'var(--success)', flexShrink: 0 }} />
             )}
             <div>
-              <div style={{ fontWeight: 700, fontSize: '1rem' }}>
+              <div className={styles.tariffBannerTitle}>
                 K-Electric Tariff Status:{' '}
                 {isKeBreached
                   ? 'UNPROTECTED SLAB EXCEEDED'
@@ -336,7 +310,7 @@ export default function GuestDashboardPage() {
                   ? 'BREACH PROJECTED BEFORE CYCLE END'
                   : 'PROTECTED (Subsidized Rate Safe)'}
               </div>
-              <div style={{ fontSize: '0.85rem', opacity: 0.9, marginTop: '0.2rem' }}>
+              <div className={styles.tariffBannerDesc}>
                 {isKeBreached ? (
                   `You have consumed ${currentUsage.toFixed(0)} Units (exceeded 200 limit). High commercial rate applies this month.`
                 ) : isKeWarning ? (
@@ -348,64 +322,58 @@ export default function GuestDashboardPage() {
             </div>
           </div>
 
-          <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-end', gap: '0.4rem', flexShrink: 0 }}>
-            <div
-              style={{
-                fontSize: '0.84rem',
-                fontWeight: 600,
-                padding: '6px 12px',
-                borderRadius: '8px',
-                background: 'rgba(0, 0, 0, 0.05)',
-                color: 'var(--text-primary)',
-                display: 'inline-flex',
-                alignItems: 'center',
-                gap: '0.45rem',
-              }}
-            >
-              <Calendar size={14} style={{ color: 'var(--primary)' }} />
-              <span>
-                Expected Last Date:{' '}
-                {nextReset.toLocaleDateString(undefined, {
-                  month: 'short',
-                  day: 'numeric',
-                  year: 'numeric',
-                })}
-              </span>
-              <span style={{ opacity: 0.5 }}>•</span>
-              <span style={{ color: 'var(--primary)' }}>{daysRemaining}d left</span>
-              <button
-                onClick={() => {
-                  setExpectedDateInput(meter.next_reading_date || '')
-                  setIsEditingExpectedDate(!isEditingExpectedDate)
-                }}
-                style={{
-                  background: 'transparent',
-                  border: 'none',
-                  color: 'var(--text-secondary)',
-                  cursor: 'pointer',
-                  padding: '2px',
-                  display: 'inline-flex',
-                  alignItems: 'center',
-                }}
-                title="Edit Expected Reading Last Date"
-              >
-                <Edit2 size={12} />
-              </button>
+          <div className={styles.tariffBannerMeta}>
+            <div className={styles.tariffDatePill}>
+              <div style={{ display: 'inline-flex', alignItems: 'center', gap: '0.4rem' }}>
+                <Calendar size={14} style={{ color: 'var(--primary)' }} />
+                <span>
+                  Expected Last Date:{' '}
+                  {nextReset.toLocaleDateString(undefined, {
+                    month: 'short',
+                    day: 'numeric',
+                    year: 'numeric',
+                  })}
+                </span>
+              </div>
+              <div style={{ display: 'inline-flex', alignItems: 'center', gap: '0.4rem' }}>
+                <span style={{ opacity: 0.5 }}>•</span>
+                <span style={{ color: 'var(--primary)', fontWeight: 700 }}>{daysRemaining}d left</span>
+                <button
+                  onClick={() => {
+                    setExpectedDateInput(meter.next_reading_date || '')
+                    setIsEditingExpectedDate(!isEditingExpectedDate)
+                  }}
+                  style={{
+                    background: 'transparent',
+                    border: 'none',
+                    color: 'var(--text-secondary)',
+                    cursor: 'pointer',
+                    padding: '3px',
+                    display: 'inline-flex',
+                    alignItems: 'center',
+                  }}
+                  title="Edit Expected Reading Last Date"
+                >
+                  <Edit2 size={13} />
+                </button>
+              </div>
             </div>
 
             {isEditingExpectedDate && (
-              <div className="fade-in" style={{ display: 'flex', alignItems: 'center', gap: '0.4rem', background: 'rgba(6,9,19,0.9)', padding: '6px 10px', borderRadius: '8px', border: '1px solid var(--border-color)' }}>
+              <div className="fade-in" style={{ display: 'flex', alignItems: 'center', gap: '0.4rem', background: 'rgba(6,9,19,0.95)', padding: '6px 10px', borderRadius: '8px', border: '1px solid var(--border-color)', width: '100%', maxWidth: '320px', flexWrap: 'wrap' }}>
                 <input
                   type="date"
                   value={expectedDateInput}
                   onChange={(e) => setExpectedDateInput(e.target.value)}
                   style={{
+                    flex: 1,
+                    minWidth: '130px',
                     background: 'rgba(0, 0, 0, 0.6)',
                     border: '1px solid var(--border-color)',
                     borderRadius: '6px',
-                    padding: '4px 8px',
+                    padding: '5px 8px',
                     color: '#fff',
-                    fontSize: '0.8rem',
+                    fontSize: '0.82rem',
                   }}
                 />
                 <button
@@ -416,7 +384,7 @@ export default function GuestDashboardPage() {
                     }
                   }}
                   className="glow-btn-solid"
-                  style={{ padding: '4px 10px', fontSize: '0.78rem', cursor: 'pointer' }}
+                  style={{ padding: '5px 12px', fontSize: '0.78rem', cursor: 'pointer' }}
                 >
                   Save
                 </button>
@@ -503,7 +471,7 @@ export default function GuestDashboardPage() {
               )}
 
               <form onSubmit={handleQuickSubmit} style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
-                <div style={{ display: 'flex', gap: '0.75rem', flexWrap: 'wrap' }}>
+                <div style={{ display: 'flex', gap: '0.65rem', flexWrap: 'wrap', width: '100%' }}>
                   <input
                     type="number"
                     step="1"
@@ -512,8 +480,9 @@ export default function GuestDashboardPage() {
                     onChange={(e) => setQuickReading(e.target.value)}
                     required
                     style={{
-                      flex: 1,
-                      minWidth: '200px',
+                      flex: '1 1 200px',
+                      width: '100%',
+                      minWidth: '0',
                       background: 'rgba(6, 9, 19, 0.6)',
                       border: '1px solid var(--border-color)',
                       borderRadius: '8px',
@@ -522,36 +491,44 @@ export default function GuestDashboardPage() {
                       fontSize: '0.95rem',
                     }}
                   />
-                  <button
-                    type="submit"
-                    className="glow-btn-solid"
-                    disabled={!quickReading}
-                    style={{
-                      display: 'inline-flex',
-                      alignItems: 'center',
-                      gap: '0.4rem',
-                      padding: '12px 20px',
-                      fontSize: '0.9rem',
-                      cursor: 'pointer',
-                    }}
-                  >
-                    <Plus size={16} /> Log Units
-                  </button>
-                  <button
-                    type="button"
-                    onClick={() => setIsModalOpen(true)}
-                    className="glow-btn"
-                    style={{
-                      display: 'inline-flex',
-                      alignItems: 'center',
-                      gap: '0.4rem',
-                      padding: '12px 16px',
-                      fontSize: '0.9rem',
-                      cursor: 'pointer',
-                    }}
-                  >
-                    <Camera size={16} /> Snap Dial
-                  </button>
+                  <div style={{ display: 'flex', gap: '0.5rem', flex: '1 1 220px' }}>
+                    <button
+                      type="submit"
+                      className="glow-btn-solid"
+                      disabled={!quickReading}
+                      style={{
+                        flex: 1,
+                        display: 'inline-flex',
+                        alignItems: 'center',
+                        justifyContent: 'center',
+                        gap: '0.4rem',
+                        padding: '12px 14px',
+                        fontSize: '0.88rem',
+                        cursor: 'pointer',
+                        whiteSpace: 'nowrap',
+                      }}
+                    >
+                      <Plus size={16} /> Log Units
+                    </button>
+                    <button
+                      type="button"
+                      onClick={() => setIsModalOpen(true)}
+                      className="glow-btn"
+                      style={{
+                        flex: 1,
+                        display: 'inline-flex',
+                        alignItems: 'center',
+                        justifyContent: 'center',
+                        gap: '0.4rem',
+                        padding: '12px 14px',
+                        fontSize: '0.88rem',
+                        cursor: 'pointer',
+                        whiteSpace: 'nowrap',
+                      }}
+                    >
+                      <Camera size={16} /> Snap Dial
+                    </button>
+                  </div>
                 </div>
 
                 <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
@@ -639,8 +616,8 @@ export default function GuestDashboardPage() {
                   </p>
                 </div>
               ) : (
-                <div style={{ overflowX: 'auto' }}>
-                  <table style={{ width: '100%', borderCollapse: 'collapse', textAlign: 'left', fontSize: '0.88rem' }}>
+                <div className={styles.tableContainer}>
+                  <table style={{ width: '100%', minWidth: '480px', borderCollapse: 'collapse', textAlign: 'left', fontSize: '0.88rem' }}>
                     <thead>
                       <tr style={{ borderBottom: '1px solid var(--border-color)', color: 'var(--text-secondary)' }}>
                         <th style={{ padding: '10px 12px' }}>Date</th>

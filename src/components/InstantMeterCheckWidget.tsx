@@ -61,7 +61,7 @@ export default function InstantMeterCheckWidget() {
         width: '100%',
         maxWidth: '560px',
         margin: '1.5rem auto 0 auto',
-        padding: '1.85rem',
+        padding: 'clamp(1.1rem, 4vw, 1.85rem)',
         borderRadius: '18px',
         textAlign: 'left',
         background: 'linear-gradient(135deg, rgba(17, 27, 51, 0.75) 0%, rgba(10, 16, 32, 0.85) 100%)',
@@ -69,7 +69,7 @@ export default function InstantMeterCheckWidget() {
         boxShadow: '0 20px 40px -15px rgba(0,0,0,0.8), 0 0 25px rgba(0, 240, 255, 0.08)',
       }}
     >
-      <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '1.25rem' }}>
+      <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', flexWrap: 'wrap', gap: '0.5rem', marginBottom: '1.25rem' }}>
         <div style={{ display: 'flex', alignItems: 'center', gap: '0.6rem' }}>
           <Sparkles size={20} style={{ color: 'var(--primary)', filter: 'drop-shadow(0 0 8px var(--primary-glow))' }} />
           <h2 style={{ margin: 0, fontSize: '1.1rem', fontWeight: 700, color: 'var(--text-primary)' }}>
@@ -93,7 +93,7 @@ export default function InstantMeterCheckWidget() {
       </div>
 
       <form onSubmit={handleStartTracking}>
-        <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '0.85rem', marginBottom: '1.1rem' }}>
+        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(180px, 1fr))', gap: '0.85rem', marginBottom: '1.1rem' }}>
           <div>
             <label style={{ display: 'block', fontSize: '0.8rem', fontWeight: 600, color: 'var(--text-secondary)', marginBottom: '0.4rem' }}>
               Previous / Start Reading
