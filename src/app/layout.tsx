@@ -1,6 +1,7 @@
 import type { Metadata, Viewport } from 'next'
 import { Outfit, Share_Tech_Mono } from 'next/font/google'
 import dynamic from 'next/dynamic'
+import Script from 'next/script'
 import './globals.css'
 import { SpeedInsights } from '@vercel/speed-insights/next'
 
@@ -122,6 +123,13 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" className={`${outfit.variable} ${shareTechMono.variable}`}>
+      <head>
+        <Script
+          src="https://js-cdn.dynatrace.com/jstag/18b1df4492a/bf91766pri/6a55b5b72824dbb3_complete.js"
+          strategy="beforeInteractive"
+          crossOrigin="anonymous"
+        />
+      </head>
       <body>
         {children}
         <NetworkSyncBar />
