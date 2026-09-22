@@ -1,7 +1,6 @@
 import { createClient } from '@/utils/supabase/server'
 import { redirect } from 'next/navigation'
 import ReadingForm from '@/components/ReadingForm'
-import DynatraceUserTracker from '@/components/DynatraceUserTracker'
 import styles from '../../scanner.module.css'
 import { Zap } from 'lucide-react'
 
@@ -36,7 +35,6 @@ export default async function AddReadingPage(props: {
 
   return (
     <div className={styles.container}>
-      <DynatraceUserTracker userIdentifier={user.email} />
       {/* Top Navbar */}
       <nav
         style={{
