@@ -14,6 +14,7 @@ import NotificationBell from '@/components/NotificationBell'
 import PushReminderChecker from '@/components/PushReminderChecker'
 import DashboardReadingHistory from '@/components/DashboardReadingHistory'
 import GuestDataSyncPrompt from '@/components/GuestDataSyncPrompt'
+import DynatraceUserTracker from '@/components/DynatraceUserTracker'
 
 import {
   Zap,
@@ -246,6 +247,7 @@ export default async function DashboardPage(props: {
 
   return (
     <div className={styles.container}>
+      <DynatraceUserTracker userIdentifier={user.email} />
       <PushReminderChecker activeMeter={activeMeter} readings={readings || []} />
 
       {/* Top Navbar */}
