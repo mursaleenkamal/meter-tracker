@@ -4,6 +4,8 @@ import dynamic from 'next/dynamic'
 import Script from 'next/script'
 import './globals.css'
 import { SpeedInsights } from '@vercel/speed-insights/next'
+import { createClient } from '@/utils/supabase/server'
+import DynatraceUserTracker from '@/components/DynatraceUserTracker'
 
 const NetworkSyncBar = dynamic(() => import('@/components/NetworkSyncBar'))
 
@@ -116,11 +118,22 @@ export const metadata: Metadata = {
   },
 }
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode
 }>) {
+  let userIdentifier = ''
+  try {
+    const supabase = await createClient()
+    const {
+      data: { user },
+    } = await supabase.auth.getUser()
+    userIdentifier = user?.email || ''
+  } catch {
+    // unauthenticated or pre-render fallback
+  }
+
   return (
     <html lang="en" className={`${outfit.variable} ${shareTechMono.variable}`}>
       <head>
@@ -129,8 +142,16 @@ export default function RootLayout({
           strategy="beforeInteractive"
           crossOrigin="anonymous"
         />
+        {userIdentifier ? (
+          <script
+            dangerouslySetInnerHTML={{
+              __html: `window.dynatraceUser = ${JSON.stringify(userIdentifier)};`,
+            }}
+          />
+        ) : null}
       </head>
       <body>
+        {userIdentifier ? <DynatraceUserTracker userIdentifier={userIdentifier} /> : null}
         {children}
         <NetworkSyncBar />
         <SpeedInsights />

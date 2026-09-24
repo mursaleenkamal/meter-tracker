@@ -25,12 +25,24 @@ function LoginForm() {
     setError(null)
 
     const formData = new FormData(e.currentTarget)
+    const emailVal = (formData.get('email') as string)?.trim() || ''
     const result = await signInAction(formData)
 
     if (result?.error) {
       setError(result.error)
       setIsLoading(false)
     } else {
+      if (emailVal && typeof window !== 'undefined') {
+        try {
+          ;(window as unknown as Record<string, unknown>).dynatraceUser = emailVal
+          const dtrum = (window as unknown as { dtrum?: { identifyUser: (id: string) => void } }).dtrum
+          if (dtrum && typeof dtrum.identifyUser === 'function') {
+            dtrum.identifyUser(emailVal)
+          }
+        } catch {
+          // ignore
+        }
+      }
       window.location.href = '/dashboard'
     }
   }
