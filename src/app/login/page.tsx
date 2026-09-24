@@ -2,12 +2,13 @@
 
 import { Suspense, useEffect, useState } from 'react'
 import Link from 'next/link'
-import { useSearchParams } from 'next/navigation'
+import { useRouter, useSearchParams } from 'next/navigation'
 import styles from '../auth.module.css'
 import { signInAction } from '@/lib/actions'
 import { Zap, AlertTriangle, Loader2 } from 'lucide-react'
 
 function LoginForm() {
+  const router = useRouter()
   const searchParams = useSearchParams()
   const [error, setError] = useState<string | null>(null)
   const [isLoading, setIsLoading] = useState(false)
@@ -35,15 +36,28 @@ function LoginForm() {
       if (emailVal && typeof window !== 'undefined') {
         try {
           ;(window as unknown as Record<string, unknown>).dynatraceUser = emailVal
-          const dtrum = (window as unknown as { dtrum?: { identifyUser: (id: string) => void } }).dtrum
-          if (dtrum && typeof dtrum.identifyUser === 'function') {
-            dtrum.identifyUser(emailVal)
+          document.cookie = `dynatrace_user=${emailVal}; path=/; max-age=2592000; SameSite=Lax`
+          document.cookie = `dynatraceUser=${emailVal}; path=/; max-age=2592000; SameSite=Lax`
+          const win = window as unknown as {
+            dtrum?: {
+              identifyUser?: (id: string) => void
+              enterAction?: (name: string) => number
+              leaveAction?: (id: number) => void
+            }
+          }
+          if (win.dtrum && typeof win.dtrum.identifyUser === 'function') {
+            win.dtrum.identifyUser(emailVal)
+            if (typeof win.dtrum.enterAction === 'function' && typeof win.dtrum.leaveAction === 'function') {
+              const actionId = win.dtrum.enterAction(`Sign In: ${emailVal}`)
+              if (actionId) win.dtrum.leaveAction(actionId)
+            }
           }
         } catch {
           // ignore
         }
       }
-      window.location.href = '/dashboard'
+      router.push('/dashboard')
+      router.refresh()
     }
   }
 

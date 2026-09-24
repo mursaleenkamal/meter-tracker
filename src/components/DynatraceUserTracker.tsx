@@ -6,22 +6,21 @@ import { createClient } from '@/utils/supabase/client'
 function applyUserIdentification(email: string) {
   if (!email || typeof window === 'undefined') return
 
-  // 1. Set global JavaScript variables for Dynatrace UI (JavaScript variable: dynatraceUser)
-  try {
-    ;(window as unknown as Record<string, unknown>).dynatraceUser = email
-    ;(window as unknown as Record<string, unknown>).currentUser = email
-  } catch {
-    // ignore
-  }
+  const cleanEmail = email.trim()
 
-  // 2. Set Cookie for Dynatrace UI (Cookie value: dynatrace_user)
+  // 1. Set global JavaScript variables
   try {
-    document.cookie = `dynatrace_user=${encodeURIComponent(email)}; path=/; max-age=86400; SameSite=Lax`
-  } catch {
-    // ignore
-  }
+    ;(window as unknown as Record<string, unknown>).dynatraceUser = cleanEmail
+    ;(window as unknown as Record<string, unknown>).currentUser = cleanEmail
+  } catch {}
 
-  // 3. Set Meta tag in <head> for Dynatrace UI (Meta tag: dynatrace-user)
+  // 2. Set Cookies (both raw and encoded)
+  try {
+    document.cookie = `dynatrace_user=${cleanEmail}; path=/; max-age=2592000; SameSite=Lax`
+    document.cookie = `dynatraceUser=${cleanEmail}; path=/; max-age=2592000; SameSite=Lax`
+  } catch {}
+
+  // 3. Set Meta tag in <head>
   try {
     let meta = document.querySelector('meta[name="dynatrace-user"]') as HTMLMetaElement | null
     if (!meta) {
@@ -29,23 +28,29 @@ function applyUserIdentification(email: string) {
       meta.name = 'dynatrace-user'
       document.head.appendChild(meta)
     }
-    meta.content = email
-  } catch {
-    // ignore
-  }
+    meta.content = cleanEmail
+  } catch {}
 
-  // 4. Call official Dynatrace JS Agent API (window.dtrum.identifyUser)
+  // 4. Call official Dynatrace JS Agent API with Beacon Flush
   const tryIdentify = () => {
     const win = window as unknown as {
       dtrum?: {
         identifyUser?: (id: string) => void
+        enterAction?: (name: string, type?: string, startTime?: number, sourceUrl?: string) => number
+        leaveAction?: (actionId: number) => void
       }
     }
     if (win.dtrum && typeof win.dtrum.identifyUser === 'function') {
       try {
-        win.dtrum.identifyUser(email)
-      } catch {
-        // ignore
+        win.dtrum.identifyUser(cleanEmail)
+        if (typeof win.dtrum.enterAction === 'function' && typeof win.dtrum.leaveAction === 'function') {
+          const actionId = win.dtrum.enterAction(`Identified: ${cleanEmail}`)
+          if (actionId) {
+            win.dtrum.leaveAction(actionId)
+          }
+        }
+      } catch (err) {
+        console.warn('[Dynatrace] identifyUser error:', err)
       }
       return true
     }
@@ -56,10 +61,10 @@ function applyUserIdentification(email: string) {
     let attempts = 0
     const interval = setInterval(() => {
       attempts += 1
-      if (tryIdentify() || attempts >= 15) {
+      if (tryIdentify() || attempts >= 20) {
         clearInterval(interval)
       }
-    }, 500)
+    }, 300)
   }
 }
 
@@ -75,11 +80,9 @@ export default function DynatraceUserTracker({ userIdentifier }: DynatraceUserTr
       applyUserIdentification(userIdentifier)
     }
 
-    // Client-side Supabase session listener
     try {
       const supabase = createClient()
 
-      // Initial check on mount
       supabase.auth.getUser().then(({ data }) => {
         const email = data?.user?.email
         if (email) {
@@ -88,13 +91,12 @@ export default function DynatraceUserTracker({ userIdentifier }: DynatraceUserTr
         }
       })
 
-      // Subscribe to login / token refresh / logout events
       const {
         data: { subscription },
       } = supabase.auth.onAuthStateChange((_event, session) => {
         const email = session?.user?.email || null
-        setCurrentUser(email)
         if (email) {
+          setCurrentUser(email)
           applyUserIdentification(email)
         }
       })
@@ -103,14 +105,29 @@ export default function DynatraceUserTracker({ userIdentifier }: DynatraceUserTr
         subscription.unsubscribe()
       }
     } catch {
-      // fallback
+      // ignore
     }
   }, [userIdentifier])
 
   return (
     <>
       <meta name="dynatrace-user" content={currentUser || ''} />
-      <span id="dt-user-tag" style={{ display: 'none' }} aria-hidden="true">
+      <span
+        id="dt-user-tag"
+        style={{
+          position: 'absolute',
+          width: '1px',
+          height: '1px',
+          padding: 0,
+          margin: '-1px',
+          overflow: 'hidden',
+          clip: 'rect(0, 0, 0, 0)',
+          whiteSpace: 'nowrap',
+          border: 0,
+          pointerEvents: 'none',
+        }}
+        aria-hidden="true"
+      >
         {currentUser || ''}
       </span>
     </>
