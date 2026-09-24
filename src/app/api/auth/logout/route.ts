@@ -8,7 +8,10 @@ export async function POST(request: Request) {
 
   revalidatePath('/', 'layout')
 
-  return NextResponse.redirect(new URL('/login', request.url), {
+  const response = NextResponse.redirect(new URL('/login', request.url), {
     status: 302,
   })
+  response.cookies.delete('dynatrace_user')
+
+  return response
 }

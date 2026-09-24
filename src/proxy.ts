@@ -76,7 +76,25 @@ export async function proxy(request: NextRequest) {
   // Redirect from login/register if already logged in
   if (isAuthRoute && user) {
     url.pathname = '/dashboard'
-    return NextResponse.redirect(url)
+    const redirectResponse = NextResponse.redirect(url)
+    if (user.email) {
+      redirectResponse.cookies.set('dynatrace_user', user.email, {
+        path: '/',
+        httpOnly: false,
+        sameSite: 'lax',
+        maxAge: 86400 * 30,
+      })
+    }
+    return redirectResponse
+  }
+
+  if (user?.email) {
+    response.cookies.set('dynatrace_user', user.email, {
+      path: '/',
+      httpOnly: false,
+      sameSite: 'lax',
+      maxAge: 86400 * 30,
+    })
   }
 
   return response

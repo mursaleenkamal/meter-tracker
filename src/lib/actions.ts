@@ -3,7 +3,7 @@
 import { createClient } from '@/utils/supabase/server'
 import { revalidatePath } from 'next/cache'
 import { redirect } from 'next/navigation'
-import { headers } from 'next/headers'
+import { headers, cookies } from 'next/headers'
 
 // Auth Actions
 
@@ -139,6 +139,14 @@ export async function signInAction(formData: FormData) {
   if (error) {
     return { error: error.message }
   }
+
+  const cookieStore = await cookies()
+  cookieStore.set('dynatrace_user', email.trim(), {
+    path: '/',
+    httpOnly: false,
+    sameSite: 'lax',
+    maxAge: 86400 * 30,
+  })
 
   revalidatePath('/', 'layout')
   return { success: true }
