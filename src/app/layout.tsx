@@ -137,18 +137,21 @@ export default async function RootLayout({
   return (
     <html lang="en" className={`${outfit.variable} ${shareTechMono.variable}`}>
       <head>
+        {userIdentifier ? (
+          <>
+            <meta name="dynatrace-user" content={userIdentifier} />
+            <script
+              dangerouslySetInnerHTML={{
+                __html: `window.dynatraceUser = ${JSON.stringify(userIdentifier)}; try { document.cookie = "dynatrace_user=" + ${JSON.stringify(userIdentifier)} + "; path=/; max-age=2592000; SameSite=Lax"; } catch(e){}`,
+              }}
+            />
+          </>
+        ) : null}
         <Script
           src="https://js-cdn.dynatrace.com/jstag/18b1df4492a/bf91766pri/6a55b5b72824dbb3_complete.js"
           strategy="beforeInteractive"
           crossOrigin="anonymous"
         />
-        {userIdentifier ? (
-          <script
-            dangerouslySetInnerHTML={{
-              __html: `window.dynatraceUser = ${JSON.stringify(userIdentifier)};`,
-            }}
-          />
-        ) : null}
       </head>
       <body>
         <DynatraceUserTracker userIdentifier={userIdentifier || undefined} />

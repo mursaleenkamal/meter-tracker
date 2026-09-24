@@ -56,8 +56,7 @@ function LoginForm() {
           // ignore
         }
       }
-      router.push('/dashboard')
-      router.refresh()
+      window.location.replace('/dashboard')
     }
   }
 
