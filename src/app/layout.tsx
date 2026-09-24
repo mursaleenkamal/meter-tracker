@@ -151,7 +151,7 @@ export default async function RootLayout({
         ) : null}
       </head>
       <body>
-        {userIdentifier ? <DynatraceUserTracker userIdentifier={userIdentifier} /> : null}
+        <DynatraceUserTracker userIdentifier={userIdentifier || undefined} />
         {children}
         <NetworkSyncBar />
         <SpeedInsights />
