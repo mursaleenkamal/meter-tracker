@@ -142,6 +142,10 @@ export default async function RootLayout({
   return (
     <html lang="en" className={`${outfit.variable} ${shareTechMono.variable}`}>
       <head>
+        <meta
+          name="google-site-verification"
+          content="ZfqH4xBePFsCQnWUpnyJhRP4LfwOdyqQ3Gk4SLhDhNY"
+        />
         {userIdentifier ? (
           <>
             <meta name="dynatrace-user" content={userIdentifier} />
