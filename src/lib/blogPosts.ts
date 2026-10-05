@@ -1,3 +1,5 @@
+import { createClient } from '@/utils/supabase/server'
+
 export interface BlogPost {
   slug: string
   title: string
@@ -11,6 +13,7 @@ export interface BlogPost {
   coverImage?: string
   content: string
   faqs?: { question: string; answer: string }[]
+  status?: 'draft' | 'in_review' | 'published'
 }
 
 export const BLOG_POSTS: BlogPost[] = [
@@ -206,12 +209,67 @@ $$\\text{Total} = 8,800 + 15,200 = \\text{Rs 24,000 (Exact Match!)}$$
   },
 ]
 
-export function getAllPosts(): BlogPost[] {
-  return BLOG_POSTS.sort(
-    (a, b) => new Date(b.publishedAt).getTime() - new Date(a.publishedAt).getTime()
-  )
+export async function getAllPosts(): Promise<BlogPost[]> {
+  try {
+    const supabase = await createClient()
+    const { data, error } = await supabase
+      .from('blog_posts')
+      .select('*')
+      .eq('status', 'published')
+      .order('published_at', { ascending: false })
+
+    if (error || !data || data.length === 0) {
+      return BLOG_POSTS
+    }
+
+    return data.map((item: any) => ({
+      slug: item.slug,
+      title: item.title,
+      excerpt: item.excerpt,
+      publishedAt: item.published_at ? item.published_at.split('T')[0] : '2026-10-05',
+      updatedAt: item.updated_at ? item.updated_at.split('T')[0] : '2026-10-05',
+      author: item.author || 'Read Meter Energy Team',
+      readTime: item.read_time || '5 min read',
+      category: item.category || 'Energy Saving',
+      tags: item.tags || [],
+      content: item.content,
+      faqs: item.faqs || [],
+      status: item.status,
+    }))
+  } catch {
+    return BLOG_POSTS
+  }
 }
 
-export function getPostBySlug(slug: string): BlogPost | undefined {
-  return BLOG_POSTS.find((post) => post.slug === slug)
+export async function getPostBySlug(slug: string): Promise<BlogPost | undefined> {
+  try {
+    const supabase = await createClient()
+    const { data, error } = await supabase
+      .from('blog_posts')
+      .select('*')
+      .eq('slug', slug)
+      .eq('status', 'published')
+      .single()
+
+    if (error || !data) {
+      return BLOG_POSTS.find((p) => p.slug === slug)
+    }
+
+    return {
+      slug: data.slug,
+      title: data.title,
+      excerpt: data.excerpt,
+      publishedAt: data.published_at ? data.published_at.split('T')[0] : '2026-10-05',
+      updatedAt: data.updated_at ? data.updated_at.split('T')[0] : '2026-10-05',
+      author: data.author || 'Read Meter Energy Team',
+      readTime: data.read_time || '5 min read',
+      category: data.category || 'Energy Saving',
+      tags: data.tags || [],
+      content: data.content,
+      faqs: data.faqs || [],
+      status: data.status,
+    }
+  } catch {
+    return BLOG_POSTS.find((p) => p.slug === slug)
+  }
 }

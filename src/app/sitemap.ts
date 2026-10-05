@@ -1,11 +1,11 @@
 import { MetadataRoute } from 'next'
 import { getAllPosts } from '@/lib/blogPosts'
 
-export default function sitemap(): MetadataRoute.Sitemap {
+export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://www.readmeter.online'
   const currentDate = new Date()
 
-  const blogPosts = getAllPosts()
+  const blogPosts = await getAllPosts()
   const blogRoutes: MetadataRoute.Sitemap = blogPosts.map((post) => ({
     url: `${baseUrl}/blog/${post.slug}`,
     lastModified: new Date(post.updatedAt || post.publishedAt),

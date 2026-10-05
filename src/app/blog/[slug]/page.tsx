@@ -11,8 +11,10 @@ interface PageProps {
   params: Promise<{ slug: string }>
 }
 
+export const revalidate = 60 // ISR revalidation
+
 export async function generateStaticParams() {
-  const posts = getAllPosts()
+  const posts = await getAllPosts()
   return posts.map((post) => ({
     slug: post.slug,
   }))
@@ -20,7 +22,7 @@ export async function generateStaticParams() {
 
 export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
   const { slug } = await params
-  const post = getPostBySlug(slug)
+  const post = await getPostBySlug(slug)
 
   if (!post) {
     return {
@@ -179,7 +181,7 @@ function renderContent(content: string) {
 
 export default async function BlogPostPage({ params }: PageProps) {
   const { slug } = await params
-  const post = getPostBySlug(slug)
+  const post = await getPostBySlug(slug)
 
   if (!post) {
     notFound()
