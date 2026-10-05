@@ -14,6 +14,7 @@ import {
 } from '@/lib/guestStore'
 import AddReadingModal from '@/components/AddReadingModal'
 import GuestSignupModal from '@/components/GuestSignupModal'
+import ShareWhatsAppBtn from '@/components/ShareWhatsAppBtn'
 import {
   Zap,
   TrendingUp,
@@ -31,6 +32,7 @@ import {
   ShieldCheck,
   Edit2,
   Check,
+  Share2,
 } from 'lucide-react'
 
 function getBillingCycleStart(startDay: number): Date {
@@ -323,6 +325,27 @@ export default function GuestDashboardPage() {
           </div>
 
           <div className={styles.tariffBannerMeta}>
+            <div style={{ display: 'flex', gap: '0.6rem', alignItems: 'center', flexWrap: 'wrap' }}>
+              <ShareWhatsAppBtn
+                type="status"
+                meterNumber="Guest Meter"
+                currentUsage={currentUsage}
+                limit={limit}
+                dailyAverage={dailyAverage}
+                daysRemaining={daysRemaining}
+                projectedUsage={projectedUsage}
+                slabStatus={
+                  isKeBreached
+                    ? 'UNPROTECTED (Breached)'
+                    : isKeWarning
+                    ? 'AT RISK (Projected Breach)'
+                    : 'PROTECTED (Subsidized)'
+                }
+                variant="pill"
+                label="WhatsApp Share"
+              />
+            </div>
+
             <div className={styles.tariffDatePill}>
               <div style={{ display: 'inline-flex', alignItems: 'center', gap: '0.4rem' }}>
                 <Calendar size={14} style={{ color: 'var(--primary)' }} />
@@ -662,7 +685,15 @@ export default function GuestDashboardPage() {
                           <td style={{ padding: '10px 12px', color: 'var(--text-secondary)', fontSize: '0.82rem' }}>
                             {r.notes || '-'}
                           </td>
-                          <td style={{ padding: '10px 12px', textAlign: 'right' }}>
+                          <td style={{ padding: '10px 12px', textAlign: 'right', display: 'flex', alignItems: 'center', justifyContent: 'flex-end', gap: '0.4rem' }}>
+                            <ShareWhatsAppBtn
+                              type="reading"
+                              meterNumber="Guest Meter"
+                              value={Number(r.reading_value)}
+                              date={new Date(r.created_at).toLocaleDateString()}
+                              notes={r.notes || null}
+                              variant="icon"
+                            />
                             <button
                               onClick={() => deleteGuestReading(r.id)}
                               style={{
@@ -690,6 +721,39 @@ export default function GuestDashboardPage() {
 
           {/* Right Column: Circular Gauge & Limit Settings */}
           <div className={styles.rightColumn}>
+            {/* Quick Actions */}
+            <div className={styles.card}>
+              <h3 className={styles.cardTitle}>Quick Actions</h3>
+              <div style={{ display: 'flex', flexDirection: 'column', gap: '0.75rem', marginTop: '1rem' }}>
+                <button
+                  type="button"
+                  onClick={() => setIsModalOpen(true)}
+                  className="glow-btn-solid"
+                  style={{ width: '100%', padding: '11px', fontSize: '0.95rem', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '0.5rem', cursor: 'pointer' }}
+                >
+                  <Camera size={18} /> Snap / Log Meter Reading
+                </button>
+                <ShareWhatsAppBtn
+                  type="status"
+                  meterNumber="Guest Meter"
+                  currentUsage={currentUsage}
+                  limit={limit}
+                  dailyAverage={dailyAverage}
+                  daysRemaining={daysRemaining}
+                  projectedUsage={projectedUsage}
+                  slabStatus={
+                    isKeBreached
+                      ? 'UNPROTECTED (Breached)'
+                      : isKeWarning
+                      ? 'AT RISK (Projected Breach)'
+                      : 'PROTECTED (Subsidized)'
+                  }
+                  label="WhatsApp par Status Share Karein"
+                  style={{ width: '100%', padding: '11px', fontSize: '0.95rem' }}
+                />
+              </div>
+            </div>
+
             {/* SVG Circular Gauge */}
             <div className={styles.card}>
               <h3 className={styles.cardTitle} style={{ marginBottom: '1rem' }}>

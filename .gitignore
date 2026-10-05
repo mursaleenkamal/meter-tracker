@@ -33,6 +33,9 @@ yarn-error.log*
 # env files (can opt-in for committing if needed)
 .env*
 
+# marketing automation
+marketing_assets/
+
 # vercel
 .vercel
 

@@ -3,6 +3,7 @@
 import { useState } from 'react'
 import { useRouter } from 'next/navigation'
 import { Zap, ArrowRight, ShieldCheck, ShieldAlert, Sparkles } from 'lucide-react'
+import ShareWhatsAppBtn from '@/components/ShareWhatsAppBtn'
 
 export default function InstantMeterCheckWidget() {
   const router = useRouter()
@@ -154,34 +155,45 @@ export default function InstantMeterCheckWidget() {
           <div
             className="fade-in"
             style={{
-              padding: '0.85rem 1rem',
-              borderRadius: '10px',
+              padding: '1rem',
+              borderRadius: '12px',
               background: units >= 200 ? 'rgba(239, 68, 68, 0.12)' : 'rgba(16, 185, 129, 0.12)',
               border: `1px solid ${units >= 200 ? 'rgba(239, 68, 68, 0.3)' : 'rgba(16, 185, 129, 0.3)'}`,
               marginBottom: '1rem',
               display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'space-between',
+              flexDirection: 'column',
+              gap: '0.75rem',
             }}
           >
-            <div style={{ display: 'flex', alignItems: 'center', gap: '0.6rem' }}>
-              {units >= 200 ? (
-                <ShieldAlert size={20} style={{ color: 'var(--error)' }} />
-              ) : (
-                <ShieldCheck size={20} style={{ color: 'var(--success)' }} />
-              )}
-              <div>
-                <div style={{ fontWeight: 700, fontSize: '0.92rem', color: 'var(--text-primary)' }}>
-                  {units.toFixed(0)} Units Consumed
-                </div>
-                <div style={{ fontSize: '0.78rem', color: units >= 200 ? 'var(--error)' : 'var(--success)' }}>
-                  {units >= 200 ? '⚠️ Exceeded 200 protected slab' : '✅ Protected Subsidized Slab Safe'}
+            <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: '0.5rem' }}>
+              <div style={{ display: 'flex', alignItems: 'center', gap: '0.6rem' }}>
+                {units >= 200 ? (
+                  <ShieldAlert size={22} style={{ color: 'var(--error)', flexShrink: 0 }} />
+                ) : (
+                  <ShieldCheck size={22} style={{ color: 'var(--success)', flexShrink: 0 }} />
+                )}
+                <div>
+                  <div style={{ fontWeight: 800, fontSize: '1rem', color: 'var(--text-primary)' }}>
+                    {units.toFixed(0)} Units Consumed
+                  </div>
+                  <div style={{ fontSize: '0.8rem', fontWeight: 600, color: units >= 200 ? 'var(--error)' : 'var(--success)' }}>
+                    {units >= 200 ? '⚠️ Exceeded 200 protected slab' : '✅ Protected Subsidized Slab Safe'}
+                  </div>
                 </div>
               </div>
+              <div style={{ fontSize: '0.82rem', fontWeight: 600, color: 'var(--text-secondary)', textAlign: 'right' }}>
+                {units < 200 ? `${(200 - units).toFixed(0)} units left` : 'High rate applied'}
+              </div>
             </div>
-            <div style={{ fontSize: '0.8rem', color: 'var(--text-secondary)' }}>
-              {units < 200 ? `${(200 - units).toFixed(0)} units left` : 'Unprotected rate'}
-            </div>
+
+            <ShareWhatsAppBtn
+              type="instant"
+              units={units}
+              prevReading={prev}
+              currReading={curr}
+              label="WhatsApp par Result Share Karein"
+              style={{ width: '100%', padding: '9px 14px', fontSize: '0.88rem' }}
+            />
           </div>
         )}
 
