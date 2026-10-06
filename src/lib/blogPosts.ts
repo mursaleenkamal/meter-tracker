@@ -18,6 +18,95 @@ export interface BlogPost {
 
 export const BLOG_POSTS: BlogPost[] = [
   {
+    slug: 'nepra-200-units-protected-slab-6-month-rule-pakistan',
+    title: 'NEPRA 200 Units Protected Slab Rule 2026: 1 Extra Unit Par Rs 4,000+ Ka Nuqsan Kyun?',
+    excerpt:
+      'Complete breakdown of NEPRA 200-unit protected slab rules in Pakistan. Learn how crossing 200 units (even 201 units) strips your protected status for 6 consecutive months and triggers massive electricity bills.',
+    publishedAt: '2026-10-06',
+    updatedAt: '2026-10-06',
+    author: 'Read Meter Energy Team',
+    readTime: '6 min read',
+    category: 'Tariff Guides',
+    tags: [
+      'NEPRA Protected Slab',
+      '200 Units Rule',
+      'Electricity Bill Pakistan',
+      'K-Electric',
+      'LESCO',
+      'Unprotected Slab',
+      '6 Month Penalty',
+    ],
+    content: `
+## 200 Units Protected Slab Kia Hai Aur Is Ka 6-Month Rule Kaise Kaam Karta Hai?
+
+Pakistan mein bijli ke barhte hue charges ke baad har gharelu sarif (domestic consumer) ke liye sab se ahem cheez **Protected vs Unprotected Slab** ka farq samajhna hai. NEPRA ke official tariff ke tehat agar aap ka bijli ka istemal **200 units** tak rehta hai to aap ko subsidized / protected rate milta hai. Lekin agar aap ne ghalti se bhi **201 units** kar diye, to na sirf us maheene ka bill doguna hoga balke aap **aglay 6 maheenon ke liye protected category se bahar** nikaal diye jayenge!
+
+---
+
+### 1. Protected vs Unprotected Bill: Real Comparison (199 vs 201 Units)
+
+Aksar sarfeen sochte hain ke "Sirf 1 ya 2 units barhne se kitna farq parh jayega?" Yeh table dekhein aur farq khud samajhein:
+
+| Metric | 199 Units (Protected Category) | 201 Units (Unprotected Category) |
+| :--- | :--- | :--- |
+| **Base Tariff Rate** | ~Rs 14.50 – Rs 16.00 per unit | **~Rs 38.50 – Rs 42.00 per unit** |
+| **Protected Subsidy** | ✅ Active (Govt. Relief Included) | ❌ Cancelled (Zero Subsidy) |
+| **Taxes, FPA & Surcharges** | Kam tax ratio | **18% GST + High FPA + Debt Surcharge** |
+| **Total Estimated Bill** | **~Rs 3,100 – Rs 3,500** | **~Rs 8,200 – Rs 9,000** |
+| **Farq (Difference)** | — | **+Rs 5,000+ Ka Direct Jhatka! ⚡** |
+
+Sirf **2 extra units** ki qeemat Rs 5,000 se ziada parhti hai kyunke aap ka poora billing slab shift ho jata hai.
+
+---
+
+### 2. The Dangerous "6-Month Consecutive Rule" (6 Maheenay Ki Saza)
+
+NEPRA aur DISCOs (K-Electric, LESCO, IESCO, FESCO, MEPCO, HESCO) ka qanoon bohot sakht hai:
+
+> ⚠️ **The 6-Month Rule:** Kisi bhi consumer ko **Protected Category** mein shamil hone ke liye pichlay **musalsal 6 maheenon** tak har maheene 200 ya us se kam units consume karne hote hain.
+
+Agar aap ne kisi aik maheene bhi **201 units** touch kar liye:
+1. Aap foran **Unprotected (Non-Protected)** category mein convert ho jayenge.
+2. Aglay maheene agar aap ne sirf **150 units** bhi istemal kiye, tab bhi aap ko sasta protected rate **nahi milega** balke unprotected rate par bill aayega.
+3. Dobara protected status haasil karne ke liye aap ko lagataar 6 maheenay 200 se kam units maintain karne parhein ge.
+4. **Kul Nuqsan:** 6 maheenon mein aap ki jeb se **Rs 25,000 se Rs 35,000 tak izafi raqam** nikal jati hai!
+
+---
+
+### 3. Protected Slab Bachane Ke 4 Sunheri Qawaneen (Smart Tips)
+
+Ghar mein thori si ehtiyat se aap asaani se 200 units ke andar reh sakte hain:
+
+1. **Inverter AC Ka Istemal 26°C Par Karein:** AC ko 26°C par chalayein aur sath mein pankha low speed par chalayein. Is se AC compressor kam bijli khinchta hai.
+2. **Pani Ki Motor (Water Pump) Timing:** Tanki bharne ke liye motor subah ya dopahar ko chalayein jab voltage stable hon, aur tanki bharte hi band karein (overflow band karein).
+3. **Standby Power Kill Karein:** TV, Microwave, aur Mobile Chargers ko switch se band karein. Standby load maheene mein 10–15 be-faida units zaya karta hai.
+4. **Rozana Meter Reading Scan Karein:** Month-end par bill dekh kar rone ke bajaye daily **Read Meter Web App** se apne meter dial ki tasweer lein. Read Meter aap ko real-time batata hai ke aap ke kitne units baaqi hain aur safe slab limit kitni door hai.
+
+---
+
+### 4. Read Meter Calculator Se Apna Slab Check Karein
+
+Aap hamari website par mojood **[Protected Slab Calculator](/protected-slab-calculator)** istemal kar ke check kar sakte hain ke aap ke mojooda units ke mutabiq aap ka agla bill kitna aayega aur slab break hone mein kitne units baaqi hain.
+    `,
+    faqs: [
+      {
+        question: 'Agar aik maheene 201 units aayein to kia aglay maheene rate ziada aayega?',
+        answer:
+          'Jee haan, NEPRA ke 6-month rule ke mutabiq agar aik maheene bhi 200 units cross ho jayein to aglay 6 maheenon tak unprotected higher tariff rate lagta hai.',
+      },
+      {
+        question: 'Protected slab ka rate kitna hota hai?',
+        answer:
+          'Protected slab (0-200 units) ka base tariff taqreeban Rs 14 se Rs 16 per unit hota hai jabke unprotected category mein rate Rs 38 se Rs 42+ per unit tak pohanch jata hai.',
+      },
+      {
+        question: 'Read Meter app se slab break hone se kaise bacha ja sakta hai?',
+        answer:
+          'Read Meter app par rozana camera se meter dial scan karne se aap ko daily unit consumption aur projected month-end bill ka andaza rehta hai, jisse aap 200 units cross hone se pehle hi heavy appliances control kar sakte hain.',
+      },
+    ],
+  },
+  {
     slug: 'inverter-ac-electricity-units-consumption-pakistan',
     title: 'Inverter AC vs Non-Inverter: 1.5 Ton Real Units Consumption & Slabs Impact 2026',
     excerpt:
