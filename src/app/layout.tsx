@@ -10,7 +10,7 @@ import DynatraceUserTracker from '@/components/DynatraceUserTracker'
 const NetworkSyncBar = dynamic(() => import('@/components/NetworkSyncBar'))
 
 export const viewport: Viewport = {
-  themeColor: '#060913',
+  themeColor: '#0b111e',
   width: 'device-width',
   initialScale: 1,
 }

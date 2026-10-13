@@ -58,8 +58,8 @@
 }
 
 .badge {
-  background: rgba(0, 240, 255, 0.08);
-  border: 1px solid rgba(0, 240, 255, 0.35);
+  background: var(--success-bg);
+  border: 1px solid rgba(16, 185, 129, 0.35);
   color: var(--primary);
   padding: 0.5rem 1.25rem;
   border-radius: 9999px;
@@ -67,7 +67,6 @@
   font-weight: 700;
   letter-spacing: 1.2px;
   text-transform: uppercase;
-  box-shadow: 0 0 20px rgba(0, 240, 255, 0.15);
   display: inline-flex;
   align-items: center;
   gap: 0.5rem;
@@ -83,11 +82,10 @@
 }
 
 .title span {
-  background: linear-gradient(135deg, #00f0ff 0%, #8b5cf6 50%, #d946ef 100%);
+  background: linear-gradient(135deg, #10b981 0%, #3b82f6 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   display: inline-block;
-  filter: drop-shadow(0 0 20px rgba(0, 240, 255, 0.3));
 }
 
 .description {
