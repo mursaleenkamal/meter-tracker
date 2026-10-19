@@ -1,0 +1,34 @@
+{
+  "slug": "solar-net-metering-units-calculation-pakistan-2026",
+  "title": "Solar Net Metering Units Calculation Pakistan 2026: 5kW Aur 10kW System Se Mahana Kitne Units Aur Kitni Bachat Hoti Hai?",
+  "excerpt": "Pakistan mein 3kW, 5kW, aur 10kW on-grid solar systems ki daily aur monthly unit generation ka hisab. NEPRA green meter export buyback rates, self-consumption savings, aur K-Electric/LESCO bill reduction formula.",
+  "author": "Read Meter Solar Analytics Team",
+  "read_time": "6 min read",
+  "category": "Energy Saving",
+  "tags": [
+    "Solar Net Metering",
+    "Solar Units Calculation",
+    "NEPRA Green Meter",
+    "5kW Solar System Pakistan",
+    "10kW Solar System Pakistan",
+    "Electricity Bill Saving",
+    "Read Meter App"
+  ],
+  "published_at": "2026-10-19T09:30:00.000Z",
+  "status": "published",
+  "content": "## Pakistan Mein Solar System Lagane Se Pehle Units Ka Hisab Samajhna Kyun Zaroori Hai?\n\nPakistan mein bijli ke barhte huay tariffs (Rs 42 se Rs 55/unit) ki wajah se lakhoon gharelu sarfeen (domestic consumers) solar systems ki taraf muntaqil ho rahe hain. Lekin aksar logon ko yeh andaza nahi hota ke **unke ghar ke load ke liye kitne kilowatt (kW) ka system zaroori hai** aur **system mahana kitne units generate karega**.\n\nSolar vendors aksar ideal calculations batate hain jo garmiyon aur sardiyon ke mausam mein farq karti hain. Is guide mein hum NEPRA regulations aur Pakistan ke mousmi halaat ke mutabiq practical unit generation aur rupee savings ka mukammal hisab samjhayenge.\n\n---\n\n## 1. Solar Generation Ka Basic Formula (Sun Hours Rule)\n\nPakistan mein dhoop (solar irradiance) dunya ke behtareen khitton mein shumar hoti hai. Ek on-grid ya hybrid system saal ke ausat (annual average) par mandarja zail formula ke mutabiq units generate karta hai:\n\n$$\\text{Daily Units} = \\text{System Capacity (kW)} \\times \\text{Peak Sun Hours} \\times \\text{Performance Ratio (0.80)}$$\n\n- **Peak Sun Hours:** Karachi, Multan, aur Sukkur mein 4.8 se 5.2 ghante; Lahore aur Islamabad mein 4.4 se 4.6 ghante.\n- **System Derating (0.80):** Gard-o-ghubar (dust), panel ka garmi mein garam hona (heat temperature coefficient), aur inverter conversion loss ki wajah se 20% margin nikalna zaroori hota hai.\n\n---\n\n## 2. 3kW, 5kW, Aur 10kW System Ka Generation & Savings Table\n\n| System Size | Average Daily Units | Mahana Units (30 Din) | Estimated Mahana Bachat (PKR) | Ideal Household Load |\n| :--- | :--- | :--- | :--- | :--- |\n| **3 kW** | 11 – 13 Units | 330 – 390 Units | Rs 14,000 – 17,000 | 1 Inverter AC (Daytime) + Fridge + Fans |\n| **5 kW** | 18 – 22 Units | 550 – 660 Units | Rs 24,000 – 29,000 | 2 Inverter ACs + Water Motor + Full Home |\n| **7 kW** | 26 – 31 Units | 780 – 930 Units | Rs 34,000 – 41,000 | 2–3 ACs + Freezer + Heavy Daytime Load |\n| **10 kW** | 38 – 45 Units | 1,150 – 1,350 Units | Rs 50,000 – 62,000 | 3–4 ACs + Complete Double Storey Villa |\n\n*Note: Agar aap live apne ghar ke units aur sheher ke hisab se exact payback calculate karna chahte hain, to hamara free [Solar Net Metering Calculator](/tools/solar-net-metering-calculator) use karein.*\n\n---\n\n## 3. Daytime Self-Consumption vs NEPRA Green Meter Export\n\nPakistani consumers ke liye sab se ahem nukta yeh hai ke:\n\n> **\"Din ke waqt solar bijli ko ghar mein direct istemal karna, grid ko bechne se ziada faida mand hai!\"**\n\n### A. Self-Consumption (Direct Bachat):\nJab aap dopahar 12 baje solar par AC chalate hain, to aap grid ka full retail rate (**Rs 44/unit**) bachate hain.\n\n### B. Grid Export (NEPRA Buyback Credit):\nJab aap ghar mein bijli use nahi kartay aur excess units green bidirectional meter ke zariye K-Electric ya LESCO ko wapis bhejte hain, to NEPRA aapko national basket buyback rate (**taqreeban Rs 21–22/unit**) credit karta hai.\n\nIs liye aqalmand sarfeen din ke waqt solar hours mein heavy load (jaise pani ki motor, washing machine, aur air conditioners) chalate hain taake maximum units Rs 44 ke rate par bach sakein.\n\n---\n\n## 4. Green Meter Reading Disputes Se Kaise Bachein?\n\nGreen bidirectional meters par do readings aati hain:\n1. **Import Reading (T1/T2):** Jo bijli aapne raat ke waqt grid se li.\n2. **Export Reading (Tx):** Jo excess solar bijli aapne din mein grid ko supply ki.\n\nAksar meter readers export reading note karne mein ghalti kar dete hain jiski wajah se bill mein credit units kam darj hotay hain.\n\n### Solution:\nHar mahine meter reader ke aane par **[Read Meter PWA](https://www.readmeter.online)** camera scanner se apne green meter ke Import aur Export dono dials ki photo capture karein. System timestamped record save kar leta hai jo kisi bhi billing dispute mein K-Electric ya WAPDA ke samne saboot ke tor par pesh kiya ja sakta hai.",
+  "faqs": [
+    {
+      "question": "Pakistan mein 5kW solar system ki lagat (cost) kitni aati hai?",
+      "answer": "2026 market rates ke mutabiq Tier 1 bifacial solar panels aur quality on-grid inverter ke sath 5kW system taqreeban Rs 800,000 se Rs 900,000 PKR mein mukammal install ho jata hai."
+    },
+    {
+      "question": "Solar system lagane ke baad investment kitne saal mein recover ho jati hai?",
+      "answer": "Mojooda high electricity tariffs par 5kW ya 10kW on-grid solar system ka payback period taqreeban 2.2 se 2.8 saal hota hai. Iske baad aglay 20 se 22 saal tak bijli taqreeban muft milti hai."
+    },
+    {
+      "question": "Kya cloudy ya barish ke mausam mein solar kaam karta hai?",
+      "answer": "Jee haan, cloudy weather mein bhi diffused sunlight ki wajah se solar panels apni normal capacity ka 20% se 35% generate karte rehte hain."
+    }
+  ]
+}

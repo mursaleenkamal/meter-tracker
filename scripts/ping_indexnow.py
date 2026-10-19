@@ -12,11 +12,21 @@ KEY_LOCATION = f"https://{HOST}/{KEY}.txt"
 URL_LIST = [
     f"https://{HOST}/",
     f"https://{HOST}/protected-slab-calculator",
+    f"https://{HOST}/tools",
+    f"https://{HOST}/tools/sub-meter-bill-calculator",
+    f"https://{HOST}/tools/solar-net-metering-calculator",
+    f"https://{HOST}/tools/car-oil-change-calculator",
     f"https://{HOST}/blog",
+    f"https://{HOST}/blog/october-2026-electricity-bill-saving-hacks-pakistan",
+    f"https://{HOST}/blog/nepra-200-units-protected-slab-6-month-rule-pakistan",
     f"https://{HOST}/blog/inverter-ac-electricity-units-consumption-pakistan",
     f"https://{HOST}/blog/kelectric-peak-hours-timings-bill-saving-guide",
     f"https://{HOST}/blog/landlord-tenant-submeter-billing-calculation-formula",
-    f"https://{HOST}/guest"
+    f"https://{HOST}/blog/kelectric-wapda-protected-slab-bill-double-formula-2026",
+    f"https://{HOST}/blog/solar-net-metering-units-calculation-pakistan-2026",
+    f"https://{HOST}/guest",
+    f"https://{HOST}/about",
+    f"https://{HOST}/disclaimer"
 ]
 
 payload = {

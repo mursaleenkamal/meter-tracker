@@ -1,0 +1,33 @@
+{
+  "slug": "kelectric-wapda-protected-slab-bill-double-formula-2026",
+  "title": "K-Electric Aur WAPDA 2026: 200 Se Ziada Units Par Bill Double Kyun Hota Hai? (Protected vs Unprotected Slabs)",
+  "excerpt": "Pakistan mein bijli ke bill mein 200 units aur 201 units ke darmian Rs 4,500+ ka farq kyun aata hai? NEPRA protected slab cliff, non-protected rates, aur K-Electric/IESCO/LESCO billing ka mukammal hisab.",
+  "author": "Read Meter Energy Analytics Team",
+  "read_time": "6 min read",
+  "category": "Tariff Guides",
+  "tags": [
+    "K-Electric Bill",
+    "Protected Slab Pakistan",
+    "WAPDA Electricity Bill",
+    "Bijli Ka Bill Kam Karne Ka Tareeqa",
+    "NEPRA Tariff 2026",
+    "Read Meter App"
+  ],
+  "published_at": "2026-10-18T10:00:00.000Z",
+  "status": "published",
+  "content": "## 200 Units Ka Jhatka: Sirf 1 Unit Par Bill Double Kaise Hota Hai?\n\nPakistan mein har mahine hazaron sarfeen (consumers) us waqt pareshan ho jatay hain jab pichle mahine 195 units par bill **Rs 3,200** aaya hota hai, aur agle mahine sirf 202 units par bill achanak **Rs 8,500 se Rs 9,200** tak pohnch jata hai.\n\nSawaal yeh paida hota hai: **Kya sirf 7 extra units ki qeemat Rs 5,000 se ziada ho sakti hai?**\n\nJawab hai: **Nahi! Asal wajah NEPRA ka Protected vs Unprotected Slab Formula hai.**\n\nIs article mein hum aasan Roman Urdu mein samjhayenge ke:\n1. Protected Slab kya hai aur 200 units ki had (threshold) kaise kaam karti hai.\n2. 201 units hote hi tamam units ka rate kyun barh jata hai.\n3. 6 Months Rule kya hai jiski wajah se subsidy 6 mahine ke liye khatam ho jati hai.\n4. Read Meter (readmeter.online) ke zariye aap is nuksan se kaise bach sakte hain.\n\n---\n\n## 1. Protected Consumers vs Unprotected Consumers Ka Farq\n\nNEPRA aur Government of Pakistan ke notification ke mutabiq gharelu sarfeen ko do baray hisson mein taqseem kiya gaya hai:\n\n### A. Protected Consumer (محفوظ صارفین):\n- **Shart (Condition):** Pichle lagataar 6 mahinon mein aapka mahana consumption kabhi bhi 200 units se ooper na gaya ho.\n- **Subsidized Rate:** 1 se 100 units par taqreeban **Rs 7.74/unit** aur 101 se 200 units par **Rs 14.16/unit** basic tariff lagta hai.\n- **Tax Exemption:** TV fee aur bohot se heavy surcharges se chhoot milti hai.\n\n### B. Unprotected Consumer (غیر محفوظ صارفین):\n- **Shart:** Agar aapne kisi bhi ek mahine 200 units cross kar liye (chahe woh 201 units hi kyun na hon).\n- **Rate Shock:** Pehle unit se le kar aakhri unit tak ka rate achanak **Rs 29 se Rs 35/unit** par jump kar jata hai!\n- **Surcharges & FPA:** Financing Cost Surcharge (FCS), Electricity Duty, aur Fuel Price Adjustment (FPA) bhi un-subsidized rate par double ho jatay hain.\n\n---\n\n## 2. Real Bill Calculation: 199 Units vs 201 Units Ka Mawazna\n\nAayiye live calculation dekhte hain jo K-Electric, LESCO, IESCO aur FESCO par laagu hoti hai:\n\n| Billing Detail | 199 Units (Protected) | 201 Units (Unprotected) |\n| :--- | :--- | :--- |\n| **Category** | Protected Slabs | Unprotected Non-Slab |\n| **Basic Cost of Electricity** | ~Rs 2,175 | ~Rs 6,230 |\n| **Fuel Price Adjustment (FPA)** | Subsidized (~Rs 350) | Full (~Rs 950) |\n| **Govt Taxes & Surcharges** | ~Rs 650 | ~Rs 1,650 |\n| **Total Estimated Bill** | **Rs 3,175** | **Rs 8,830** |\n| **Nuksan (Loss on 2 extra units)** | — | **+Rs 5,655 Extra Bill!** |\n\nSirf 2 units ka faraq aapke ghar ke budget se **Rs 5,600+** ura deta hai.\n\n---\n\n## 3. Khaufnak 6-Month Rule (6 Mahinay Ki Saza)\n\nAksar logon ko yeh nahi maloom hota ke agar unka meter October mein 201 units par chala gaya, toh unhein sirf October mein bill ziada nahi aayega, balkay **agle 6 mahinon (November se April)** tak unka meter Unprotected category mein phans jayega!\n\nDobara Protected status haasil karne ke liye zaroori hai ke agle lagataar 6 mahinay aapka bill 200 units se kam aaye. Iska matlab hai ke 1 unit ki ghalti se aapko 6 mahinon mein **Rs 25,000 se Rs 35,000 tak ka izafi nuksan** uthana parta hai.\n\n---\n\n## 4. 200 Units Ke Andar Rehne Ke 4 Tareeqay\n\n1. **AC Ka 26°C Rule:** Inverter AC ko 26°C par chalayein. 18°C ya 20°C par AC ka compressor musalsal full power par rehta hai aur rozana 4 se 6 units izafi consume karta hai.\n2. **Peak Hours Schedule (6:30 PM to 10:30 PM):** Sham ke auqat mein high-wattage appliances (Istri, Water Motor, Washing Machine, Electric Kettle) bilkul na chalayein.\n3. **Water Motor Timer:** Paani ki motor ko subah 7 se 9 baje ke darmian chalayein aur tanki bharte hi band karein.\n4. **Read Meter App Par Rozana Logging:** Bill aane ka intezar na karein. Read Meter (https://www.readmeter.online) par daily ya weekly meter reading scan karein taake aapko live pata chalta rahe ke is mahine 200 units cross honge ya nahi.\n\n---\n\n## 5. Read Meter Se Apna Bill Kaise Bachayein?\n\n**Read Meter (www.readmeter.online)** Pakistan ka pehla smart utility tracker hai jo khaas tor par 200 units protected slab ko bachane ke liye design kiya gaya hai:\n- 📸 **Camera OCR Scanner:** Meter ke numbers ki photo khenchein, app khud ba khud digits read kar leti hai.\n- 🚦 **Traffic Light Warning:** Agar aapki daily consumption 6.6 units se ooper ja rahi ho, toh dashboard Red Alert show karta hai.\n- 📱 **1-Click WhatsApp Share:** Ghar walon ya tenants ke sath foran reading aur remaining units share karein.\n\nApna meter aaj hi check karein aur bill double hone se bachayein:\n👉 **[https://www.readmeter.online](https://www.readmeter.online)**",
+  "faqs": [
+    {
+      "question": "Kya 201 units par protected status foran khatam ho jata hai?",
+      "answer": "Jee haan! NEPRA policy ke mutabiq jaise hi kisi calendar billing cycle mein units 200 se barh kar 201 hotay hain, subsidy foran khatam ho jati hai aur consumer unprotected category mein shift ho jata hai."
+    },
+    {
+      "question": "Dobara protected consumer banne mein kitna waqt lagta hai?",
+      "answer": "Agar aapka meter lagataar 6 mahinay 200 units se kam consume karega, toh 7th month se aap dobara protected rate par aa jayenge."
+    },
+    {
+      "question": "Read Meter use karne ki koi fees hai?",
+      "answer": "Nahi, Read Meter bilkul free PWA application hai jo seedha aapke mobile ya computer browser (readmeter.online) par baghair kisi installation ke chalti hai."
+    }
+  ]
+}

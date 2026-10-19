@@ -39,6 +39,9 @@ marketing_assets/
 # vercel
 .vercel
 
+# supabase temporary files
+supabase/.temp/
+
 # typescript
 *.tsbuildinfo
 next-env.d.ts
