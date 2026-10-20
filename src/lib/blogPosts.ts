@@ -389,24 +389,29 @@ export async function getAllPosts(): Promise<BlogPost[]> {
       .eq('status', 'published')
       .order('published_at', { ascending: false })
 
-    if (error || !data || data.length === 0) {
-      return BLOG_POSTS
-    }
+    const dbPosts: BlogPost[] = (!error && data && data.length > 0)
+      ? data.map((item: any) => ({
+          slug: item.slug,
+          title: item.title,
+          excerpt: item.excerpt,
+          publishedAt: item.published_at ? item.published_at.split('T')[0] : '2026-10-05',
+          updatedAt: item.updated_at ? item.updated_at.split('T')[0] : '2026-10-05',
+          author: item.author || 'Read Meter Energy Team',
+          readTime: item.read_time || '5 min read',
+          category: item.category || 'Energy Saving',
+          tags: item.tags || [],
+          content: item.content,
+          faqs: item.faqs || [],
+          status: item.status,
+        }))
+      : []
 
-    return data.map((item: any) => ({
-      slug: item.slug,
-      title: item.title,
-      excerpt: item.excerpt,
-      publishedAt: item.published_at ? item.published_at.split('T')[0] : '2026-10-05',
-      updatedAt: item.updated_at ? item.updated_at.split('T')[0] : '2026-10-05',
-      author: item.author || 'Read Meter Energy Team',
-      readTime: item.read_time || '5 min read',
-      category: item.category || 'Energy Saving',
-      tags: item.tags || [],
-      content: item.content,
-      faqs: item.faqs || [],
-      status: item.status,
-    }))
+    // Merge DB posts with static BLOG_POSTS, deduplicating by slug (DB posts take precedence)
+    const dbSlugs = new Set(dbPosts.map((p) => p.slug))
+    const missingStaticPosts = BLOG_POSTS.filter((p) => !dbSlugs.has(p.slug))
+    const merged = [...dbPosts, ...missingStaticPosts]
+
+    return merged.sort((a, b) => new Date(b.publishedAt).getTime() - new Date(a.publishedAt).getTime())
   } catch {
     return BLOG_POSTS
   }

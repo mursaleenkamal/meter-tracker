@@ -24,6 +24,7 @@ URL_LIST = [
     f"https://{HOST}/blog/landlord-tenant-submeter-billing-calculation-formula",
     f"https://{HOST}/blog/kelectric-wapda-protected-slab-bill-double-formula-2026",
     f"https://{HOST}/blog/solar-net-metering-units-calculation-pakistan-2026",
+    f"https://{HOST}/blog/gas-geyser-vs-electric-geyser-bill-consumption-pakistan-2026",
     f"https://{HOST}/guest",
     f"https://{HOST}/about",
     f"https://{HOST}/disclaimer"
