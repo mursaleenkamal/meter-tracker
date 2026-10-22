@@ -16,6 +16,7 @@ URL_LIST = [
     f"https://{HOST}/tools/sub-meter-bill-calculator",
     f"https://{HOST}/tools/solar-net-metering-calculator",
     f"https://{HOST}/tools/car-oil-change-calculator",
+    f"https://{HOST}/tools/battery-backup-calculator",
     f"https://{HOST}/blog",
     f"https://{HOST}/blog/october-2026-electricity-bill-saving-hacks-pakistan",
     f"https://{HOST}/blog/nepra-200-units-protected-slab-6-month-rule-pakistan",
@@ -26,6 +27,7 @@ URL_LIST = [
     f"https://{HOST}/blog/solar-net-metering-units-calculation-pakistan-2026",
     f"https://{HOST}/blog/gas-geyser-vs-electric-geyser-bill-consumption-pakistan-2026",
     f"https://{HOST}/blog/how-to-read-analog-dial-digital-electric-meters-kwh-guide",
+    f"https://{HOST}/blog/ups-inverter-battery-backup-time-calculation-formula-pakistan-2026",
     f"https://{HOST}/guest",
     f"https://{HOST}/about",
     f"https://{HOST}/disclaimer"

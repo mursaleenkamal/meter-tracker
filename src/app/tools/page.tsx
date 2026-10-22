@@ -11,6 +11,7 @@ import {
   ArrowRight,
   ShieldCheck,
   Sparkles,
+  BatteryCharging,
 } from 'lucide-react'
 
 const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://www.readmeter.online'
@@ -18,10 +19,13 @@ const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://www.readmeter.onlin
 export const metadata: Metadata = {
   title: 'Free Electricity, Solar & Interval Utility Tools Pakistan | Read Meter',
   description:
-    'Free programmatic calculators for Pakistan: 200-Unit Protected Slab Calculator, Sub-Meter Bill Divider, Solar Net Metering Payback, and Vehicle Oil Change Interval Tracker.',
+    'Free programmatic calculators for Pakistan: 200-Unit Protected Slab Calculator, UPS Battery Backup Duration, Sub-Meter Bill Divider, Solar Net Metering Payback, and Vehicle Oil Change Interval Tracker.',
   keywords: [
     'utility calculators pakistan',
     'electricity bill calculator pakistan',
+    'ups battery backup calculator',
+    'inverter battery backup time calculator',
+    '200ah tubular battery backup',
     '200 unit protected slab calculator',
     'sub meter electricity bill calculator',
     'solar net metering calculator pakistan',
@@ -92,6 +96,12 @@ export default function ToolsHubPage() {
         url: `${siteUrl}/tools/car-oil-change-calculator`,
         applicationCategory: 'UtilityApplication',
       },
+      {
+        '@type': 'WebApplication',
+        name: 'UPS & Solar Inverter Battery Backup Calculator',
+        url: `${siteUrl}/tools/battery-backup-calculator`,
+        applicationCategory: 'UtilityApplication',
+      },
     ],
   }
 
@@ -104,6 +114,16 @@ export default function ToolsHubPage() {
       category: 'Electricity & Tariffs',
       icon: <Zap size={24} color="#00f0ff" />,
       badge: 'High Impact',
+      cardClass: styles.toolCardElectric,
+    },
+    {
+      title: 'UPS & Inverter Battery Backup Calculator',
+      description:
+        'Calculate exact backup hours and minutes for 100Ah, 150Ah, 180Ah, and 200Ah batteries. Factor in inverter efficiency, safe depth of discharge (DoD), and full recharge units.',
+      href: '/tools/battery-backup-calculator',
+      category: 'Batteries & Inverters',
+      icon: <BatteryCharging size={24} color="#00f0ff" />,
+      badge: 'Popular',
       cardClass: styles.toolCardElectric,
     },
     {

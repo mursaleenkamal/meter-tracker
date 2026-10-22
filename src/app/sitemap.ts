@@ -51,6 +51,12 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       priority: 0.9,
     },
     {
+      url: `${baseUrl}/tools/battery-backup-calculator`,
+      lastModified: currentDate,
+      changeFrequency: 'daily',
+      priority: 0.9,
+    },
+    {
       url: `${baseUrl}/guest`,
       lastModified: currentDate,
       changeFrequency: 'daily',
