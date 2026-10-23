@@ -487,6 +487,36 @@ export default function SubMeterBillCalculator() {
           )}
         </div>
 
+        {/* Monetization Gate B: Commercial Pilot Trigger for 3+ Units */}
+        {portions.length >= 3 && (
+          <div className={styles.commercialPilotBanner}>
+            <div className={styles.commercialPilotHeader}>
+              <Building size={24} className={styles.commercialPilotIcon} />
+              <div>
+                <h4 className={styles.commercialPilotTitle}>
+                  🏢 Managing 3+ Sub-Meters or Rental Units?
+                </h4>
+                <p className={styles.commercialPilotDesc}>
+                  Eliminate monthly tenant disputes over utility math. Automatically generate branded
+                  WhatsApp slips, track historical tenant payment ledgers, and automate billing splits
+                  for $19/mo.
+                </p>
+              </div>
+            </div>
+            <div className={styles.commercialPilotActions}>
+              <a
+                href="mailto:support@readmeter.online?subject=Interested%20in%2014-Day%20Commercial%20Landlord%20Pilot"
+                className={styles.commercialPilotBtn}
+              >
+                Start Free 14-Day Landlord Pilot <ArrowRight size={15} />
+              </a>
+              <span className={styles.commercialPilotBadge}>
+                No credit card required • WhatsApp ready
+              </span>
+            </div>
+          </div>
+        )}
+
         {/* PWA Camera OCR Conversion CTA */}
         <div className={styles.pwaCtaBanner}>
           <div className={styles.ctaTextContent}>

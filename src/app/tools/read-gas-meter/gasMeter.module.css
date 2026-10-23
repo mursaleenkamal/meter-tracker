@@ -1,0 +1,109 @@
+.odometerContainer {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+  background: rgba(15, 23, 42, 0.7);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 14px;
+  padding: 1.25rem;
+}
+
+.odometerHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.odometerTitle {
+  font-size: 0.92rem;
+  font-weight: 700;
+  color: #0284c7;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.odometerBox {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.35rem;
+  padding: 1.25rem 0.5rem;
+  background: #030712;
+  border: 2px solid #334155;
+  border-radius: 12px;
+  box-shadow: inset 0 4px 15px rgba(0, 0, 0, 0.9);
+}
+
+.drum {
+  width: 44px;
+  height: 64px;
+  border-radius: 6px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-family: monospace;
+  font-weight: 900;
+  font-size: 1.85rem;
+  box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.8), 0 2px 4px rgba(0, 0, 0, 0.4);
+  position: relative;
+  user-select: none;
+}
+
+.drumBlack {
+  background: linear-gradient(180deg, #1e293b 0%, #0f172a 50%, #020617 100%);
+  color: #ffffff;
+  border: 1px solid #475569;
+}
+
+.drumRed {
+  background: linear-gradient(180deg, #dc2626 0%, #991b1b 50%, #7f1d1d 100%);
+  color: #ffffff;
+  border: 1px solid #ef4444;
+  opacity: 0.65;
+}
+
+.decimalDivider {
+  font-size: 2rem;
+  font-weight: 900;
+  color: #ef4444;
+  margin: 0 2px;
+}
+
+.drumLabel {
+  font-size: 0.62rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  margin-top: 0.25rem;
+}
+
+.drumLabelBilled {
+  color: #38bdf8;
+}
+
+.drumLabelIgnored {
+  color: #f87171;
+}
+
+.ruleNote {
+  background: rgba(2, 132, 199, 0.08);
+  border: 1px solid rgba(2, 132, 199, 0.25);
+  border-radius: 8px;
+  padding: 0.75rem 1rem;
+  display: flex;
+  align-items: flex-start;
+  gap: 0.6rem;
+  font-size: 0.82rem;
+  color: #e0f2fe;
+  line-height: 1.5;
+}
+
+.ruleNoteIcon {
+  color: #0284c7;
+  flex-shrink: 0;
+  margin-top: 2px;
+}

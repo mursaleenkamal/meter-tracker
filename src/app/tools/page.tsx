@@ -1,17 +1,13 @@
 import type { Metadata } from 'next'
 import Link from 'next/link'
 import styles from './toolsHub.module.css'
+import ToolsGrid from './ToolsGrid'
 import {
   Compass,
-  Zap,
-  Users,
-  Sun,
-  Gauge,
   Camera,
   ArrowRight,
   ShieldCheck,
   Sparkles,
-  BatteryCharging,
 } from 'lucide-react'
 
 const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://www.readmeter.online'
@@ -19,10 +15,12 @@ const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://www.readmeter.onlin
 export const metadata: Metadata = {
   title: 'Free Electricity, Solar & Interval Utility Tools Pakistan | Read Meter',
   description:
-    'Free programmatic calculators for Pakistan: 200-Unit Protected Slab Calculator, UPS Battery Backup Duration, Sub-Meter Bill Divider, Solar Net Metering Payback, and Vehicle Oil Change Interval Tracker.',
+    'Free programmatic calculators for Pakistan: 200-Unit Protected Slab Calculator, EV & Electric Bike Charging Cost, UPS Battery Backup Duration, Sub-Meter Bill Divider, Solar Net Metering Payback, and Vehicle Oil Change Interval Tracker.',
   keywords: [
     'utility calculators pakistan',
     'electricity bill calculator pakistan',
+    'ev charging cost calculator pakistan',
+    'electric bike charging units consumed kwh electricity bill',
     'ups battery backup calculator',
     'inverter battery backup time calculator',
     '200ah tubular battery backup',
@@ -74,6 +72,12 @@ export default function ToolsHubPage() {
     hasPart: [
       {
         '@type': 'WebApplication',
+        name: 'Instant Digital Meter Scanner (kWh)',
+        url: `${siteUrl}/tools/read-digital-lcd-meter`,
+        applicationCategory: 'UtilityApplication',
+      },
+      {
+        '@type': 'WebApplication',
         name: '200 Unit Protected Slab Calculator',
         url: `${siteUrl}/protected-slab-calculator`,
         applicationCategory: 'UtilityApplication',
@@ -102,61 +106,14 @@ export default function ToolsHubPage() {
         url: `${siteUrl}/tools/battery-backup-calculator`,
         applicationCategory: 'UtilityApplication',
       },
-    ],
+      {
+        '@type': 'WebApplication',
+        name: 'EV & Electric Bike Charging Cost Calculator',
+        url: `${siteUrl}/tools/ev-charging-cost-calculator`,
+        applicationCategory: 'UtilityApplication',
+      },
+      ],
   }
-
-  const tools = [
-    {
-      title: '200-Unit Protected Slab Calculator',
-      description:
-        'Avoid the costly 201-unit penalty cliff under NEPRA rules. Calculates bill differences and safe daily burn rate across K-Electric, IESCO, LESCO, and MEPCO.',
-      href: '/protected-slab-calculator',
-      category: 'Electricity & Tariffs',
-      icon: <Zap size={24} color="#00f0ff" />,
-      badge: 'High Impact',
-      cardClass: styles.toolCardElectric,
-    },
-    {
-      title: 'UPS & Inverter Battery Backup Calculator',
-      description:
-        'Calculate exact backup hours and minutes for 100Ah, 150Ah, 180Ah, and 200Ah batteries. Factor in inverter efficiency, safe depth of discharge (DoD), and full recharge units.',
-      href: '/tools/battery-backup-calculator',
-      category: 'Batteries & Inverters',
-      icon: <BatteryCharging size={24} color="#00f0ff" />,
-      badge: 'Popular',
-      cardClass: styles.toolCardElectric,
-    },
-    {
-      title: 'Sub-Meter Bill Divider & Tenant Split',
-      description:
-        'Fairly divide shared main electricity bills among tenants and portions. Includes common load (water pump motor) division and 1-click formatted WhatsApp invoices.',
-      href: '/tools/sub-meter-bill-calculator',
-      category: 'Sub-metering & Rentals',
-      icon: <Users size={24} color="#10b981" />,
-      badge: 'Zero Dispute',
-      cardClass: styles.toolCardElectric,
-    },
-    {
-      title: 'Solar Net Metering & Units Calculator',
-      description:
-        'Calculate daily and monthly unit generation for 3kW to 20kW systems, NEPRA green meter export credits, and investment payback period in Pakistani cities.',
-      href: '/tools/solar-net-metering-calculator',
-      category: 'Solar & Clean Energy',
-      icon: <Sun size={24} color="#fbbf24" />,
-      badge: 'Payback ROI',
-      cardClass: styles.toolCardSolar,
-    },
-    {
-      title: 'Car & Bike Oil Change Interval Calculator',
-      description:
-        'Track remaining kilometers and projected service due dates based on commute, oil grade (mineral, semi-synthetic, fully synthetic), and severe city driving.',
-      href: '/tools/car-oil-change-calculator',
-      category: 'Vehicles & Maintenance',
-      icon: <Gauge size={24} color="#3b82f6" />,
-      badge: 'Interval Tracking',
-      cardClass: styles.toolCardVehicle,
-    },
-  ]
 
   return (
     <div className={styles.pageContainer}>
@@ -201,32 +158,7 @@ export default function ToolsHubPage() {
 
       {/* Main Grid */}
       <main className={styles.mainContent}>
-        <div className={styles.toolsGrid}>
-          {tools.map((tool) => (
-            <Link key={tool.href} href={tool.href} className={`${styles.toolCard} ${tool.cardClass}`}>
-              <div>
-                <div className={styles.cardHeader}>
-                  <span className={styles.categoryTag}>{tool.category}</span>
-                  <span className={styles.badgePopular}>{tool.badge}</span>
-                </div>
-                <div style={{ marginTop: '1.25rem' }}>
-                  <div className={styles.iconWrapper}>{tool.icon}</div>
-                  <div className={styles.cardBody} style={{ marginTop: '1rem' }}>
-                    <h2 className={styles.toolTitle}>{tool.title}</h2>
-                    <p className={styles.toolDescription}>{tool.description}</p>
-                  </div>
-                </div>
-              </div>
-
-              <div className={styles.cardFooter}>
-                <span className={styles.launchLink}>
-                  <span>Open Interactive Tool</span>
-                  <ArrowRight size={16} />
-                </span>
-              </div>
-            </Link>
-          ))}
-        </div>
+        <ToolsGrid />
 
         {/* PWA Integration Banner */}
         <section className={styles.pwaBanner}>
