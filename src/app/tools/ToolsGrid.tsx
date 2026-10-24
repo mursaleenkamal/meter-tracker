@@ -352,7 +352,7 @@ export default function ToolsGrid({
 
   return (
     <div>
-      {/* Live Search Bar (iLovePDF Style) */}
+      {/* Live Search Bar */}
       {showSearch && (
         <div className={styles.searchContainer}>
           <Search size={20} className={styles.searchIcon} />
@@ -376,7 +376,7 @@ export default function ToolsGrid({
         </div>
       )}
 
-      {/* Category Filter Pills (iLovePDF Style) */}
+      {/* Category Filter Pills */}
       <div className={styles.filterBar}>
         {categories.map((cat) => (
           <button

@@ -1,7 +1,7 @@
 /* Reset and Global Styles */
 
 :root {
-  /* Clean Modern Light Theme (iLovePDF & Stripe inspired) */
+  /* Clean Modern Light Theme */
   --background: #f8fafc;
   --bg-gradient: linear-gradient(180deg, #ffffff 0%, #f8fafc 100%);
   --card-bg: #ffffff;

@@ -180,7 +180,7 @@ export default async function LandingPage() {
       </header>
 
       <main className={styles.main}>
-        <div className={`${styles.badge} fade-in`}>⚡ The iLovePDF for Utilities • 15 Free In-Browser Tools</div>
+        <div className={`${styles.badge} fade-in`}>⚡ Smart Utility Suite • 15 Free In-Browser Tools</div>
         <h1 className={`${styles.title} fade-in`}>
           Every Utility Tool You Need, <span>In One Place</span>
         </h1>
@@ -225,7 +225,7 @@ export default async function LandingPage() {
           </div>
         )}
 
-        {/* Primary Eye-Level Section: The 15 Utility Tools Hub (iLovePDF Style) */}
+        {/* Primary Eye-Level Section: The 15 Utility Tools Hub */}
         <section style={{ width: '100%', margin: '0.5rem 0 1.5rem 0' }} aria-label="Free Utility Micro-Tools">
           <ToolsGrid initialCategory="all" showSearch={true} />
         </section>
