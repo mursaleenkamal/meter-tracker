@@ -6,6 +6,7 @@ import styles from './landing.module.css'
 import dashboardStyles from './dashboard.module.css'
 import { Zap, Camera, TrendingUp, Key, ChevronRight, Wrench, RotateCw, Flame, Users, ArrowRight } from 'lucide-react'
 import InstantMeterCheckWidget from '@/components/InstantMeterCheckWidget'
+import ToolsGrid from '@/app/tools/ToolsGrid'
 
 const QuickReadingForm = dynamic(() => import('@/components/QuickReadingForm'))
 const AddReadingButton = dynamic(() => import('@/components/AddReadingButton'))
@@ -133,18 +134,18 @@ export default async function LandingPage() {
             style={{
               display: 'inline-flex',
               alignItems: 'center',
-              gap: '0.35rem',
+              gap: '0.4rem',
               color: 'var(--primary)',
               textDecoration: 'none',
               fontSize: '0.88rem',
               fontWeight: 700,
-              padding: '6px 12px',
+              padding: '6px 14px',
               borderRadius: '8px',
-              border: '1px solid rgba(0, 240, 255, 0.3)',
-              background: 'rgba(0, 240, 255, 0.08)',
+              border: '1px solid rgba(0, 240, 255, 0.4)',
+              background: 'rgba(0, 240, 255, 0.1)',
             }}
           >
-            <Wrench size={14} /> Tools Hub
+            <Wrench size={14} /> Tools Hub <span style={{ fontSize: '0.72rem', background: '#00f0ff', color: '#030712', padding: '1px 6px', borderRadius: '999px', fontWeight: 800 }}>15</span>
           </Link>
           <Link
             href="/blog"
@@ -307,171 +308,33 @@ export default async function LandingPage() {
         </div>
 
         {/* Instant Micro-Tools Hub Section (iLovePDF for Utilities) */}
-        <section style={{ width: '100%', margin: '2.5rem 0 1rem 0' }} aria-label="Free Utility Micro-Tools">
-          <div style={{ textAlign: 'center', marginBottom: '1.5rem' }}>
+        <section style={{ width: '100%', margin: '3.5rem 0 2rem 0' }} aria-label="Free Utility Micro-Tools">
+          <div style={{ textAlign: 'center', marginBottom: '2rem' }}>
             <div style={{
               display: 'inline-flex',
               alignItems: 'center',
               gap: '0.4rem',
-              fontSize: '0.78rem',
+              fontSize: '0.8rem',
               fontWeight: 700,
               textTransform: 'uppercase',
               letterSpacing: '1px',
               color: 'var(--primary)',
               background: 'rgba(0, 240, 255, 0.08)',
-              padding: '4px 12px',
+              padding: '5px 16px',
               borderRadius: '999px',
-              border: '1px solid rgba(0, 240, 255, 0.2)'
+              border: '1px solid rgba(0, 240, 255, 0.25)'
             }}>
-              ⚡ The iLovePDF for Utilities • 100% Free &amp; In-Browser
+              ⚡ The iLovePDF for Utilities • 15 Free In-Browser Tools
             </div>
-            <h2 style={{ fontSize: '1.85rem', fontWeight: 800, color: '#ffffff', marginTop: '0.75rem', letterSpacing: '-0.5px' }}>
-              Instant AI OCR Scanners &amp; Utility Calculators
+            <h2 style={{ fontSize: '2.2rem', fontWeight: 800, color: '#ffffff', marginTop: '0.85rem', letterSpacing: '-0.5px' }}>
+              Every Utility Tool You Need, In One Place
             </h2>
-            <p style={{ color: 'var(--text-secondary)', fontSize: '0.95rem', maxWidth: '600px', margin: '0.5rem auto 0 auto' }}>
-              No app download or sign-up required. Point your phone camera or calculate utility bills directly in your browser.
+            <p style={{ color: 'var(--text-secondary)', fontSize: '1rem', maxWidth: '700px', margin: '0.5rem auto 0 auto', lineHeight: 1.6 }}>
+              100% Free, Private &amp; In-Browser. Scan meters, calculate AC &amp; appliance power costs, split tenant bills, and size solar systems with zero logins.
             </p>
           </div>
 
-          <div style={{
-            display: 'grid',
-            gridTemplateColumns: 'repeat(auto-fit, minmax(260px, 1fr))',
-            gap: '1.25rem',
-            textAlign: 'left'
-          }}>
-            <Link href="/tools/read-digital-lcd-meter" style={{
-              background: 'rgba(255, 255, 255, 0.03)',
-              border: '1px solid rgba(0, 240, 255, 0.25)',
-              borderRadius: '14px',
-              padding: '1.25rem',
-              textDecoration: 'none',
-              display: 'flex',
-              flexDirection: 'column',
-              justifyContent: 'space-between',
-              transition: 'all 0.2s ease',
-            }}>
-              <div>
-                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-                  <div style={{ width: 38, height: 38, borderRadius: 8, background: 'rgba(0, 240, 255, 0.12)', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-                    <Camera size={20} color="#00f0ff" />
-                  </div>
-                  <span style={{ fontSize: '0.7rem', fontWeight: 700, color: '#00f0ff', background: 'rgba(0, 240, 255, 0.1)', padding: '2px 8px', borderRadius: 4 }}>AI OCR</span>
-                </div>
-                <h3 style={{ fontSize: '1.05rem', fontWeight: 700, color: '#ffffff', marginTop: '0.85rem' }}>Digital LCD Meter Scanner</h3>
-                <p style={{ fontSize: '0.82rem', color: '#94a3b8', marginTop: '0.4rem', lineHeight: 1.5 }}>
-                  Snap 7-segment digital electric meters, strip decimals &amp; generate verified slips.
-                </p>
-              </div>
-              <div style={{ marginTop: '1rem', display: 'flex', alignItems: 'center', gap: '0.35rem', color: '#00f0ff', fontSize: '0.82rem', fontWeight: 600 }}>
-                Launch Scanner <ArrowRight size={14} />
-              </div>
-            </Link>
-
-            <Link href="/tools/read-analog-dial-meter" style={{
-              background: 'rgba(255, 255, 255, 0.03)',
-              border: '1px solid rgba(245, 158, 11, 0.25)',
-              borderRadius: '14px',
-              padding: '1.25rem',
-              textDecoration: 'none',
-              display: 'flex',
-              flexDirection: 'column',
-              justifyContent: 'space-between',
-              transition: 'all 0.2s ease',
-            }}>
-              <div>
-                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-                  <div style={{ width: 38, height: 38, borderRadius: 8, background: 'rgba(245, 158, 11, 0.12)', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-                    <RotateCw size={20} color="#f59e0b" />
-                  </div>
-                  <span style={{ fontSize: '0.7rem', fontWeight: 700, color: '#f59e0b', background: 'rgba(245, 158, 11, 0.1)', padding: '2px 8px', borderRadius: 4 }}>5-Dial AI</span>
-                </div>
-                <h3 style={{ fontSize: '1.05rem', fontWeight: 700, color: '#ffffff', marginTop: '0.85rem' }}>Analog Dial Meter Reader</h3>
-                <p style={{ fontSize: '0.82rem', color: '#94a3b8', marginTop: '0.4rem', lineHeight: 1.5 }}>
-                  Decode CW/CCW clock dials with real-time neighbor-dial rounding rule checks.
-                </p>
-              </div>
-              <div style={{ marginTop: '1rem', display: 'flex', alignItems: 'center', gap: '0.35rem', color: '#f59e0b', fontSize: '0.82rem', fontWeight: 600 }}>
-                Launch Reader <ArrowRight size={14} />
-              </div>
-            </Link>
-
-            <Link href="/tools/read-gas-meter" style={{
-              background: 'rgba(255, 255, 255, 0.03)',
-              border: '1px solid rgba(2, 132, 199, 0.25)',
-              borderRadius: '14px',
-              padding: '1.25rem',
-              textDecoration: 'none',
-              display: 'flex',
-              flexDirection: 'column',
-              justifyContent: 'space-between',
-              transition: 'all 0.2s ease',
-            }}>
-              <div>
-                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-                  <div style={{ width: 38, height: 38, borderRadius: 8, background: 'rgba(2, 132, 199, 0.12)', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-                    <Flame size={20} color="#0284c7" />
-                  </div>
-                  <span style={{ fontSize: '0.7rem', fontWeight: 700, color: '#38bdf8', background: 'rgba(2, 132, 199, 0.1)', padding: '2px 8px', borderRadius: 4 }}>Gas OCR</span>
-                </div>
-                <h3 style={{ fontSize: '1.05rem', fontWeight: 700, color: '#ffffff', marginTop: '0.85rem' }}>Gas Roller Meter Scanner</h3>
-                <p style={{ fontSize: '0.82rem', color: '#94a3b8', marginTop: '0.4rem', lineHeight: 1.5 }}>
-                  Isolate black whole units (m³ / CCF) and automatically strip red fractional drums.
-                </p>
-              </div>
-              <div style={{ marginTop: '1rem', display: 'flex', alignItems: 'center', gap: '0.35rem', color: '#38bdf8', fontSize: '0.82rem', fontWeight: 600 }}>
-                Launch Gas Tool <ArrowRight size={14} />
-              </div>
-            </Link>
-
-            <Link href="/tools/landlord-submeter-splitter" style={{
-              background: 'rgba(255, 255, 255, 0.03)',
-              border: '1px solid rgba(16, 185, 129, 0.25)',
-              borderRadius: '14px',
-              padding: '1.25rem',
-              textDecoration: 'none',
-              display: 'flex',
-              flexDirection: 'column',
-              justifyContent: 'space-between',
-              transition: 'all 0.2s ease',
-            }}>
-              <div>
-                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-                  <div style={{ width: 38, height: 38, borderRadius: 8, background: 'rgba(16, 185, 129, 0.12)', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-                    <Users size={20} color="#10b981" />
-                  </div>
-                  <span style={{ fontSize: '0.7rem', fontWeight: 700, color: '#10b981', background: 'rgba(16, 185, 129, 0.1)', padding: '2px 8px', borderRadius: 4 }}>Zero Dispute</span>
-                </div>
-                <h3 style={{ fontSize: '1.05rem', fontWeight: 700, color: '#ffffff', marginTop: '0.85rem' }}>Tenant Sub-Meter Splitter</h3>
-                <p style={{ fontSize: '0.82rem', color: '#94a3b8', marginTop: '0.4rem', lineHeight: 1.5 }}>
-                  Proportional master bill division, common loads, and instant WhatsApp tenant slips.
-                </p>
-              </div>
-              <div style={{ marginTop: '1rem', display: 'flex', alignItems: 'center', gap: '0.35rem', color: '#10b981', fontSize: '0.82rem', fontWeight: 600 }}>
-                Calculate Splits <ArrowRight size={14} />
-              </div>
-            </Link>
-          </div>
-
-          <div style={{ textAlign: 'center', marginTop: '1.75rem' }}>
-            <Link
-              href="/tools"
-              style={{
-                display: 'inline-flex',
-                alignItems: 'center',
-                gap: '0.5rem',
-                color: '#00f0ff',
-                background: 'rgba(0, 240, 255, 0.06)',
-                border: '1px solid rgba(0, 240, 255, 0.3)',
-                padding: '10px 24px',
-                borderRadius: '10px',
-                fontSize: '0.92rem',
-                fontWeight: 700,
-                textDecoration: 'none',
-              }}
-            >
-              <Wrench size={16} /> Explore All Tools &amp; Calculators <ArrowRight size={16} />
-            </Link>
-          </div>
+          <ToolsGrid initialCategory="all" showSearch={true} />
         </section>
 
         <section className={styles.featuresSection} aria-label="Core Capabilities">

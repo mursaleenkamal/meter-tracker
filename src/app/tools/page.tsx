@@ -138,7 +138,37 @@ export default function ToolsHubPage() {
         url: `${siteUrl}/tools/ev-charging-cost-calculator`,
         applicationCategory: 'UtilityApplication',
       },
-      ],
+      {
+        '@type': 'WebApplication',
+        name: 'Appliance Electricity Cost & Wattage Calculator',
+        url: `${siteUrl}/tools/appliance-power-cost-calculator`,
+        applicationCategory: 'UtilityApplication',
+      },
+      {
+        '@type': 'WebApplication',
+        name: 'AC Electricity Cost & Inverter Savings Calculator',
+        url: `${siteUrl}/tools/ac-electricity-cost-calculator`,
+        applicationCategory: 'UtilityApplication',
+      },
+      {
+        '@type': 'WebApplication',
+        name: 'Solar System Sizing & Inverter Calculator',
+        url: `${siteUrl}/tools/solar-system-sizing-calculator`,
+        applicationCategory: 'UtilityApplication',
+      },
+      {
+        '@type': 'WebApplication',
+        name: 'Generator Fuel Cost & Backup Calculator',
+        url: `${siteUrl}/tools/generator-fuel-cost-calculator`,
+        applicationCategory: 'UtilityApplication',
+      },
+      {
+        '@type': 'WebApplication',
+        name: 'LPG Gas Cylinder Days & Consumption Calculator',
+        url: `${siteUrl}/tools/lpg-cylinder-calculator`,
+        applicationCategory: 'UtilityApplication',
+      },
+    ],
   }
 
   return (
