@@ -1,8 +1,9 @@
 'use client'
 
-import React, { useState, useMemo } from 'react'
+import React, { useState, useMemo, useEffect } from 'react'
 import Link from 'next/link'
 import styles from './subMeterCalculator.module.css'
+import { captureUtmParams, trackConversionEvent } from '@/lib/telemetry'
 import {
   Users,
   Plus,
@@ -53,6 +54,10 @@ export default function SubMeterBillCalculator() {
       currentReading: 8850,
     },
   ])
+
+  useEffect(() => {
+    captureUtmParams()
+  }, [])
 
   // Handlers for portions
   const addPortion = () => {
@@ -183,6 +188,10 @@ export default function SubMeterBillCalculator() {
     try {
       const text = generateWhatsAppSummary()
       await navigator.clipboard.writeText(text)
+      trackConversionEvent('copy_whatsapp_submeter_invoice', {
+        portionsCount: portions.length,
+        totalBill: mainBillAmount,
+      })
       setCopied(true)
       setTimeout(() => setCopied(false), 3000)
     } catch {
@@ -507,6 +516,14 @@ export default function SubMeterBillCalculator() {
               <a
                 href="mailto:support@readmeter.online?subject=Interested%20in%2014-Day%20Commercial%20Landlord%20Pilot"
                 className={styles.commercialPilotBtn}
+                onClick={() =>
+                  trackConversionEvent('click_landlord_pilot', {
+                    portionsCount: portions.length,
+                    totalBill: mainBillAmount,
+                    totalUnits: mainUnits,
+                    source: 'submeter_splitter_gate',
+                  })
+                }
               >
                 Start Free 14-Day Landlord Pilot <ArrowRight size={15} />
               </a>

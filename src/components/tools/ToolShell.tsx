@@ -23,6 +23,7 @@ import {
   Sparkles,
 } from 'lucide-react'
 import { addGuestReading } from '@/lib/guestStore'
+import { captureUtmParams, trackConversionEvent } from '@/lib/telemetry'
 
 export interface ToolFaqItem {
   question: string
@@ -92,8 +93,9 @@ export default function ToolShell({
   const workerRef = useRef<any>(null)
   const timeoutTimerRef = useRef<NodeJS.Timeout | null>(null)
 
-  // Quality Gate 1: WASM / OCR worker memory cleanup on unmount
+  // Quality Gate 1: WASM / OCR worker memory cleanup on unmount & UTM capture
   useEffect(() => {
+    captureUtmParams()
     return () => {
       if (timeoutTimerRef.current) {
         clearTimeout(timeoutTimerRef.current)
@@ -259,6 +261,13 @@ export default function ToolShell({
       reading_value: numericVal,
       is_billing_reset: false,
       notes: `${meterTypeLabel} web scanner log`,
+    })
+
+    trackConversionEvent('add_to_meter_tracking', {
+      tool: title,
+      category,
+      readingValue,
+      unit: selectedUnit,
     })
 
     setAddedToDashboard(true)
@@ -464,7 +473,14 @@ export default function ToolShell({
               <button
                 type="button"
                 className={styles.btnSecondary}
-                onClick={() => setShowSlipModal(true)}
+                onClick={() => {
+                  setShowSlipModal(true)
+                  trackConversionEvent('open_slip_modal', {
+                    tool: title,
+                    readingValue,
+                    unit: selectedUnit,
+                  })
+                }}
               >
                 <FileCheck2 size={18} />
                 Download Reading Slip
@@ -595,6 +611,13 @@ export default function ToolShell({
               <a
                 href="mailto:support@readmeter.online?subject=Upgrade%20to%20Read%20Meter%20Pro"
                 className={styles.slipProLink}
+                onClick={() =>
+                  trackConversionEvent('click_pro_upgrade', {
+                    tool: title,
+                    category,
+                    trigger: 'slip_modal',
+                  })
+                }
               >
                 Upgrade to Pro &amp; Remove Watermark &rarr;
               </a>
@@ -605,7 +628,14 @@ export default function ToolShell({
                 type="button"
                 className={styles.btnPrimary}
                 style={{ flex: 1, padding: '0.65rem' }}
-                onClick={() => window.print()}
+                onClick={() => {
+                  window.print()
+                  trackConversionEvent('download_slip_pdf', {
+                    tool: title,
+                    readingValue,
+                    unit: selectedUnit,
+                  })
+                }}
               >
                 <Download size={16} /> Print / Save PDF
               </button>

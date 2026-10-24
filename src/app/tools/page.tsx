@@ -28,6 +28,8 @@ export const metadata: Metadata = {
     'sub meter electricity bill calculator',
     'solar net metering calculator pakistan',
     'car oil change calculator pakistan',
+    'online water meter scanner',
+    'read water meter leak test',
     'k-electric bill tools',
     'nepra tariff calculators 2026',
     'read meter tools',
@@ -78,6 +80,24 @@ export default function ToolsHubPage() {
       },
       {
         '@type': 'WebApplication',
+        name: 'Free Analog Electric Meter Reader (Dials)',
+        url: `${siteUrl}/tools/read-analog-dial-meter`,
+        applicationCategory: 'UtilityApplication',
+      },
+      {
+        '@type': 'WebApplication',
+        name: 'Online Gas Meter Photo Reader (m³ / CCF)',
+        url: `${siteUrl}/tools/read-gas-meter`,
+        applicationCategory: 'UtilityApplication',
+      },
+      {
+        '@type': 'WebApplication',
+        name: 'Smart Water Meter Scanner & Leak Detector',
+        url: `${siteUrl}/tools/read-water-meter`,
+        applicationCategory: 'UtilityApplication',
+      },
+      {
+        '@type': 'WebApplication',
         name: '200 Unit Protected Slab Calculator',
         url: `${siteUrl}/protected-slab-calculator`,
         applicationCategory: 'UtilityApplication',
@@ -86,6 +106,12 @@ export default function ToolsHubPage() {
         '@type': 'WebApplication',
         name: 'Sub-Meter Electricity Bill Divider',
         url: `${siteUrl}/tools/sub-meter-bill-calculator`,
+        applicationCategory: 'UtilityApplication',
+      },
+      {
+        '@type': 'WebApplication',
+        name: 'Landlord Sub-Meter Electricity Splitter',
+        url: `${siteUrl}/tools/landlord-submeter-splitter`,
         applicationCategory: 'UtilityApplication',
       },
       {

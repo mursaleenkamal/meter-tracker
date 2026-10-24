@@ -15,6 +15,7 @@ import {
   Sparkles,
   Flame,
   RotateCw,
+  Droplets,
 } from 'lucide-react'
 
 interface ToolItem {
@@ -68,6 +69,18 @@ export default function ToolsGrid() {
       icon: <Flame size={24} color="#0284c7" />,
       badge: 'Odometer AI',
       cardClass: styles.toolCardGas,
+    },
+    {
+      id: 'water-meter-reader',
+      title: 'Smart Water Meter Scanner & Leak Detector',
+      description:
+        'Point your phone camera to extract water meter register digits in Gallons, m³, or CCF. Built-in low-flow leak detection indicator test spots pipe leaks.',
+      href: '/tools/read-water-meter',
+      category: 'AI Camera OCR',
+      filterTag: 'ocr',
+      icon: <Droplets size={24} color="#14b8a6" />,
+      badge: 'Leak Test AI',
+      cardClass: styles.toolCardWater,
     },
     {
       id: 'protected-slab',
@@ -147,7 +160,7 @@ export default function ToolsGrid() {
     { label: 'All Tools', value: 'all' },
     { label: '📷 AI Camera OCR', value: 'ocr' },
     { label: '⚡ Electricity & Tariffs', value: 'electricity' },
-    { label: '🔥 Gas & Multi-Utility', value: 'gas' },
+    { label: '💧 Water & Gas', value: 'gas' },
     { label: '👥 Landlords & Sub-Meters', value: 'submeter' },
     { label: '☀️ Solar Net Metering', value: 'solar' },
     { label: '🚗 Vehicles & Commute', value: 'vehicles' },
@@ -164,7 +177,8 @@ export default function ToolsGrid() {
               t.id === 'digital-meter-scanner' ||
               t.id === 'analog-dial-meter-reader'
             )
-          if (activeCategory === 'gas') return t.id === 'gas-meter-reader'
+          if (activeCategory === 'gas')
+            return t.id === 'gas-meter-reader' || t.id === 'water-meter-reader'
           if (activeCategory === 'submeter') return t.filterTag === 'submeter'
           if (activeCategory === 'solar') return t.filterTag === 'solar'
           if (activeCategory === 'vehicles') return t.filterTag === 'vehicles'
