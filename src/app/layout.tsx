@@ -10,7 +10,7 @@ import DynatraceUserTracker from '@/components/DynatraceUserTracker'
 const NetworkSyncBar = dynamic(() => import('@/components/NetworkSyncBar'))
 
 export const viewport: Viewport = {
-  themeColor: '#0b111e',
+  themeColor: '#ffffff',
   width: 'device-width',
   initialScale: 1,
 }
@@ -158,7 +158,7 @@ export default async function RootLayout({
         ) : null}
         <Script
           src="https://js-cdn.dynatrace.com/jstag/18b1df4492a/bf91766pri/6a55b5b72824dbb3_complete.js"
-          strategy="beforeInteractive"
+          strategy="afterInteractive"
           crossOrigin="anonymous"
         />
       </head>

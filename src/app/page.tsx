@@ -1,17 +1,10 @@
 import { createClient } from '@/utils/supabase/server'
 import { cookies } from 'next/headers'
 import Link from 'next/link'
-import dynamic from 'next/dynamic'
 import styles from './landing.module.css'
-import dashboardStyles from './dashboard.module.css'
-import { Zap, Camera, TrendingUp, Key, ChevronRight, Wrench, RotateCw, Flame, Users, ArrowRight } from 'lucide-react'
+import { Zap, Camera, TrendingUp, Key, ChevronRight, Wrench } from 'lucide-react'
 import InstantMeterCheckWidget from '@/components/InstantMeterCheckWidget'
 import ToolsGrid from '@/app/tools/ToolsGrid'
-
-const QuickReadingForm = dynamic(() => import('@/components/QuickReadingForm'))
-const AddReadingButton = dynamic(() => import('@/components/AddReadingButton'))
-const OfflineReadingsList = dynamic(() => import('@/components/OfflineReadingsList'))
-const DashboardReadingHistory = dynamic(() => import('@/components/DashboardReadingHistory'))
 
 // Helper function to calculate the start of the current billing cycle
 function getBillingCycleStart(startDay: number): Date {
@@ -128,46 +121,57 @@ export default async function LandingPage() {
             Read<span>Meter</span>
           </span>
         </div>
-        <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem', flexWrap: 'wrap' }}>
+        <div style={{ display: 'flex', alignItems: 'center', gap: '0.65rem', flexWrap: 'wrap' }}>
           <Link
             href="/tools"
             style={{
               display: 'inline-flex',
               alignItems: 'center',
               gap: '0.4rem',
-              color: 'var(--primary)',
+              color: '#2563eb',
               textDecoration: 'none',
-              fontSize: '0.88rem',
+              fontSize: '0.86rem',
               fontWeight: 700,
-              padding: '6px 14px',
+              padding: '6px 12px',
               borderRadius: '8px',
-              border: '1px solid rgba(0, 240, 255, 0.4)',
-              background: 'rgba(0, 240, 255, 0.1)',
+              border: '1px solid #bfdbfe',
+              background: '#eff6ff',
             }}
           >
-            <Wrench size={14} /> Tools Hub <span style={{ fontSize: '0.72rem', background: '#00f0ff', color: '#030712', padding: '1px 6px', borderRadius: '999px', fontWeight: 800 }}>15</span>
+            <Wrench size={14} /> Tools Hub <span style={{ fontSize: '0.72rem', background: '#2563eb', color: '#ffffff', padding: '1px 6px', borderRadius: '999px', fontWeight: 800 }}>15</span>
+          </Link>
+          <Link
+            href="/protected-slab-calculator"
+            style={{
+              color: 'var(--text-secondary)',
+              textDecoration: 'none',
+              fontSize: '0.86rem',
+              fontWeight: 600,
+            }}
+          >
+            ⚡ Slab Calculator
           </Link>
           <Link
             href="/blog"
             style={{
               color: 'var(--text-secondary)',
               textDecoration: 'none',
-              fontSize: '0.88rem',
+              fontSize: '0.86rem',
               fontWeight: 500,
             }}
           >
             Blog
           </Link>
           {user ? (
-            <Link href="/dashboard" className="glow-btn-accent" style={{ textDecoration: 'none' }}>
+            <Link href="/dashboard" className="glow-btn-solid" style={{ textDecoration: 'none', padding: '6px 14px', fontSize: '0.86rem' }}>
               Dashboard
             </Link>
           ) : (
             <>
-              <Link href="/guest" className="glow-btn" style={{ textDecoration: 'none', padding: '6px 14px', fontSize: '0.88rem' }}>
-                ⚡ Try Guest Mode
+              <Link href="/guest" className="glow-btn" style={{ textDecoration: 'none', padding: '6px 12px', fontSize: '0.86rem' }}>
+                ⚡ Guest Sandbox
               </Link>
-              <Link href="/login" className="glow-btn-accent" style={{ textDecoration: 'none', padding: '6px 14px', fontSize: '0.88rem' }}>
+              <Link href="/login" className="glow-btn-accent" style={{ textDecoration: 'none', padding: '6px 12px', fontSize: '0.86rem' }}>
                 Sign In
               </Link>
             </>
@@ -176,177 +180,84 @@ export default async function LandingPage() {
       </header>
 
       <main className={styles.main}>
-        <div className={`${styles.badge} fade-in`}>⚡ Real-Time Consumption Tracking</div>
+        <div className={`${styles.badge} fade-in`}>⚡ The iLovePDF for Utilities • 15 Free In-Browser Tools</div>
         <h1 className={`${styles.title} fade-in`}>
-          Take Control of Your <span>Electric Meter Units</span>
+          Every Utility Tool You Need, <span>In One Place</span>
         </h1>
         <p className={`${styles.description} fade-in`}>
-          Read Meter helps you monitor, budget, and optimize your electrical unit consumption. Upload pictures of your meter dials for instant OCR readings or log usage manually.
+          100% Free, Private &amp; In-Browser. Scan meters with AI camera OCR, calculate AC &amp; appliance power costs, split tenant bills, and size solar systems — zero signup required.
         </p>
 
-        {!user && <InstantMeterCheckWidget />}
-
         {user && activeMeter && (
-          <div className="fade-in" style={{ width: '100%', maxWidth: '800px', margin: '2rem auto 0 auto' }}>
-            
-            {/* Slab Status Alert on Landing Page */}
-            <div style={{
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'space-between',
-              padding: '1rem 1.5rem',
-              borderRadius: '12px',
-              margin: '0 auto 1.25rem auto',
-              maxWidth: '500px',
-              background: currentUsage >= 200 
-                ? 'rgba(239, 68, 68, 0.08)' 
-                : projectedUsage >= 200 
-                  ? 'rgba(245, 158, 11, 0.08)' 
-                  : 'rgba(16, 185, 129, 0.08)',
-              border: `1px solid ${
-                currentUsage >= 200 
-                  ? 'rgba(239, 68, 68, 0.2)' 
-                  : projectedUsage >= 200 
-                    ? 'rgba(245, 158, 11, 0.2)' 
-                    : 'rgba(16, 185, 129, 0.2)'
-              }`,
-              color: currentUsage >= 200 
-                ? '#fca5a5' 
-                : projectedUsage >= 200 
-                  ? '#fef3c7' 
-                  : '#a7f3d0',
-              textAlign: 'left'
-            }}>
-              <div>
-                <div style={{ fontWeight: 700, fontSize: '0.95rem' }}>
-                  K-Electric Status:{' '}
-                  {currentUsage >= 200 ? (
-                    'UNPROTECTED SLAB'
-                  ) : projectedUsage >= 200 ? (
-                    'BREACH PROJECTED'
-                  ) : (
-                    'PROTECTED (Subsidized)'
-                  )}
-                </div>
-                <div style={{ fontSize: '0.8rem', opacity: 0.85, marginTop: '0.15rem' }}>
-                  {currentUsage >= 200 ? (
-                    `Exceeded 200 Units limit (Current: ${currentUsage.toFixed(0)} Units)`
-                  ) : projectedUsage >= 200 ? (
-                    `Tracking: ${currentUsage.toFixed(0)} Units (Projected: ${projectedUsage.toFixed(0)} Units)`
-                  ) : (
-                    `Safe at ${currentUsage.toFixed(0)} Units (Projected: ${projectedUsage.toFixed(0)} / 200 Units)`
-                  )}
-                </div>
+          <div className="glass-panel fade-in" style={{
+            width: '100%',
+            maxWidth: '780px',
+            margin: '0 auto',
+            padding: '1.25rem 1.5rem',
+            borderRadius: '14px',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'space-between',
+            flexWrap: 'wrap',
+            gap: '1rem',
+            background: '#ffffff',
+            border: '1px solid #e2e8f0',
+            boxShadow: 'var(--shadow-sm)'
+          }}>
+            <div style={{ textAlign: 'left' }}>
+              <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', marginBottom: '0.25rem' }}>
+                <span style={{ fontSize: '0.78rem', fontWeight: 700, textTransform: 'uppercase', color: '#2563eb', background: '#eff6ff', padding: '2px 8px', borderRadius: '999px', border: '1px solid #bfdbfe' }}>
+                  Active Meter
+                </span>
+                <span style={{ fontWeight: 800, fontSize: '1rem', color: '#0f172a' }}>
+                  #{activeMeter.meter_number}
+                </span>
               </div>
-              <div style={{ fontSize: '0.8rem', fontWeight: 600, padding: '4px 10px', borderRadius: '6px', background: 'rgba(255,255,255,0.06)', flexShrink: 0 }}>
-                {daysRemaining}d left
+              <div style={{ fontSize: '0.88rem', color: '#475569' }}>
+                Usage: <strong style={{ color: currentUsage >= 200 ? '#dc2626' : '#059669' }}>{currentUsage.toFixed(0)} kWh</strong> ({currentUsage >= 200 ? 'Unprotected Slab' : 'Protected 200 Slab'}) • <strong>{daysRemaining}d</strong> left in cycle
               </div>
             </div>
-
-            <OfflineReadingsList meterId={activeMeter.id} />
-
-            <QuickReadingForm
-              meterId={activeMeter.id}
-              meterNumber={activeMeter.meter_number}
-              latestReadingValue={latestReadingValue}
-            />
-
-            {/* Reading Logs */}
-            <div style={{ marginTop: '2rem', textAlign: 'left' }}>
-              <DashboardReadingHistory
-                readings={readings}
-                meterNumber={activeMeter.meter_number}
-                maxLimit={limit}
-                billingCycleStartDay={activeMeter.billing_cycle_start_day || 1}
-              />
+            <div style={{ display: 'flex', gap: '0.75rem', alignItems: 'center' }}>
+              <Link href="/dashboard" className="glow-btn-solid" style={{ textDecoration: 'none', padding: '8px 16px', fontSize: '0.88rem' }}>
+                Open Full Dashboard <ChevronRight size={16} />
+              </Link>
             </div>
           </div>
         )}
 
-        <div className={`${styles.ctaGroup} fade-in`}>
-          {user ? (
-            <>
-              <Link
-                href="/dashboard"
-                className="glow-btn"
-                style={{ textDecoration: 'none', display: 'inline-flex', alignItems: 'center', gap: '0.5rem' }}
-              >
-                Go to Dashboard <ChevronRight size={20} />
-              </Link>
-              {activeMeter && (
-                <AddReadingButton
-                  meterId={activeMeter.id}
-                  meterNumber={activeMeter.meter_number}
-                  className="glow-btn-solid"
-                  label="Log Reading (Manual / Scan)"
-                />
-              )}
-            </>
-          ) : (
-            <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '0.85rem', width: '100%' }}>
-              <div style={{ display: 'flex', gap: '1rem', flexWrap: 'wrap', justifyContent: 'center' }}>
-                <Link
-                  href="/guest"
-                  className="glow-btn"
-                  style={{ textDecoration: 'none', display: 'inline-flex', alignItems: 'center', gap: '0.5rem', padding: '11px 22px', fontSize: '0.95rem', fontWeight: 600 }}
-                >
-                  ⚡ Open Live Guest Sandbox <ChevronRight size={18} />
-                </Link>
-                <Link
-                  href="/register"
-                  className="glow-btn-accent"
-                  style={{ textDecoration: 'none', display: 'inline-flex', alignItems: 'center', gap: '0.5rem', padding: '11px 22px', fontSize: '0.95rem' }}
-                >
-                  Create Free Account
-                </Link>
-              </div>
-              <Link href="/login" style={{ color: 'var(--text-secondary)', fontSize: '0.88rem', textDecoration: 'none' }}>
-                Already registered? <span style={{ color: 'var(--primary)', textDecoration: 'underline' }}>Sign In</span>
-              </Link>
-            </div>
-          )}
-        </div>
-
-        {/* Instant Micro-Tools Hub Section (iLovePDF for Utilities) */}
-        <section style={{ width: '100%', margin: '3.5rem 0 2rem 0' }} aria-label="Free Utility Micro-Tools">
-          <div style={{ textAlign: 'center', marginBottom: '2rem' }}>
-            <div style={{
-              display: 'inline-flex',
-              alignItems: 'center',
-              gap: '0.4rem',
-              fontSize: '0.8rem',
-              fontWeight: 700,
-              textTransform: 'uppercase',
-              letterSpacing: '1px',
-              color: 'var(--primary)',
-              background: 'rgba(0, 240, 255, 0.08)',
-              padding: '5px 16px',
-              borderRadius: '999px',
-              border: '1px solid rgba(0, 240, 255, 0.25)'
-            }}>
-              ⚡ The iLovePDF for Utilities • 15 Free In-Browser Tools
-            </div>
-            <h2 style={{ fontSize: '2.2rem', fontWeight: 800, color: '#ffffff', marginTop: '0.85rem', letterSpacing: '-0.5px' }}>
-              Every Utility Tool You Need, In One Place
-            </h2>
-            <p style={{ color: 'var(--text-secondary)', fontSize: '1rem', maxWidth: '700px', margin: '0.5rem auto 0 auto', lineHeight: 1.6 }}>
-              100% Free, Private &amp; In-Browser. Scan meters, calculate AC &amp; appliance power costs, split tenant bills, and size solar systems with zero logins.
-            </p>
-          </div>
-
+        {/* Primary Eye-Level Section: The 15 Utility Tools Hub (iLovePDF Style) */}
+        <section style={{ width: '100%', margin: '0.5rem 0 1.5rem 0' }} aria-label="Free Utility Micro-Tools">
           <ToolsGrid initialCategory="all" showSearch={true} />
         </section>
 
+        {/* Secondary Quick Action: Instant Single-Reading Check */}
+        {!user && (
+          <section style={{ width: '100%', maxWidth: '640px', margin: '1rem auto' }} aria-label="Instant Meter Reading & Slab Check">
+            <div style={{ textAlign: 'center', marginBottom: '1.25rem' }}>
+              <div style={{ display: 'inline-flex', alignItems: 'center', gap: '0.4rem', fontSize: '0.78rem', fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.5px', color: '#059669', background: '#ecfdf5', padding: '4px 12px', borderRadius: '999px', border: '1px solid #a7f3d0' }}>
+                ⚡ 1-Click Instant Check
+              </div>
+              <h2 style={{ fontSize: '1.5rem', fontWeight: 800, color: '#0f172a', marginTop: '0.5rem' }}>
+                Quick Meter Reading &amp; Slab Check
+              </h2>
+              <p style={{ color: '#475569', fontSize: '0.9rem', marginTop: '0.25rem' }}>
+                Enter your current meter reading to calculate your K-Electric/LESCO 200-unit slab status in real time.
+              </p>
+            </div>
+            <InstantMeterCheckWidget />
+          </section>
+        )}
+
         <section className={styles.featuresSection} aria-label="Core Capabilities">
-          <h2 className={styles.sectionTitle}>Engineered for Real-Time Power Monitoring</h2>
+          <h2 className={styles.sectionTitle}>Engineered for Real-Time Utility Intelligence</h2>
           <div className={styles.featuresGrid}>
             <div className={`${styles.featureCard} fade-in`}>
               <div className={styles.featureIcon}>
                 <Camera size={24} />
               </div>
-              <h3 className={styles.featureTitle}>AI-Powered OCR scan</h3>
+              <h3 className={styles.featureTitle}>In-Browser AI OCR</h3>
               <p className={styles.featureText}>
-                Snap a picture of your physical meter dials using your phone's camera. Our browser-side OCR engine parses and extracts digits automatically.
+                Snap photos of digital LCDs, 5-dial clock meters, and gas odometers. Recognition runs 100% on your device with zero cloud uploads.
               </p>
             </div>
 
@@ -354,9 +265,9 @@ export default async function LandingPage() {
               <div className={`${styles.featureIcon} ${styles.featureIconAccent}`}>
                 <TrendingUp size={24} />
               </div>
-              <h3 className={styles.featureTitle}>Usage Limits & Alerts</h3>
+              <h3 className={styles.featureTitle}>Tariff &amp; Slab Protection</h3>
               <p className={styles.featureText}>
-                Set a monthly limit on units. Get visual warnings at 80% capacity and pulsing critical alerts once you breach your budget.
+                Live slab forecasting tracks daily run rates and warns you before crossing subsidized thresholds like the 200 units K-Electric / LESCO cap.
               </p>
             </div>
 
@@ -364,9 +275,9 @@ export default async function LandingPage() {
               <div className={`${styles.featureIcon} ${styles.featureIconSuccess}`}>
                 <Key size={24} />
               </div>
-              <h3 className={styles.featureTitle}>Secure Dashboard</h3>
+              <h3 className={styles.featureTitle}>Tamper-Proof Slips</h3>
               <p className={styles.featureText}>
-                Fully authenticated user profiles backed by Supabase. Your meter readings are protected by enterprise-grade Row Level Security.
+                Generate cryptographically stamped slips for tenant sub-meter splits or disputing erroneous provider utility bills with verifiable proof.
               </p>
             </div>
           </div>
@@ -377,7 +288,7 @@ export default async function LandingPage() {
         <div style={{ display: 'flex', gap: '1.5rem', flexWrap: 'wrap', justifyContent: 'center', fontSize: '0.88rem' }}>
           <Link href="/tools" style={{ color: 'var(--primary)', textDecoration: 'none', fontWeight: 700 }}>🧰 All Utility Tools Hub</Link>
           <Link href="/protected-slab-calculator" style={{ color: 'var(--primary)', textDecoration: 'none', fontWeight: 700 }}>⚡ 200 Unit Slab Calculator</Link>
-          <Link href="/blog" style={{ color: '#38bdf8', textDecoration: 'none', fontWeight: 700 }}>📖 Utility Blog</Link>
+          <Link href="/blog" style={{ color: '#0284c7', textDecoration: 'none', fontWeight: 700 }}>📖 Utility Blog</Link>
           <Link href="/privacy-policy" style={{ color: 'var(--text-secondary)', textDecoration: 'none' }}>Privacy Policy</Link>
           <Link href="/terms-of-service" style={{ color: 'var(--text-secondary)', textDecoration: 'none' }}>Terms of Service</Link>
           <Link href="/about" style={{ color: 'var(--text-secondary)', textDecoration: 'none' }}>About Us</Link>

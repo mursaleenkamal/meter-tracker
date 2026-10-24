@@ -1,44 +1,44 @@
 /* Reset and Global Styles */
 
 :root {
-  /* Clean Financial Utility Slate (Dual-Tone Accessible) */
-  --background: #0b111e;
-  --bg-gradient: radial-gradient(circle at 50% 0%, #131d31 0%, #0b111e 80%);
-  --card-bg: rgba(17, 24, 39, 0.85);
-  --card-bg-hover: rgba(26, 36, 56, 0.95);
-  --border-color: rgba(255, 255, 255, 0.1);
-  --border-color-active: rgba(16, 185, 129, 0.5);
+  /* Clean Modern Light Theme (iLovePDF & Stripe inspired) */
+  --background: #f8fafc;
+  --bg-gradient: linear-gradient(180deg, #ffffff 0%, #f8fafc 100%);
+  --card-bg: #ffffff;
+  --card-bg-hover: #ffffff;
+  --border-color: #e2e8f0;
+  --border-color-active: #2563eb;
   
-  --text-primary: #f8fafc;
-  --text-secondary: #94a3b8;
-  --text-muted: #64748b;
+  --text-primary: #0f172a;
+  --text-secondary: #475569;
+  --text-muted: #94a3b8;
   
-  /* Primary Utility Accent (Clean Emerald / Teal instead of harsh neon cyan) */
-  --primary: #10b981;
-  --primary-glow: rgba(16, 185, 129, 0.2);
-  --primary-dark: #059669;
+  /* Primary Utility Accent: Crisp Modern Blue & Emerald */
+  --primary: #2563eb;
+  --primary-glow: rgba(37, 99, 235, 0.12);
+  --primary-dark: #1d4ed8;
   
-  --accent: #3b82f6;
-  --accent-glow: rgba(59, 130, 246, 0.2);
+  --accent: #0284c7;
+  --accent-glow: rgba(2, 132, 199, 0.12);
   
   /* Accessible Traffic-Light Signals */
-  --success: #10b981;
-  --success-glow: rgba(16, 185, 129, 0.25);
-  --success-bg: rgba(16, 185, 129, 0.12);
+  --success: #059669;
+  --success-glow: rgba(5, 150, 105, 0.12);
+  --success-bg: #ecfdf5;
   
-  --warning: #f59e0b;
-  --warning-glow: rgba(245, 158, 11, 0.25);
-  --warning-bg: rgba(245, 158, 11, 0.12);
+  --warning: #d97706;
+  --warning-glow: rgba(217, 119, 6, 0.12);
+  --warning-bg: #fffbeb;
   
-  --error: #ef4444;
-  --error-glow: rgba(239, 68, 68, 0.25);
-  --error-bg: rgba(239, 68, 68, 0.12);
+  --error: #dc2626;
+  --error-glow: rgba(220, 38, 38, 0.12);
+  --error-bg: #fef2f2;
   
-  --shadow-sm: 0 1px 3px 0 rgba(0, 0, 0, 0.3);
-  --shadow-md: 0 4px 14px -2px rgba(0, 0, 0, 0.4);
-  --shadow-lg: 0 12px 28px -4px rgba(0, 0, 0, 0.6);
+  --shadow-sm: 0 1px 3px 0 rgba(0, 0, 0, 0.05);
+  --shadow-md: 0 4px 14px -2px rgba(15, 23, 42, 0.06);
+  --shadow-lg: 0 12px 28px -4px rgba(15, 23, 42, 0.09);
   
-  --glass-filter: blur(12px);
+  --glass-filter: blur(8px);
   --font-sans: var(--font-outfit), 'Outfit', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
   --font-mono: var(--font-mono), 'Geist Mono', 'Roboto Mono', monospace;
   
@@ -70,34 +70,32 @@ body {
   -webkit-font-smoothing: antialiased;
 }
 
-/* Glassmorphism Styles */
+/* Glassmorphism Styles (Clean Light Panel) */
 .glass-panel {
   background: var(--card-bg);
-  backdrop-filter: var(--glass-filter);
-  -webkit-backdrop-filter: var(--glass-filter);
   border: 1px solid var(--border-color);
-  border-radius: 12px;
-  box-shadow: var(--shadow-md);
+  border-radius: 14px;
+  box-shadow: var(--shadow-sm);
   transition: all var(--transition-normal);
 }
 
 .glass-panel:hover {
   background: var(--card-bg-hover);
-  border-color: rgba(255, 255, 255, 0.16);
-  box-shadow: var(--shadow-lg);
+  border-color: #cbd5e1;
+  box-shadow: var(--shadow-md);
 }
 
 /* Glowing Elements */
 .glow-text {
-  text-shadow: 0 0 12px var(--primary-glow);
+  color: var(--primary);
 }
 
 /* Button Styles */
 .glow-btn {
-  background: rgba(16, 185, 129, 0.08);
-  color: var(--primary);
-  border: 1px solid rgba(16, 185, 129, 0.35);
-  padding: 10px 20px;
+  background: #f1f5f9;
+  color: #0f172a;
+  border: 1px solid #cbd5e1;
+  padding: 9px 18px;
   border-radius: 8px;
   font-family: var(--font-sans);
   font-weight: 600;
@@ -111,33 +109,31 @@ body {
 }
 
 .glow-btn:hover {
-  background: var(--primary);
-  color: #0b111e !important;
-  border-color: var(--primary);
-  box-shadow: 0 4px 12px rgba(16, 185, 129, 0.35);
+  background: #e2e8f0;
+  color: #0f172a !important;
+  border-color: #94a3b8;
   transform: translateY(-1px);
 }
 
 .glow-btn-solid {
-  background: #10b981;
-  color: #0b111e !important;
+  background: #2563eb;
+  color: #ffffff !important;
   border: none;
-  padding: 11px 22px;
+  padding: 10px 20px;
   border-radius: 8px;
   font-weight: 700;
   font-family: var(--font-sans);
   cursor: pointer;
   transition: all var(--transition-normal);
-  box-shadow: 0 4px 14px rgba(16, 185, 129, 0.35);
+  box-shadow: 0 3px 10px rgba(37, 99, 235, 0.25);
   display: inline-flex;
   align-items: center;
   justify-content: center;
 }
 
 .glow-btn-solid:hover {
-  background: #059669;
-  color: #ffffff !important;
-  box-shadow: 0 6px 18px rgba(16, 185, 129, 0.45);
+  background: #1d4ed8;
+  box-shadow: 0 6px 16px rgba(37, 99, 235, 0.35);
   transform: translateY(-1px);
 }
 
@@ -146,24 +142,24 @@ body {
 }
 
 .glow-btn-accent {
-  background: #3b82f6;
+  background: #0f172a;
   color: #ffffff !important;
   border: none;
-  padding: 10px 20px;
+  padding: 9px 18px;
   border-radius: 8px;
   font-weight: 600;
   font-family: var(--font-sans);
   cursor: pointer;
   transition: all var(--transition-normal);
-  box-shadow: 0 4px 12px rgba(59, 130, 246, 0.3);
+  box-shadow: 0 2px 8px rgba(15, 23, 42, 0.12);
   display: inline-flex;
   align-items: center;
   justify-content: center;
 }
 
 .glow-btn-accent:hover {
-  background: #2563eb;
-  box-shadow: 0 6px 16px rgba(59, 130, 246, 0.45);
+  background: #1e293b;
+  box-shadow: 0 4px 12px rgba(15, 23, 42, 0.2);
   transform: translateY(-1px);
 }
 
@@ -176,9 +172,9 @@ input[type="tel"],
 input[type="date"],
 select,
 textarea {
-  background: rgba(15, 23, 42, 0.9);
+  background: #ffffff;
   color: var(--text-primary);
-  border: 1px solid var(--border-color);
+  border: 1px solid #cbd5e1;
   border-radius: 8px;
   padding: 10px 14px;
   outline: none;
@@ -188,7 +184,7 @@ textarea {
 
 input:focus, select:focus, textarea:focus {
   border-color: var(--primary);
-  box-shadow: 0 0 0 2px var(--primary-glow);
+  box-shadow: 0 0 0 3px var(--primary-glow);
 }
 
 input::placeholder, textarea::placeholder {
@@ -197,11 +193,9 @@ input::placeholder, textarea::placeholder {
 
 /* Modals & Setup Cards */
 [class*="setupCard"] {
-  background: rgba(13, 20, 38, 0.95) !important;
-  backdrop-filter: blur(20px) !important;
-  -webkit-backdrop-filter: blur(20px) !important;
-  border: 1px solid var(--border-color-active) !important;
-  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.7), 0 0 30px var(--primary-glow) !important;
+  background: #ffffff !important;
+  border: 1px solid var(--border-color) !important;
+  box-shadow: 0 20px 40px -10px rgba(15, 23, 42, 0.15) !important;
   color: var(--text-primary) !important;
 }
 
@@ -245,21 +239,21 @@ input::placeholder, textarea::placeholder {
 
 /* Custom Scrollbar */
 ::-webkit-scrollbar {
-  width: 8px;
-  height: 8px;
+  width: 7px;
+  height: 7px;
 }
 
 ::-webkit-scrollbar-track {
-  background: var(--background);
+  background: #f1f5f9;
 }
 
 ::-webkit-scrollbar-thumb {
-  background: rgba(255, 255, 255, 0.12);
+  background: #cbd5e1;
   border-radius: 4px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: var(--primary-glow);
+  background: #94a3b8;
 }
 
 .add-meter-text {

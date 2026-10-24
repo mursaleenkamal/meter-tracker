@@ -133,11 +133,11 @@ export default function InstantMeterCheckWidget() {
             autoFocus
             style={{
               width: '100%',
-              background: 'rgba(15, 23, 42, 0.9)',
-              border: '1px solid var(--border-color)',
+              background: '#ffffff',
+              border: '1px solid #cbd5e1',
               borderRadius: '10px',
               padding: '12px 14px',
-              color: 'var(--text-primary)',
+              color: '#0f172a',
               fontSize: '1.1rem',
               fontWeight: 600,
               fontFamily: 'var(--font-mono), monospace',
@@ -169,7 +169,7 @@ export default function InstantMeterCheckWidget() {
               + Purani (Cycle Start) reading bhi enter karna chahte hain? (Optional)
             </button>
           ) : (
-            <div className="fade-in" style={{ padding: '0.75rem', background: 'rgba(15, 23, 42, 0.5)', borderRadius: '8px', border: '1px solid rgba(255, 255, 255, 0.06)' }}>
+            <div className="fade-in" style={{ padding: '0.75rem', background: '#f8fafc', borderRadius: '8px', border: '1px solid #e2e8f0' }}>
               <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '0.35rem' }}>
                 <label style={{ fontSize: '0.78rem', fontWeight: 600, color: 'var(--text-secondary)' }}>
                   Previous / Start Reading (Optional)
@@ -194,11 +194,11 @@ export default function InstantMeterCheckWidget() {
                 onChange={(e) => setPrevReading(e.target.value)}
                 style={{
                   width: '100%',
-                  background: 'rgba(15, 23, 42, 0.9)',
-                  border: '1px solid var(--border-color)',
+                  background: '#ffffff',
+                  border: '1px solid #cbd5e1',
                   borderRadius: '8px',
                   padding: '9px 12px',
-                  color: 'var(--text-primary)',
+                  color: '#0f172a',
                   fontSize: '0.95rem',
                   fontFamily: 'var(--font-mono), monospace',
                   outline: 'none',
@@ -209,7 +209,7 @@ export default function InstantMeterCheckWidget() {
         </div>
 
         {error && (
-          <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', padding: '8px 12px', borderRadius: '8px', background: 'var(--error-bg)', border: '1px solid rgba(239, 68, 68, 0.3)', color: '#fca5a5', fontSize: '0.8rem', marginBottom: '0.9rem' }}>
+          <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', padding: '8px 12px', borderRadius: '8px', background: 'var(--error-bg)', border: '1px solid rgba(239, 68, 68, 0.3)', color: 'var(--error)', fontSize: '0.8rem', marginBottom: '0.9rem' }}>
             <AlertTriangle size={16} style={{ color: 'var(--error)', flexShrink: 0 }} />
             <span>{error}</span>
           </div>
