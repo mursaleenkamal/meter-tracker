@@ -1,5 +1,5 @@
 // Read Meter Service Worker for Fast Asset Caching & Push Notifications
-const CACHE_NAME = 'readmeter-v2-cache'
+const CACHE_NAME = 'readmeter-v3-cache'
 const STATIC_ASSETS = ['/favicon.ico', '/favicon-32x32.png', '/icon-192.png', '/icon-512.png', '/apple-touch-icon.png']
 
 self.addEventListener('install', (event) => {
