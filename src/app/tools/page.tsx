@@ -168,6 +168,12 @@ export default function ToolsHubPage() {
         url: `${siteUrl}/tools/lpg-cylinder-calculator`,
         applicationCategory: 'UtilityApplication',
       },
+      {
+        '@type': 'WebApplication',
+        name: 'Water Pump & Motor Electricity Cost Calculator',
+        url: `${siteUrl}/tools/water-pump-electricity-calculator`,
+        applicationCategory: 'UtilityApplication',
+      },
     ],
   }
 

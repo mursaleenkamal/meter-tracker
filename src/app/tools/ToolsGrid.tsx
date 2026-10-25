@@ -126,7 +126,21 @@ export const ALL_TOOLS: ToolItem[] = [
     cardClass: styles.toolCardAppliance,
     searchTerms: 'ac electricity cost calculator inverter non inverter 1.5 ton 1 ton 26 degrees savings',
   },
-  // 7. 200-Unit Protected Slab Calculator
+  // 7. Water Pump & Motor Electricity Calculator
+  {
+    id: 'water-pump-calculator',
+    title: 'Water Pump & Motor Electricity Cost Calculator',
+    description:
+      'Calculate units (kWh), monthly bill, and tank filling costs for 0.5 HP, 1 HP, 1.5 HP, and 2 HP water pumps and submersible borewells under NEPRA slabs.',
+    href: '/tools/water-pump-electricity-calculator',
+    category: 'Electricity & Tariffs',
+    filterTag: 'electricity',
+    icon: <Droplets size={24} color="#2dd4bf" />,
+    badge: 'Hydro Power',
+    cardClass: styles.toolCardElectric,
+    searchTerms: 'water pump electricity calculator motor 1 hp 1.5 hp borewell submersible pani ki motor units kwh overhead tank',
+  },
+  // 8. 200-Unit Protected Slab Calculator
   {
     id: 'protected-slab',
     title: '200-Unit Protected Slab Calculator',
