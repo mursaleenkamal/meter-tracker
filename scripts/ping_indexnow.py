@@ -43,6 +43,7 @@ URL_LIST = [
     f"https://{HOST}/blog/how-to-read-analog-dial-digital-electric-meters-kwh-guide",
     f"https://{HOST}/blog/ups-inverter-battery-backup-time-calculation-formula-pakistan-2026",
     f"https://{HOST}/blog/electric-bike-car-charging-cost-units-pakistan-2026",
+    f"https://{HOST}/blog/single-phase-vs-3-phase-meter-charges-tariff-pakistan-2026",
     f"https://{HOST}/guest",
     f"https://{HOST}/about",
     f"https://{HOST}/disclaimer"
