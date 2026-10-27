@@ -3,7 +3,7 @@ import { cookies } from 'next/headers'
 import Link from 'next/link'
 import styles from './landing.module.css'
 import { Zap, Camera, TrendingUp, Key, ChevronRight, Wrench } from 'lucide-react'
-import InstantMeterCheckWidget from '@/components/InstantMeterCheckWidget'
+import Navbar from '@/components/Navbar'
 import ToolsGrid from '@/app/tools/ToolsGrid'
 
 // Helper function to calculate the start of the current billing cycle
@@ -114,70 +114,7 @@ export default async function LandingPage() {
 
   return (
     <div className={styles.container}>
-      <header className={styles.header}>
-        <div className={styles.logo}>
-          <Zap className={styles.logoIcon} size={28} fill="var(--primary)" />
-          <span className={styles.logoText}>
-            Read<span>Meter</span>
-          </span>
-        </div>
-        <div style={{ display: 'flex', alignItems: 'center', gap: '0.65rem', flexWrap: 'wrap' }}>
-          <Link
-            href="/tools"
-            style={{
-              display: 'inline-flex',
-              alignItems: 'center',
-              gap: '0.4rem',
-              color: '#2563eb',
-              textDecoration: 'none',
-              fontSize: '0.86rem',
-              fontWeight: 700,
-              padding: '6px 12px',
-              borderRadius: '8px',
-              border: '1px solid #bfdbfe',
-              background: '#eff6ff',
-            }}
-          >
-            <Wrench size={14} /> Tools Hub <span style={{ fontSize: '0.72rem', background: '#2563eb', color: '#ffffff', padding: '1px 6px', borderRadius: '999px', fontWeight: 800 }}>15</span>
-          </Link>
-          <Link
-            href="/protected-slab-calculator"
-            style={{
-              color: 'var(--text-secondary)',
-              textDecoration: 'none',
-              fontSize: '0.86rem',
-              fontWeight: 600,
-            }}
-          >
-            ⚡ Slab Calculator
-          </Link>
-          <Link
-            href="/blog"
-            style={{
-              color: 'var(--text-secondary)',
-              textDecoration: 'none',
-              fontSize: '0.86rem',
-              fontWeight: 500,
-            }}
-          >
-            Blog
-          </Link>
-          {user ? (
-            <Link href="/dashboard" className="glow-btn-solid" style={{ textDecoration: 'none', padding: '6px 14px', fontSize: '0.86rem' }}>
-              Dashboard
-            </Link>
-          ) : (
-            <>
-              <Link href="/guest" className="glow-btn" style={{ textDecoration: 'none', padding: '6px 12px', fontSize: '0.86rem' }}>
-                ⚡ Guest Sandbox
-              </Link>
-              <Link href="/login" className="glow-btn-accent" style={{ textDecoration: 'none', padding: '6px 12px', fontSize: '0.86rem' }}>
-                Sign In
-              </Link>
-            </>
-          )}
-        </div>
-      </header>
+      <Navbar user={user} maxWidth="1100px" />
 
       <main className={styles.main}>
         <div className={`${styles.badge} fade-in`}>⚡ Smart Utility Suite • 15 Free In-Browser Tools</div>
@@ -225,28 +162,24 @@ export default async function LandingPage() {
           </div>
         )}
 
-        {/* Primary Eye-Level Section: The 15 Utility Tools Hub */}
+        {/* Primary Eye-Level Section: Top 6 Essential Utility Tools (2 Rows) */}
         <section style={{ width: '100%', margin: '0.5rem 0 1.5rem 0' }} aria-label="Free Utility Micro-Tools">
-          <ToolsGrid initialCategory="all" showSearch={true} />
+          <ToolsGrid
+            initialCategory="all"
+            showSearch={false}
+            hideFilters={true}
+            limit={6}
+            showMoreButton={true}
+            featuredIds={[
+              'digital-meter-scanner',
+              'protected-slab',
+              'appliance-power-cost',
+              'ac-electricity-cost',
+              'submeter-bill',
+              'solar-system-sizing',
+            ]}
+          />
         </section>
-
-        {/* Secondary Quick Action: Instant Single-Reading Check */}
-        {!user && (
-          <section style={{ width: '100%', maxWidth: '640px', margin: '1rem auto' }} aria-label="Instant Meter Reading & Slab Check">
-            <div style={{ textAlign: 'center', marginBottom: '1.25rem' }}>
-              <div style={{ display: 'inline-flex', alignItems: 'center', gap: '0.4rem', fontSize: '0.78rem', fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.5px', color: '#059669', background: '#ecfdf5', padding: '4px 12px', borderRadius: '999px', border: '1px solid #a7f3d0' }}>
-                ⚡ 1-Click Instant Check
-              </div>
-              <h2 style={{ fontSize: '1.5rem', fontWeight: 800, color: '#0f172a', marginTop: '0.5rem' }}>
-                Quick Meter Reading &amp; Slab Check
-              </h2>
-              <p style={{ color: '#475569', fontSize: '0.9rem', marginTop: '0.25rem' }}>
-                Enter your current meter reading to calculate your K-Electric/LESCO 200-unit slab status in real time.
-              </p>
-            </div>
-            <InstantMeterCheckWidget />
-          </section>
-        )}
 
         <section className={styles.featuresSection} aria-label="Core Capabilities">
           <h2 className={styles.sectionTitle}>Engineered for Real-Time Utility Intelligence</h2>

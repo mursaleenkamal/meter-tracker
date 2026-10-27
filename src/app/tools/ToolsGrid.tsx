@@ -38,7 +38,10 @@ export interface ToolItem {
 interface ToolsGridProps {
   initialCategory?: string
   showSearch?: boolean
+  hideFilters?: boolean
   limit?: number
+  showMoreButton?: boolean
+  featuredIds?: string[]
 }
 
 export const ALL_TOOLS: ToolItem[] = [
@@ -271,7 +274,10 @@ export const ALL_TOOLS: ToolItem[] = [
 export default function ToolsGrid({
   initialCategory = 'all',
   showSearch = true,
+  hideFilters = false,
   limit,
+  showMoreButton = false,
+  featuredIds,
 }: ToolsGridProps) {
   const [activeCategory, setActiveCategory] = useState<string>(initialCategory)
   const [searchQuery, setSearchQuery] = useState<string>('')
@@ -323,27 +329,33 @@ export default function ToolsGrid({
   const filteredTools = useMemo(() => {
     let list = ALL_TOOLS
 
-    // Category filter
-    if (activeCategory !== 'all') {
-      list = list.filter((t) => {
-        if (activeCategory === 'ocr') return t.filterTag === 'ocr'
-        if (activeCategory === 'electricity')
-          return (
-            t.filterTag === 'electricity' ||
-            t.id === 'digital-meter-scanner' ||
-            t.id === 'analog-dial-meter-reader'
-          )
-        if (activeCategory === 'solar') return t.filterTag === 'solar'
-        if (activeCategory === 'submeter') return t.filterTag === 'submeter'
-        if (activeCategory === 'gas')
-          return (
-            t.filterTag === 'gas' ||
-            t.id === 'gas-meter-reader' ||
-            t.id === 'water-meter-reader'
-          )
-        if (activeCategory === 'vehicles') return t.filterTag === 'vehicles'
-        return t.filterTag === activeCategory
-      })
+    if (featuredIds && featuredIds.length > 0) {
+      list = featuredIds
+        .map((id) => ALL_TOOLS.find((t) => t.id === id))
+        .filter(Boolean) as ToolItem[]
+    } else {
+      // Category filter
+      if (activeCategory !== 'all') {
+        list = list.filter((t) => {
+          if (activeCategory === 'ocr') return t.filterTag === 'ocr'
+          if (activeCategory === 'electricity')
+            return (
+              t.filterTag === 'electricity' ||
+              t.id === 'digital-meter-scanner' ||
+              t.id === 'analog-dial-meter-reader'
+            )
+          if (activeCategory === 'solar') return t.filterTag === 'solar'
+          if (activeCategory === 'submeter') return t.filterTag === 'submeter'
+          if (activeCategory === 'gas')
+            return (
+              t.filterTag === 'gas' ||
+              t.id === 'gas-meter-reader' ||
+              t.id === 'water-meter-reader'
+            )
+          if (activeCategory === 'vehicles') return t.filterTag === 'vehicles'
+          return t.filterTag === activeCategory
+        })
+      }
     }
 
     // Search query filter
@@ -362,7 +374,7 @@ export default function ToolsGrid({
     }
 
     return list
-  }, [activeCategory, searchQuery, limit])
+  }, [activeCategory, searchQuery, limit, featuredIds])
 
   return (
     <div>
@@ -391,52 +403,84 @@ export default function ToolsGrid({
       )}
 
       {/* Category Filter Pills */}
-      <div className={styles.filterBar}>
-        {categories.map((cat) => (
-          <button
-            key={cat.value}
-            type="button"
-            className={`${styles.filterPill} ${activeCategory === cat.value ? styles.filterPillActive : ''}`}
-            onClick={() => setActiveCategory(cat.value)}
-          >
-            <span>{cat.label}</span>
-            <span className={styles.pillCount}>{cat.count}</span>
-          </button>
-        ))}
-      </div>
+      {!hideFilters && (
+        <div className={styles.filterBar}>
+          {categories.map((cat) => (
+            <button
+              key={cat.value}
+              type="button"
+              className={`${styles.filterPill} ${activeCategory === cat.value ? styles.filterPillActive : ''}`}
+              onClick={() => setActiveCategory(cat.value)}
+            >
+              <span>{cat.label}</span>
+              <span className={styles.pillCount}>{cat.count}</span>
+            </button>
+          ))}
+        </div>
+      )}
 
       {/* Tools Grid */}
       {filteredTools.length > 0 ? (
-        <div className={styles.toolsGrid} style={{ marginTop: '1.5rem' }}>
-          {filteredTools.map((tool) => (
-            <Link
-              key={tool.id}
-              href={tool.href}
-              className={`${styles.toolCard} ${tool.cardClass}`}
-            >
-              <div>
-                <div className={styles.cardHeader}>
-                  <span className={styles.categoryTag}>{tool.category}</span>
-                  <span className={styles.badgePopular}>{tool.badge}</span>
-                </div>
-                <div style={{ marginTop: '1.25rem' }}>
-                  <div className={styles.iconWrapper}>{tool.icon}</div>
-                  <div className={styles.cardBody} style={{ marginTop: '1rem' }}>
-                    <h2 className={styles.toolTitle}>{tool.title}</h2>
-                    <p className={styles.toolDescription}>{tool.description}</p>
+        <>
+          <div className={styles.toolsGrid} style={{ marginTop: hideFilters && !showSearch ? '0.5rem' : '1.5rem' }}>
+            {filteredTools.map((tool) => (
+              <Link
+                key={tool.id}
+                href={tool.href}
+                className={`${styles.toolCard} ${tool.cardClass}`}
+              >
+                <div>
+                  <div className={styles.cardHeader}>
+                    <span className={styles.categoryTag}>{tool.category}</span>
+                    <span className={styles.badgePopular}>{tool.badge}</span>
+                  </div>
+                  <div style={{ marginTop: '1.25rem' }}>
+                    <div className={styles.iconWrapper}>{tool.icon}</div>
+                    <div className={styles.cardBody} style={{ marginTop: '1rem' }}>
+                      <h2 className={styles.toolTitle}>{tool.title}</h2>
+                      <p className={styles.toolDescription}>{tool.description}</p>
+                    </div>
                   </div>
                 </div>
-              </div>
 
-              <div className={styles.cardFooter}>
-                <span className={styles.launchLink}>
-                  Launch Tool <ArrowRight size={16} />
-                </span>
-                <span style={{ fontSize: '0.8rem', color: '#64748b' }}>Free • Web</span>
+                <div className={styles.cardFooter}>
+                  <span className={styles.launchLink}>
+                    Launch Tool <ArrowRight size={16} />
+                  </span>
+                  <span style={{ fontSize: '0.8rem', color: '#64748b' }}>Free • Web</span>
+                </div>
+              </Link>
+            ))}
+          </div>
+
+          {showMoreButton && (
+            <div style={{ textAlign: 'center', marginTop: '2.5rem' }}>
+              <Link
+                href="/tools"
+                style={{
+                  display: 'inline-flex',
+                  alignItems: 'center',
+                  gap: '0.65rem',
+                  background: '#2563eb',
+                  color: '#ffffff',
+                  padding: '0.9rem 2.2rem',
+                  borderRadius: '12px',
+                  fontSize: '1rem',
+                  fontWeight: 700,
+                  textDecoration: 'none',
+                  boxShadow: '0 4px 14px rgba(37, 99, 235, 0.25)',
+                  transition: 'all 0.2s ease',
+                }}
+              >
+                <span>Explore All 15 Free Utility Tools</span>
+                <ArrowRight size={18} />
+              </Link>
+              <div style={{ marginTop: '0.65rem', fontSize: '0.86rem', color: '#64748b' }}>
+                Instant AI Camera Scanners • Bill Calculators • Solar &amp; Sub-Meter Splitters
               </div>
-            </Link>
-          ))}
-        </div>
+            </div>
+          )}
+        </>
       ) : (
         <div className={styles.noResults}>
           <Search size={36} color="#64748b" style={{ margin: '0 auto 0.75rem auto' }} />

@@ -3,6 +3,7 @@
 import { useState } from 'react'
 import Link from 'next/link'
 import styles from '../compliance.module.css'
+import Navbar from '@/components/Navbar'
 import { Zap, Mail, MessageSquare, Send, CheckCircle2, AlertTriangle } from 'lucide-react'
 
 export default function ContactPage() {
@@ -22,15 +23,7 @@ export default function ContactPage() {
 
   return (
     <div className={styles.container}>
-      <header className={styles.header}>
-        <Link href="/" className={styles.logo}>
-          <Zap size={22} fill="var(--primary)" style={{ color: 'var(--primary)' }} />
-          <span>Read Meter</span>
-        </Link>
-        <Link href="/login" className="glow-btn" style={{ textDecoration: 'none', fontSize: '0.85rem', padding: '6px 14px' }}>
-          Sign In
-        </Link>
-      </header>
+      <Navbar maxWidth="1100px" />
 
       <main className={styles.main}>
         <div className={styles.pageHeader}>

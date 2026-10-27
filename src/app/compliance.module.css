@@ -2,8 +2,8 @@
   min-height: 100vh;
   display: flex;
   flex-direction: column;
-  background: var(--bg-dark);
-  color: #e2e8f0;
+  background: #f8fafc;
+  color: #0f172a;
 }
 
 .header {
@@ -11,9 +11,8 @@
   justify-content: space-between;
   align-items: center;
   padding: 1.25rem 2rem;
-  border-bottom: 1px solid var(--border-color);
-  background: rgba(6, 9, 19, 0.6);
-  backdrop-filter: var(--glass-filter);
+  border-bottom: 1px solid #e2e8f0;
+  background: #ffffff;
 }
 
 .logo {
@@ -22,7 +21,7 @@
   gap: 0.5rem;
   font-size: 1.4rem;
   font-weight: 700;
-  color: #fff;
+  color: #0f172a;
   text-decoration: none;
 }
 
@@ -45,26 +44,25 @@
   display: flex;
   flex-direction: column;
   gap: 0.5rem;
-  border-bottom: 1px solid var(--border-color);
+  border-bottom: 1px solid #e2e8f0;
   padding-bottom: 1.5rem;
 }
 
 .pageTitle {
   font-size: 2.2rem;
   font-weight: 700;
-  color: #fff;
+  color: #0f172a;
   letter-spacing: -0.5px;
 }
 
 .pageMeta {
   font-size: 0.85rem;
-  color: var(--text-muted);
+  color: #64748b;
 }
 
 .contentCard {
-  background: var(--card-bg);
-  backdrop-filter: var(--glass-filter);
-  border: 1px solid var(--border-color);
+  background: #ffffff;
+  border: 1px solid #e2e8f0;
   border-radius: 16px;
   padding: 2.5rem 2rem;
   display: flex;
@@ -72,24 +70,26 @@
   gap: 1.5rem;
   line-height: 1.7;
   font-size: 0.95rem;
+  color: #334155;
+  box-shadow: 0 1px 3px rgba(15, 23, 42, 0.05);
 }
 
 .contentCard h2 {
   font-size: 1.35rem;
-  color: #fff;
-  font-weight: 600;
+  color: #0f172a;
+  font-weight: 700;
   margin-top: 1rem;
-  border-left: 3px solid var(--primary);
+  border-left: 3px solid #2563eb;
   padding-left: 0.75rem;
 }
 
 .contentCard p {
-  color: var(--text-secondary);
+  color: #334155;
 }
 
 .contentCard ul {
   padding-left: 1.5rem;
-  color: var(--text-secondary);
+  color: #334155;
   display: flex;
   flex-direction: column;
   gap: 0.5rem;

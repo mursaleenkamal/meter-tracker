@@ -1,7 +1,7 @@
 .pageContainer {
   min-height: 100vh;
-  background: radial-gradient(circle at 50% 10%, #0c1527 0%, #060913 70%, #03050a 100%);
-  color: #f1f5f9;
+  background: #f8fafc;
+  color: #0f172a;
   padding: 1.5rem 1rem 4rem;
   font-family: var(--font-outfit), sans-serif;
   display: flex;
@@ -16,13 +16,13 @@
   justify-content: space-between;
   align-items: center;
   padding: 1rem 0 2rem;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  border-bottom: 1px solid #e2e8f0;
 }
 
 .logo {
   font-size: 1.5rem;
   font-weight: 800;
-  color: #ffffff;
+  color: #0f172a;
   display: flex;
   align-items: center;
   gap: 0.5rem;
@@ -31,8 +31,8 @@
 }
 
 .logo span {
-  color: #00f0ff;
-  text-shadow: 0 0 12px rgba(0, 240, 255, 0.4);
+  color: #2563eb;
+  text-shadow: none;
 }
 
 .navLinks {
@@ -42,9 +42,9 @@
 }
 
 .navBtn {
-  background: rgba(255, 255, 255, 0.06);
-  border: 1px solid rgba(255, 255, 255, 0.15);
-  color: #cbd5e1;
+  background: #ffffff;
+  border: 1px solid #e2e8f0;
+  color: #475569;
   padding: 0.5rem 1rem;
   border-radius: 8px;
   font-size: 0.9rem;
@@ -54,25 +54,26 @@
 }
 
 .navBtn:hover {
-  background: rgba(255, 255, 255, 0.12);
-  color: #ffffff;
+  background: #f1f5f9;
+  color: #0f172a;
 }
 
 .navBtnPrimary {
-  background: linear-gradient(135deg, #00f0ff 0%, #0070f3 100%);
-  color: #030712;
+  background: #2563eb;
+  color: #ffffff;
   padding: 0.5rem 1.25rem;
   border-radius: 8px;
   font-size: 0.9rem;
   font-weight: 800;
   text-decoration: none;
-  box-shadow: 0 0 15px rgba(0, 240, 255, 0.3);
+  box-shadow: 0 4px 12px rgba(37, 99, 235, 0.25);
   transition: all 0.2s ease;
 }
 
 .navBtnPrimary:hover {
   transform: translateY(-1px);
-  box-shadow: 0 0 20px rgba(0, 240, 255, 0.5);
+  background: #1d4ed8;
+  box-shadow: 0 6px 16px rgba(37, 99, 235, 0.35);
 }
 
 .hero {
@@ -86,9 +87,9 @@
 }
 
 .badge {
-  background: rgba(0, 240, 255, 0.1);
-  border: 1px solid rgba(0, 240, 255, 0.4);
-  color: #00f0ff;
+  background: #eff6ff;
+  border: 1px solid #bfdbfe;
+  color: #2563eb;
   padding: 0.4rem 1.2rem;
   border-radius: 9999px;
   font-size: 0.85rem;
@@ -104,19 +105,17 @@
   font-size: 2.8rem;
   font-weight: 800;
   line-height: 1.2;
-  color: #ffffff;
+  color: #0f172a;
   letter-spacing: -1px;
 }
 
 .heroTitle span {
-  background: linear-gradient(135deg, #00f0ff 0%, #38bdf8 100%);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
+  color: #2563eb;
 }
 
 .heroSubtitle {
   font-size: 1.15rem;
-  color: #94a3b8;
+  color: #475569;
   max-width: 750px;
   line-height: 1.6;
 }
@@ -124,12 +123,11 @@
 .calculatorCard {
   width: 100%;
   max-width: 1000px;
-  background: rgba(15, 23, 42, 0.75);
-  border: 1px solid rgba(255, 255, 255, 0.12);
+  background: #ffffff;
+  border: 1px solid #e2e8f0;
   border-radius: 24px;
   padding: 2.5rem;
-  backdrop-filter: blur(16px);
-  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5);
+  box-shadow: 0 4px 20px -2px rgba(15, 23, 42, 0.08);
   margin-bottom: 3.5rem;
 }
 
@@ -161,16 +159,16 @@
 .label {
   font-size: 0.95rem;
   font-weight: 700;
-  color: #cbd5e1;
+  color: #334155;
   display: flex;
   justify-content: space-between;
   align-items: center;
 }
 
 .select {
-  background: rgba(10, 15, 30, 0.8);
-  border: 1px solid rgba(255, 255, 255, 0.18);
-  color: #ffffff;
+  background: #f8fafc;
+  border: 1px solid #cbd5e1;
+  color: #0f172a;
   padding: 0.85rem 1.2rem;
   border-radius: 12px;
   font-size: 1rem;
@@ -181,30 +179,30 @@
 }
 
 .select:focus {
-  border-color: #00f0ff;
-  box-shadow: 0 0 10px rgba(0, 240, 255, 0.25);
+  border-color: #2563eb;
+  box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.15);
 }
 
 .unitInputWrapper {
   display: flex;
   align-items: center;
-  background: rgba(10, 15, 30, 0.8);
-  border: 1px solid rgba(255, 255, 255, 0.18);
+  background: #f8fafc;
+  border: 1px solid #cbd5e1;
   border-radius: 12px;
   padding: 0 1.2rem;
   transition: all 0.2s;
 }
 
 .unitInputWrapper:focus-within {
-  border-color: #00f0ff;
-  box-shadow: 0 0 10px rgba(0, 240, 255, 0.25);
+  border-color: #2563eb;
+  box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.15);
 }
 
 .unitInput {
   width: 100%;
   background: transparent;
   border: none;
-  color: #ffffff;
+  color: #0f172a;
   font-family: var(--font-mono), monospace;
   font-size: 1.8rem;
   font-weight: 800;
@@ -213,7 +211,7 @@
 }
 
 .unitSuffix {
-  color: #00f0ff;
+  color: #2563eb;
   font-family: var(--font-mono), monospace;
   font-size: 1.1rem;
   font-weight: 700;
@@ -295,8 +293,8 @@
 }
 
 .calcBox {
-  background: rgba(10, 15, 30, 0.6);
-  border: 1px solid rgba(255, 255, 255, 0.1);
+  background: #f8fafc;
+  border: 1px solid #e2e8f0;
   border-radius: 16px;
   padding: 1.5rem;
   position: relative;
@@ -343,13 +341,11 @@
 }
 
 .billSafe {
-  color: #34d399;
-  text-shadow: 0 0 15px rgba(52, 211, 153, 0.3);
+  color: #059669;
 }
 
 .billDanger {
-  color: #f87171;
-  text-shadow: 0 0 15px rgba(248, 113, 113, 0.3);
+  color: #dc2626;
 }
 
 .billDetailList {
@@ -357,8 +353,8 @@
   flex-direction: column;
   gap: 0.5rem;
   font-size: 0.9rem;
-  color: #94a3b8;
-  border-top: 1px solid rgba(255, 255, 255, 0.08);
+  color: #475569;
+  border-top: 1px solid #e2e8f0;
   padding-top: 1rem;
   margin-top: 1rem;
 }
@@ -369,8 +365,8 @@
 }
 
 .ocrCtaStrip {
-  background: linear-gradient(135deg, rgba(0, 240, 255, 0.15) 0%, rgba(0, 112, 243, 0.15) 100%);
-  border: 1px solid rgba(0, 240, 255, 0.4);
+  background: #eff6ff;
+  border: 1px solid #bfdbfe;
   border-radius: 18px;
   padding: 2rem;
   display: flex;
@@ -387,18 +383,18 @@
 .ctaHeading {
   font-size: 1.3rem;
   font-weight: 800;
-  color: #ffffff;
+  color: #0f172a;
   margin-bottom: 0.3rem;
 }
 
 .ctaSub {
   font-size: 0.95rem;
-  color: #cbd5e1;
+  color: #475569;
 }
 
 .ctaButton {
-  background: linear-gradient(135deg, #00f0ff 0%, #0070f3 100%);
-  color: #030712;
+  background: #2563eb;
+  color: #ffffff;
   font-size: 1.05rem;
   font-weight: 800;
   padding: 0.9rem 1.8rem;
@@ -407,13 +403,14 @@
   display: flex;
   align-items: center;
   gap: 0.6rem;
-  box-shadow: 0 4px 20px rgba(0, 240, 255, 0.4);
+  box-shadow: 0 4px 14px rgba(37, 99, 235, 0.25);
   transition: transform 0.2s, box-shadow 0.2s;
 }
 
 .ctaButton:hover {
   transform: translateY(-2px);
-  box-shadow: 0 6px 25px rgba(0, 240, 255, 0.6);
+  background: #1d4ed8;
+  box-shadow: 0 6px 20px rgba(37, 99, 235, 0.35);
 }
 
 .contentSection {
@@ -425,16 +422,17 @@
 }
 
 .articleCard {
-  background: rgba(15, 23, 42, 0.6);
-  border: 1px solid rgba(255, 255, 255, 0.08);
+  background: #ffffff;
+  border: 1px solid #e2e8f0;
   border-radius: 20px;
   padding: 2.5rem;
+  box-shadow: 0 1px 3px rgba(15, 23, 42, 0.05);
 }
 
 .sectionTitle {
   font-size: 1.8rem;
   font-weight: 800;
-  color: #ffffff;
+  color: #0f172a;
   margin-bottom: 1.2rem;
   letter-spacing: -0.5px;
 }
@@ -442,7 +440,7 @@
 .paragraph {
   font-size: 1.05rem;
   line-height: 1.8;
-  color: #cbd5e1;
+  color: #334155;
   margin-bottom: 1.2rem;
 }
 
@@ -459,21 +457,21 @@
 }
 
 .tariffTable th {
-  background: rgba(0, 240, 255, 0.1);
-  color: #00f0ff;
+  background: #eff6ff;
+  color: #1e40af;
   padding: 0.8rem 1rem;
-  border-bottom: 2px solid rgba(0, 240, 255, 0.3);
+  border-bottom: 2px solid #bfdbfe;
   font-weight: 700;
 }
 
 .tariffTable td {
   padding: 0.8rem 1rem;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.06);
-  color: #e2e8f0;
+  border-bottom: 1px solid #e2e8f0;
+  color: #334155;
 }
 
 .faqItem {
-  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  border-bottom: 1px solid #e2e8f0;
   padding: 1.2rem 0;
 }
 
@@ -484,14 +482,14 @@
 .faqQuestion {
   font-size: 1.15rem;
   font-weight: 700;
-  color: #ffffff;
+  color: #0f172a;
   margin-bottom: 0.5rem;
 }
 
 .faqAnswer {
   font-size: 1rem;
   line-height: 1.7;
-  color: #94a3b8;
+  color: #475569;
 }
 
 .footer {
@@ -499,7 +497,7 @@
   max-width: 1100px;
   margin-top: 4rem;
   padding-top: 2rem;
-  border-top: 1px solid rgba(255, 255, 255, 0.08);
+  border-top: 1px solid #e2e8f0;
   text-align: center;
   color: #64748b;
   font-size: 0.9rem;

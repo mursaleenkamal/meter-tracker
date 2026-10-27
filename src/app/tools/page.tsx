@@ -2,6 +2,7 @@ import type { Metadata } from 'next'
 import Link from 'next/link'
 import styles from './toolsHub.module.css'
 import ToolsGrid from './ToolsGrid'
+import Navbar from '@/components/Navbar'
 import {
   Compass,
   Camera,
@@ -184,24 +185,7 @@ export default function ToolsHubPage() {
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
       />
 
-      {/* Header */}
-      <header className={styles.header}>
-        <Link href="/" className={styles.logo}>
-          <Compass size={28} color="#00f0ff" />
-          <span>Read Meter</span>
-        </Link>
-        <div className={styles.navLinks}>
-          <Link href="/blog" className={styles.navBtn}>
-            Energy Blog
-          </Link>
-          <Link href="/protected-slab-calculator" className={styles.navBtn}>
-            Protected Slab
-          </Link>
-          <Link href="/guest" className={styles.navBtnPrimary}>
-            Open Scanner
-          </Link>
-        </div>
-      </header>
+      <Navbar maxWidth="1100px" />
 
       {/* Hero */}
       <section className={styles.hero}>

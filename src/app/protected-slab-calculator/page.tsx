@@ -2,6 +2,7 @@ import type { Metadata } from 'next'
 import Link from 'next/link'
 import styles from './calculator.module.css'
 import ProtectedSlabCalculator from './ProtectedSlabCalculator'
+import Navbar from '@/components/Navbar'
 import { Zap, ShieldCheck, ArrowRight, BookOpen, AlertOctagon, HelpCircle } from 'lucide-react'
 
 const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://www.readmeter.online'
@@ -119,24 +120,7 @@ export default function ProtectedSlabCalculatorPage() {
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
       />
 
-      {/* Header */}
-      <header className={styles.header}>
-        <Link href="/" className={styles.logo}>
-          <Zap size={28} color="#00F0FF" />
-          <span>READ METER</span>
-        </Link>
-        <nav className={styles.navLinks}>
-          <Link href="/" className={styles.navBtn}>
-            Home
-          </Link>
-          <Link href="/blog" className={styles.navBtn}>
-            📖 Blog
-          </Link>
-          <Link href="/guest" className={styles.navBtnPrimary}>
-            ⚡ Instant Meter Scanner
-          </Link>
-        </nav>
-      </header>
+      <Navbar maxWidth="1100px" />
 
       {/* Hero Header */}
       <section className={styles.hero}>

@@ -1,5 +1,6 @@
 import Link from 'next/link'
 import styles from '../compliance.module.css'
+import Navbar from '@/components/Navbar'
 import { Zap, Info, Gauge, Cpu, Bell, ShieldCheck } from 'lucide-react'
 import type { Metadata } from 'next'
 
@@ -11,15 +12,7 @@ export const metadata: Metadata = {
 export default function AboutPage() {
   return (
     <div className={styles.container}>
-      <header className={styles.header}>
-        <Link href="/" className={styles.logo}>
-          <Zap size={22} fill="var(--primary)" style={{ color: 'var(--primary)' }} />
-          <span>Read Meter</span>
-        </Link>
-        <Link href="/login" className="glow-btn" style={{ textDecoration: 'none', fontSize: '0.85rem', padding: '6px 14px' }}>
-          Sign In
-        </Link>
-      </header>
+      <Navbar maxWidth="1100px" />
 
       <main className={styles.main}>
         <div className={styles.pageHeader}>

@@ -3,6 +3,7 @@ import { notFound } from 'next/navigation'
 import Link from 'next/link'
 import styles from '../blog.module.css'
 import { getAllPosts, getPostBySlug } from '@/lib/blogPosts'
+import Navbar from '@/components/Navbar'
 import { Zap, Clock, Calendar, User, ArrowLeft, ArrowRight, Camera, Calculator } from 'lucide-react'
 
 const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://www.readmeter.online'
@@ -219,24 +220,7 @@ export default async function BlogPostPage({ params }: PageProps) {
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
       />
 
-      {/* Header */}
-      <header className={styles.header}>
-        <Link href="/" className={styles.logo}>
-          <Zap size={28} color="#00F0FF" />
-          <span>READ METER</span>
-        </Link>
-        <nav className={styles.navLinks}>
-          <Link href="/blog" className={styles.navBtn}>
-            ← All Articles
-          </Link>
-          <Link href="/protected-slab-calculator" className={styles.navBtn}>
-            ⚡ Slab Calculator
-          </Link>
-          <Link href="/guest" className={styles.navBtnPrimary}>
-            ⚡ Instant Meter Scanner
-          </Link>
-        </nav>
-      </header>
+      <Navbar maxWidth="1100px" />
 
       {/* Article Container */}
       <article className={styles.articleWrapper}>
