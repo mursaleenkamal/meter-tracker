@@ -423,13 +423,14 @@
 
 /* Below the Fold Guide & FAQ */
 .guideSection {
-  background: #0f172a;
-  border: 1px solid rgba(255, 255, 255, 0.08);
+  background: #ffffff;
+  border: 1px solid #e2e8f0;
   border-radius: 16px;
   padding: clamp(1.5rem, 3vw, 2.5rem);
   display: flex;
   flex-direction: column;
   gap: 1.75rem;
+  box-shadow: 0 1px 3px rgba(15, 23, 42, 0.04);
 }
 
 .guideGrid {
@@ -445,8 +446,8 @@
 }
 
 .guideCard {
-  background: rgba(255, 255, 255, 0.02);
-  border: 1px solid rgba(255, 255, 255, 0.06);
+  background: #f8fafc;
+  border: 1px solid #e2e8f0;
   border-radius: 12px;
   padding: 1.25rem;
   display: flex;
@@ -457,7 +458,7 @@
 .guideCardTitle {
   font-size: 1.05rem;
   font-weight: 700;
-  color: #f1f5f9;
+  color: #0f172a;
   display: flex;
   align-items: center;
   gap: 0.5rem;
@@ -465,13 +466,13 @@
 
 .guideCardText {
   font-size: 0.88rem;
-  color: #94a3b8;
+  color: #475569;
   line-height: 1.5;
 }
 
 /* FAQ Accordion */
 .faqItem {
-  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  border-bottom: 1px solid #e2e8f0;
   padding: 1rem 0;
 }
 
@@ -482,7 +483,7 @@
 .faqQuestion {
   font-size: 1rem;
   font-weight: 700;
-  color: #f1f5f9;
+  color: #0f172a;
   cursor: pointer;
   display: flex;
   justify-content: space-between;
@@ -496,9 +497,133 @@
 
 .faqAnswer {
   font-size: 0.88rem;
-  color: #94a3b8;
+  color: #475569;
   line-height: 1.6;
   margin-top: 0.75rem;
+}
+
+/* Mode Switcher Tabs */
+.modeTabs {
+  display: flex;
+  background: #f1f5f9;
+  padding: 4px;
+  border-radius: 12px;
+  gap: 4px;
+  width: 100%;
+  margin-bottom: 1rem;
+}
+
+.modeTab {
+  flex: 1;
+  padding: 0.65rem 1rem;
+  font-size: 0.9rem;
+  font-weight: 700;
+  border: none;
+  background: transparent;
+  color: #64748b;
+  border-radius: 9px;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  transition: all 0.18s ease;
+}
+
+.modeTab:hover {
+  color: #0f172a;
+}
+
+.modeTabActive {
+  background: #ffffff;
+  color: #2563eb;
+  box-shadow: 0 1px 3px rgba(15, 23, 42, 0.08);
+}
+
+/* Manual Entry Card */
+.manualInputContainer {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+  padding: 1.75rem;
+  background: #f8fafc;
+  border: 1px solid #e2e8f0;
+  border-radius: 14px;
+}
+
+.manualInputHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.manualInputLabel {
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: #0f172a;
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+}
+
+.manualFieldRow {
+  display: flex;
+  align-items: center;
+  background: #ffffff;
+  border: 2px solid #cbd5e1;
+  border-radius: 12px;
+  padding: 0.25rem 1rem;
+  transition: all 0.2s ease;
+}
+
+.manualFieldRow:focus-within {
+  border-color: #2563eb;
+  box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.15);
+}
+
+.manualInputField {
+  flex: 1;
+  background: transparent;
+  border: none;
+  font-size: 1.8rem;
+  font-weight: 800;
+  font-family: var(--font-mono), monospace;
+  color: #0f172a;
+  padding: 0.5rem 0;
+  outline: none;
+}
+
+.manualInputHint {
+  font-size: 0.85rem;
+  color: #64748b;
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+}
+
+.manualSubmitBtn {
+  background: #2563eb;
+  color: #ffffff;
+  font-size: 1.05rem;
+  font-weight: 800;
+  padding: 0.95rem 1.8rem;
+  border-radius: 12px;
+  border: none;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  box-shadow: 0 4px 14px rgba(37, 99, 235, 0.25);
+  transition: all 0.2s ease;
+}
+
+.manualSubmitBtn:hover {
+  background: #1d4ed8;
+  transform: translateY(-1px);
+  box-shadow: 0 6px 20px rgba(37, 99, 235, 0.35);
 }
 
 /* Monetization Gate A: Slip Watermark & Pro Upgrade Card */

@@ -21,6 +21,8 @@ import {
   FileCheck2,
   X,
   Sparkles,
+  Zap,
+  Edit3,
 } from 'lucide-react'
 import { addGuestReading } from '@/lib/guestStore'
 import { captureUtmParams, trackConversionEvent } from '@/lib/telemetry'
@@ -74,6 +76,8 @@ export default function ToolShell({
   decimalHandling = 'strip',
   renderCustomAdjuster,
 }: ToolShellProps) {
+  const [inputMode, setInputMode] = useState<'manual' | 'camera'>('manual')
+  const [manualInputVal, setManualInputVal] = useState<string>('')
   const [selectedUnit, setSelectedUnit] = useState(defaultUnit)
   const [imagePreview, setImagePreview] = useState<string | null>(null)
   const [isScanning, setIsScanning] = useState(false)
@@ -313,26 +317,170 @@ export default function ToolShell({
 
       {/* Step 1 & 2 & 3: The Interactive Tool Shell */}
       <section className={styles.toolCard}>
-        {!imagePreview && (
-          <div
-            className={styles.dropzone}
-            onDragOver={(e) => e.preventDefault()}
-            onDrop={onDrop}
-            onClick={() => fileInputRef.current?.click()}
-          >
+        {/* Mode Switcher Tabs (Only shown before a reading is finalized) */}
+        {!readingValue && !isScanning && !imagePreview && (
+          <div className={styles.modeTabs}>
             <button
               type="button"
-              className={styles.cameraBtn}
-              onClick={(e) => {
-                e.stopPropagation()
-                cameraInputRef.current?.click()
+              className={`${styles.modeTab} ${inputMode === 'manual' ? styles.modeTabActive : ''}`}
+              onClick={() => {
+                setInputMode('manual')
+                setErrorMessage(null)
               }}
             >
-              <Camera size={20} />
-              Open Camera to Scan Meter
+              <Zap size={16} />
+              <span>Fast Manual Entry (0s)</span>
             </button>
-            <div className={styles.dropzoneText}>
-              <strong>or drop meter photo here</strong> (JPEG, PNG, HEIC up to 25MB)
+            <button
+              type="button"
+              className={`${styles.modeTab} ${inputMode === 'camera' ? styles.modeTabActive : ''}`}
+              onClick={() => {
+                setInputMode('camera')
+                setErrorMessage(null)
+              }}
+            >
+              <Camera size={16} />
+              <span>AI Camera OCR Scan</span>
+            </button>
+          </div>
+        )}
+
+        {/* 1. FAST MANUAL ENTRY MODE */}
+        {inputMode === 'manual' && !readingValue && !isScanning && (
+          <div className={styles.manualInputContainer}>
+            <div className={styles.manualInputHeader}>
+              <label className={styles.manualInputLabel}>
+                <Edit3 size={18} color="#2563eb" />
+                <span>Enter Current Meter Reading</span>
+              </label>
+              <div style={{ display: 'flex', gap: '0.4rem' }}>
+                {unitOptions.map((unit) => (
+                  <button
+                    key={unit}
+                    type="button"
+                    onClick={() => setSelectedUnit(unit)}
+                    style={{
+                      background: selectedUnit === unit ? '#2563eb' : '#ffffff',
+                      color: selectedUnit === unit ? '#ffffff' : '#475569',
+                      border: `1px solid ${selectedUnit === unit ? '#2563eb' : '#cbd5e1'}`,
+                      borderRadius: '6px',
+                      padding: '3px 8px',
+                      fontSize: '0.78rem',
+                      fontWeight: 700,
+                      cursor: 'pointer',
+                    }}
+                  >
+                    {unit}
+                  </button>
+                ))}
+              </div>
+            </div>
+
+            <form
+              onSubmit={(e) => {
+                e.preventDefault()
+                const trimmed = manualInputVal.trim()
+                if (!trimmed) {
+                  setErrorMessage('Please enter your meter reading digits.')
+                  return
+                }
+                const num = parseFloat(trimmed)
+                if (isNaN(num) || num < 0) {
+                  setErrorMessage('Please enter a valid positive number.')
+                  return
+                }
+                setErrorMessage(null)
+                setReadingValue(trimmed)
+                generateSlipMeta(trimmed)
+              }}
+              style={{ display: 'flex', flexDirection: 'column', gap: '1.25rem' }}
+            >
+              <div className={styles.manualFieldRow}>
+                <input
+                  type="number"
+                  step="any"
+                  min="0"
+                  className={styles.manualInputField}
+                  placeholder={`e.g. ${sampleReadingPlaceholder}`}
+                  value={manualInputVal}
+                  onChange={(e) => setManualInputVal(e.target.value)}
+                  autoFocus
+                />
+                <span style={{ fontSize: '1.1rem', fontWeight: 800, color: '#2563eb', paddingLeft: '0.5rem' }}>
+                  {selectedUnit}
+                </span>
+              </div>
+
+              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: '0.5rem' }}>
+                <div className={styles.manualInputHint}>
+                  <span>💡 Dial ya LCD par likha number enter karein (red digits ko chhor dein)</span>
+                </div>
+                <button
+                  type="button"
+                  onClick={() => setManualInputVal(sampleReadingPlaceholder)}
+                  style={{
+                    background: 'none',
+                    border: 'none',
+                    color: '#2563eb',
+                    fontSize: '0.8rem',
+                    fontWeight: 600,
+                    cursor: 'pointer',
+                    textDecoration: 'underline',
+                    padding: 0,
+                  }}
+                >
+                  Use sample: {sampleReadingPlaceholder}
+                </button>
+              </div>
+
+              <button type="submit" className={styles.manualSubmitBtn}>
+                <Zap size={18} />
+                <span>Verify &amp; Calculate Reading →</span>
+              </button>
+            </form>
+          </div>
+        )}
+
+        {/* 2. CAMERA OCR MODE */}
+        {inputMode === 'camera' && !imagePreview && !readingValue && (
+          <div>
+            <div
+              className={styles.dropzone}
+              onDragOver={(e) => e.preventDefault()}
+              onDrop={onDrop}
+              onClick={() => fileInputRef.current?.click()}
+            >
+              <button
+                type="button"
+                className={styles.cameraBtn}
+                onClick={(e) => {
+                  e.stopPropagation()
+                  cameraInputRef.current?.click()
+                }}
+              >
+                <Camera size={20} />
+                Open Camera to Scan Meter
+              </button>
+              <div className={styles.dropzoneText}>
+                <strong>or drop meter photo here</strong> (JPEG, PNG, HEIC up to 25MB)
+              </div>
+            </div>
+            <div style={{ textAlign: 'center', marginTop: '0.75rem' }}>
+              <button
+                type="button"
+                onClick={() => setInputMode('manual')}
+                style={{
+                  background: 'none',
+                  border: 'none',
+                  color: '#2563eb',
+                  fontSize: '0.85rem',
+                  fontWeight: 600,
+                  cursor: 'pointer',
+                  textDecoration: 'underline',
+                }}
+              >
+                ⚡ Prefer typing? Switch to Fast Manual Entry (0s)
+              </button>
             </div>
           </div>
         )}
@@ -504,11 +652,12 @@ export default function ToolShell({
                 onClick={() => {
                   setImagePreview(null)
                   setReadingValue('')
+                  setManualInputVal('')
                   setErrorMessage(null)
                   setAddedToDashboard(false)
                 }}
               >
-                Scan Another Meter
+                ← Scan or Enter Another Meter
               </button>
             </div>
 
