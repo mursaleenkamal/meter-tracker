@@ -4,6 +4,7 @@ import Link from 'next/link'
 import styles from '../blog.module.css'
 import { getAllPosts, getPostBySlug } from '@/lib/blogPosts'
 import Navbar from '@/components/Navbar'
+import Footer from '@/components/Footer'
 import { Zap, Clock, Calendar, User, ArrowLeft, ArrowRight, Camera, Calculator } from 'lucide-react'
 
 const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://www.readmeter.online'
@@ -302,9 +303,7 @@ export default async function BlogPostPage({ params }: PageProps) {
       </article>
 
       {/* Footer */}
-      <footer className={styles.footer}>
-        <p>© 2026 Read Meter (readmeter.online) — Smart Power Tracking & Utility Education.</p>
-      </footer>
+      <Footer maxWidth="820px" />
     </div>
   )
 }
