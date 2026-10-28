@@ -3,6 +3,8 @@
 import React, { useState, useMemo } from 'react'
 import Link from 'next/link'
 import styles from './waterPumpCalculator.module.css'
+import Navbar from '@/components/Navbar'
+import Footer from '@/components/Footer'
 import {
   Droplets,
   Zap,
@@ -196,20 +198,9 @@ Calculate free at: https://www.readmeter.online/tools/water-pump-electricity-cal
 
   return (
     <div className={styles.pageContainer}>
-      {/* Header */}
-      <header className={styles.header}>
-        <Link href="/" className={styles.logo}>
-          <span>Read</span>Meter
-        </Link>
-        <div className={styles.navLinks}>
-          <Link href="/tools" className={styles.navBtn}>
-            ← All Tools
-          </Link>
-          <Link href="/protected-slab-calculator" className={styles.navBtn}>
-            Protected Slab
-          </Link>
-        </div>
-      </header>
+      <div style={{ width: '100%', maxWidth: '1100px', marginBottom: '1rem' }}>
+        <Navbar maxWidth="1100px" />
+      </div>
 
       {/* Hero */}
       <section className={styles.hero}>
@@ -643,6 +634,8 @@ Calculate free at: https://www.readmeter.online/tools/water-pump-electricity-cal
           </div>
         </div>
       </section>
+
+      <Footer maxWidth="1100px" />
     </div>
   )
 }

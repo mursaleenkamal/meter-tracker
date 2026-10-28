@@ -193,7 +193,7 @@ export default function BatteryBackupCalculator() {
       <div>
         {/* System Voltage */}
         <div className={styles.sectionHeader}>
-          <Battery size={20} color="#00f0ff" />
+          <Battery size={20} color="#2563eb" />
           <h3>1. Battery Bank Setup</h3>
         </div>
 
@@ -261,7 +261,7 @@ export default function BatteryBackupCalculator() {
         <div className={styles.formGroup}>
           <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '0.4rem' }}>
             <label className={styles.label} style={{ margin: 0 }}>Inverter Conversion Efficiency</label>
-            <span style={{ color: '#00f0ff', fontWeight: 700, fontSize: '0.9rem' }}>{inverterEfficiency}%</span>
+            <span style={{ color: '#2563eb', fontWeight: 700, fontSize: '0.9rem' }}>{inverterEfficiency}%</span>
           </div>
           <input
             type="range"
@@ -270,14 +270,14 @@ export default function BatteryBackupCalculator() {
             step={1}
             value={inverterEfficiency}
             onChange={(e) => setInverterEfficiency(parseInt(e.target.value, 10))}
-            style={{ width: '100%', accentColor: '#00f0ff', cursor: 'pointer' }}
+            style={{ width: '100%', accentColor: '#2563eb', cursor: 'pointer' }}
           />
           <div className={styles.hintText}>Standard Desi / Chinese UPS = 78%–82%, Modern Pure Sine Wave Hybrid = 85%–90%.</div>
         </div>
 
         {/* SECTION 2: Load Selection */}
         <div className={styles.sectionHeader} style={{ marginTop: '2rem' }}>
-          <Zap size={20} color="#00f0ff" />
+          <Zap size={20} color="#2563eb" />
           <h3>2. Connected Household Load</h3>
         </div>
 
@@ -291,7 +291,7 @@ export default function BatteryBackupCalculator() {
             onChange={(e) => setCustomWatts(e.target.value)}
           />
           {customWatts && (
-            <div className={styles.hintText} style={{ color: '#00f0ff' }}>
+            <div className={styles.hintText} style={{ color: '#2563eb' }}>
               ✓ Using direct custom load of {customWatts}W (appliance counters below bypassed).
             </div>
           )}
@@ -342,9 +342,9 @@ export default function BatteryBackupCalculator() {
             {activeWatts > 0 ? (
               <>
                 {calc.hours}
-                <span style={{ fontSize: '1.4rem', color: '#00f0ff', fontWeight: 600 }}>h </span>
+                <span style={{ fontSize: '1.4rem', color: '#2563eb', fontWeight: 600 }}>h </span>
                 {calc.minutes}
-                <span style={{ fontSize: '1.4rem', color: '#00f0ff', fontWeight: 600 }}>m</span>
+                <span style={{ fontSize: '1.4rem', color: '#2563eb', fontWeight: 600 }}>m</span>
               </>
             ) : (
               '0h 0m'
@@ -420,7 +420,7 @@ export default function BatteryBackupCalculator() {
 
         {/* Recharging Speed & Cost */}
         <div className={styles.metricBox} style={{ background: 'rgba(0, 240, 255, 0.04)', borderColor: 'rgba(0, 240, 255, 0.2)' }}>
-          <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', color: '#00f0ff', fontWeight: 700, fontSize: '0.85rem', marginBottom: '0.5rem' }}>
+          <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', color: '#2563eb', fontWeight: 700, fontSize: '0.85rem', marginBottom: '0.5rem' }}>
             <RefreshCw size={16} />
             <span>Recharge Time & Electricity Bill Impact</span>
           </div>
@@ -442,7 +442,7 @@ export default function BatteryBackupCalculator() {
           <Link
             href="/guest"
             style={{
-              color: '#00f0ff',
+              color: '#2563eb',
               fontSize: '0.85rem',
               textDecoration: 'none',
               display: 'inline-flex',

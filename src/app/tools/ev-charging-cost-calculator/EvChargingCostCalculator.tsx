@@ -337,7 +337,7 @@ https://www.readmeter.online/tools/ev-charging-cost-calculator`
       {/* Left Column: Form Controls */}
       <div className={styles.formSection}>
         <div className={styles.sectionHeader}>
-          <Car size={22} color="#00f0ff" />
+          <Car size={22} color="#2563eb" />
           <h3>Vehicle & Battery Specifications</h3>
         </div>
 
@@ -453,7 +453,7 @@ https://www.readmeter.online/tools/ev-charging-cost-calculator`
         <div className={styles.formGroup}>
           <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
             <label className={styles.label}>Charging Session: Start & Target Battery %</label>
-            <span style={{ fontSize: '0.85rem', fontWeight: 700, color: '#00f0ff' }}>
+            <span style={{ fontSize: '0.85rem', fontWeight: 700, color: '#2563eb' }}>
               {startSoc}% ➔ {targetSoc}% ({targetSoc - startSoc}% added)
             </span>
           </div>
@@ -487,7 +487,7 @@ https://www.readmeter.online/tools/ev-charging-cost-calculator`
 
         {/* Electricity Tariff Selection */}
         <div className={styles.sectionHeader} style={{ marginTop: '1.5rem' }}>
-          <Zap size={22} color="#00f0ff" />
+          <Zap size={22} color="#2563eb" />
           <h3>Electricity Tariff & Slabs (NEPRA / DISCOs)</h3>
         </div>
 
@@ -558,7 +558,7 @@ https://www.readmeter.online/tools/ev-charging-cost-calculator`
         <div className={styles.formGroup}>
           <div style={{ display: 'flex', justifyContent: 'space-between' }}>
             <label className={styles.label}>Daily Commute Distance</label>
-            <span style={{ fontSize: '0.9rem', fontWeight: 700, color: '#00f0ff' }}>
+            <span style={{ fontSize: '0.9rem', fontWeight: 700, color: '#2563eb' }}>
               {dailyCommuteKm} km / day
             </span>
           </div>
@@ -611,7 +611,7 @@ https://www.readmeter.online/tools/ev-charging-cost-calculator`
             </div>
             <div>
               <span style={{ color: '#94a3b8' }}>Charge Time: </span>
-              <strong style={{ color: '#00f0ff' }}>
+              <strong style={{ color: '#2563eb' }}>
                 {calculation.chargeHours}h {calculation.chargeMinutes}m
               </strong>
             </div>
@@ -704,7 +704,7 @@ https://www.readmeter.online/tools/ev-charging-cost-calculator`
 
         {/* Sub-meter OCR Tracker CTA */}
         <div style={{ background: 'rgba(255,255,255,0.03)', border: '1px solid rgba(255,255,255,0.08)', borderRadius: '12px', padding: '1rem' }}>
-          <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', color: '#00f0ff', fontWeight: 700, fontSize: '0.82rem', marginBottom: '0.3rem' }}>
+          <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', color: '#2563eb', fontWeight: 700, fontSize: '0.82rem', marginBottom: '0.3rem' }}>
             <Camera size={16} />
             <span>Dedicated EV Sub-Meter Tracking</span>
           </div>
@@ -717,7 +717,7 @@ https://www.readmeter.online/tools/ev-charging-cost-calculator`
               display: 'inline-flex',
               alignItems: 'center',
               gap: '0.4rem',
-              color: '#00f0ff',
+              color: '#2563eb',
               fontSize: '0.82rem',
               fontWeight: 700,
               marginTop: '0.5rem',

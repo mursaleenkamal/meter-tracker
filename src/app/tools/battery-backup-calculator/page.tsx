@@ -2,6 +2,8 @@ import type { Metadata } from 'next'
 import Link from 'next/link'
 import styles from './batteryCalculator.module.css'
 import BatteryBackupCalculator from './BatteryBackupCalculator'
+import Navbar from '@/components/Navbar'
+import Footer from '@/components/Footer'
 import {
   Compass,
   ArrowRight,
@@ -165,26 +167,9 @@ export default function BatteryBackupCalculatorPage() {
       />
 
       {/* Header */}
-      <header className={styles.header}>
-        <Link href="/" className={styles.logo}>
-          <Compass size={28} color="#00f0ff" />
-          <span>Read Meter</span>
-        </Link>
-        <div className={styles.navLinks}>
-          <Link href="/tools" className={styles.navBtn}>
-            All Calculators
-          </Link>
-          <Link href="/blog" className={styles.navBtn}>
-            Energy Blog
-          </Link>
-          <Link href="/protected-slab-calculator" className={styles.navBtn}>
-            Protected Slab
-          </Link>
-          <Link href="/guest" className={styles.navBtnPrimary}>
-            Open Scanner
-          </Link>
-        </div>
-      </header>
+      <div style={{ width: '100%', maxWidth: '1100px', marginBottom: '1rem' }}>
+        <Navbar maxWidth="1100px" />
+      </div>
 
       {/* Hero */}
       <section className={styles.hero}>
@@ -388,6 +373,8 @@ export default function BatteryBackupCalculatorPage() {
           </div>
         </article>
       </main>
+
+      <Footer maxWidth="1100px" />
     </div>
   )
 }

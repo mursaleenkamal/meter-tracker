@@ -2,6 +2,8 @@ import type { Metadata } from 'next'
 import Link from 'next/link'
 import styles from './oilCalculator.module.css'
 import CarOilChangeCalculator from './CarOilChangeCalculator'
+import Navbar from '@/components/Navbar'
+import Footer from '@/components/Footer'
 import {
   Compass,
   ArrowRight,
@@ -163,19 +165,9 @@ export default function CarOilChangeCalculatorPage() {
       />
 
       {/* Header */}
-      <header className={styles.header}>
-        <Link href="/" className={styles.logo}>
-          <span>READ</span> METER
-        </Link>
-        <nav className={styles.navLinks}>
-          <Link href="/protected-slab-calculator" className={styles.navBtn}>
-            ⚡ Bijli Slabs
-          </Link>
-          <Link href="/guest" className={styles.navBtnPrimary}>
-            📸 Open Scanner
-          </Link>
-        </nav>
-      </header>
+      <div style={{ width: '100%', maxWidth: '1100px', marginBottom: '1rem' }}>
+        <Navbar maxWidth="1100px" />
+      </div>
 
       {/* Hero Section */}
       <div className={styles.hero}>
@@ -323,23 +315,7 @@ export default function CarOilChangeCalculatorPage() {
       </div>
 
       {/* Footer */}
-      <footer className={styles.footer}>
-        <div>© {new Date().getFullYear()} Read Meter. All rights reserved.</div>
-        <div className={styles.footerLinks}>
-          <Link href="/privacy-policy" className={styles.footerLink}>
-            Privacy Policy
-          </Link>
-          <Link href="/terms-of-service" className={styles.footerLink}>
-            Terms of Service
-          </Link>
-          <Link href="/disclaimer" className={styles.footerLink}>
-            Disclaimer
-          </Link>
-          <Link href="/contact" className={styles.footerLink}>
-            Contact
-          </Link>
-        </div>
-      </footer>
+      <Footer maxWidth="1100px" />
     </div>
   )
 }

@@ -159,7 +159,7 @@
 .sectionHeader h3 {
   font-size: 1.15rem;
   font-weight: 700;
-  color: #f8fafc;
+  color: #0f172a;
   margin: 0;
 }
 
@@ -256,26 +256,27 @@
 
 .inputField {
   width: 100%;
-  background: rgba(10, 15, 29, 0.8);
-  border: 1px solid #e2e8f0;
+  background: #f8fafc;
+  border: 1px solid #cbd5e1;
   border-radius: 10px;
   padding: 0.7rem 1rem;
   color: #0f172a;
   font-size: 1rem;
   font-weight: 600;
   outline: none;
-  transition: border-color 0.2s ease;
+  transition: all 0.2s ease;
 }
 
 .inputField:focus {
   border-color: #2563eb;
-  box-shadow: 0 4px 14px rgba(37, 99, 235, 0.25);
+  box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.15);
+  background: #ffffff;
 }
 
 .selectField {
   width: 100%;
-  background: #0f172a;
-  border: 1px solid #e2e8f0;
+  background: #f8fafc;
+  border: 1px solid #cbd5e1;
   border-radius: 10px;
   padding: 0.7rem 1rem;
   color: #0f172a;

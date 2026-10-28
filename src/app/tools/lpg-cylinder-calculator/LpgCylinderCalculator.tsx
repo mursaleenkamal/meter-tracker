@@ -3,6 +3,8 @@
 import React, { useState, useMemo } from 'react'
 import Link from 'next/link'
 import styles from './lpgCalculator.module.css'
+import Navbar from '@/components/Navbar'
+import Footer from '@/components/Footer'
 import {
   Flame,
   Zap,
@@ -73,20 +75,9 @@ Calculate free at: https://www.readmeter.online/tools/lpg-cylinder-calculator`
 
   return (
     <div className={styles.pageContainer}>
-      <header className={styles.header}>
-        <Link href="/" className={styles.logo}>
-          <Zap size={24} color="#00f0ff" />
-          Read<span>Meter</span>
-        </Link>
-        <div className={styles.navLinks}>
-          <Link href="/tools" className={styles.navBtn}>
-            ← All Tools
-          </Link>
-          <Link href="/tools/read-gas-meter" className={styles.navBtn}>
-            Gas Meter OCR
-          </Link>
-        </div>
-      </header>
+      <div style={{ width: '100%', maxWidth: '1100px', marginBottom: '1rem' }}>
+        <Navbar maxWidth="1100px" />
+      </div>
 
       <section className={styles.hero}>
         <div className={styles.badge}>
@@ -269,6 +260,8 @@ Calculate free at: https://www.readmeter.online/tools/lpg-cylinder-calculator`
           </div>
         </div>
       </main>
+
+      <Footer maxWidth="1100px" />
     </div>
   )
 }

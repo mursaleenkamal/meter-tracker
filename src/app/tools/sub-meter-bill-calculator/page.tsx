@@ -3,6 +3,7 @@ import Link from 'next/link'
 import styles from './subMeterCalculator.module.css'
 import SubMeterBillCalculator from './SubMeterBillCalculator'
 import Navbar from '@/components/Navbar'
+import Footer from '@/components/Footer'
 import {
   Compass,
   ArrowRight,
@@ -262,6 +263,8 @@ export default function SubMeterCalculatorPage() {
           </div>
         </section>
       </main>
+
+      <Footer maxWidth="1100px" />
     </div>
   )
 }

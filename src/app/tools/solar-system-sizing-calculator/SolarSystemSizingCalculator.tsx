@@ -3,6 +3,8 @@
 import React, { useState, useMemo } from 'react'
 import Link from 'next/link'
 import styles from './solarSizing.module.css'
+import Navbar from '@/components/Navbar'
+import Footer from '@/components/Footer'
 import {
   Sun,
   Zap,
@@ -79,20 +81,9 @@ Calculate free at: https://www.readmeter.online/tools/solar-system-sizing-calcul
 
   return (
     <div className={styles.pageContainer}>
-      <header className={styles.header}>
-        <Link href="/" className={styles.logo}>
-          <Zap size={24} color="#00f0ff" />
-          Read<span>Meter</span>
-        </Link>
-        <div className={styles.navLinks}>
-          <Link href="/tools" className={styles.navBtn}>
-            ← All Tools
-          </Link>
-          <Link href="/tools/solar-net-metering-calculator" className={styles.navBtn}>
-            Net Metering ROI
-          </Link>
-        </div>
-      </header>
+      <div style={{ width: '100%', maxWidth: '1100px', marginBottom: '1rem' }}>
+        <Navbar maxWidth="1100px" />
+      </div>
 
       <section className={styles.hero}>
         <div className={styles.badge}>
@@ -288,6 +279,8 @@ Calculate free at: https://www.readmeter.online/tools/solar-system-sizing-calcul
           </div>
         </div>
       </main>
+
+      <Footer maxWidth="1100px" />
     </div>
   )
 }

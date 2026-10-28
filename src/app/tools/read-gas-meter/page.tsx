@@ -2,6 +2,8 @@ import type { Metadata } from 'next'
 import Link from 'next/link'
 import styles from '../toolsHub.module.css'
 import GasMeterScanner from './GasMeterScanner'
+import Navbar from '@/components/Navbar'
+import Footer from '@/components/Footer'
 import { Compass, Flame, ArrowLeft } from 'lucide-react'
 
 const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://www.readmeter.online'
@@ -125,42 +127,16 @@ export default function GasMeterScannerPage() {
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
       />
       {/* Header */}
-      <header className={styles.header}>
-        <Link href="/" className={styles.logo}>
-          Read<span>Meter</span>
-        </Link>
-        <div className={styles.navLinks}>
-          <Link href="/tools" className={styles.navBtn}>
-            <ArrowLeft size={16} /> All Tools
-          </Link>
-          <Link href="/guest" className={styles.navBtnPrimary}>
-            Open Guest Dashboard
-          </Link>
-        </div>
-      </header>
+      <div style={{ width: '100%', maxWidth: '1100px', marginBottom: '1rem' }}>
+        <Navbar maxWidth="1100px" />
+      </div>
 
       {/* Main Scanner Container */}
       <main style={{ width: '100%', marginTop: '1.5rem' }}>
         <GasMeterScanner />
       </main>
 
-      {/* Footer Navigation */}
-      <div style={{ marginTop: '3.5rem', textAlign: 'center' }}>
-        <Link
-          href="/tools"
-          style={{
-            display: 'inline-flex',
-            alignItems: 'center',
-            gap: '0.5rem',
-            color: '#38bdf8',
-            textDecoration: 'none',
-            fontSize: '0.95rem',
-            fontWeight: 600,
-          }}
-        >
-          <Compass size={18} /> Explore All Utility Calculators &amp; AI Tools
-        </Link>
-      </div>
+      <Footer maxWidth="1100px" />
     </div>
   )
 }

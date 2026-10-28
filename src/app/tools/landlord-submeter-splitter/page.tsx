@@ -3,6 +3,7 @@ import Link from 'next/link'
 import styles from '../sub-meter-bill-calculator/subMeterCalculator.module.css'
 import SubMeterBillCalculator from '../sub-meter-bill-calculator/SubMeterBillCalculator'
 import Navbar from '@/components/Navbar'
+import Footer from '@/components/Footer'
 import { Compass, ArrowRight, ShieldCheck, HelpCircle, Users, CheckCircle2, Zap } from 'lucide-react'
 
 const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://www.readmeter.online'
@@ -147,6 +148,8 @@ export default function LandlordSubmeterSplitterPage() {
           <Compass size={18} /> Explore All Utility Calculators &amp; AI Tools <ArrowRight size={16} />
         </Link>
       </div>
+
+      <Footer maxWidth="1100px" />
     </div>
   )
 }

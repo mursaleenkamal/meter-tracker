@@ -2,6 +2,8 @@ import type { Metadata } from 'next'
 import Link from 'next/link'
 import styles from '../toolsHub.module.css'
 import DigitalLcdMeterScanner from './DigitalLcdMeterScanner'
+import Navbar from '@/components/Navbar'
+import Footer from '@/components/Footer'
 import { Compass, Sparkles, ArrowLeft } from 'lucide-react'
 
 const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://www.readmeter.online'
@@ -126,29 +128,16 @@ export default function DigitalMeterScannerPage() {
       />
 
       {/* Header */}
-      <header className={styles.header}>
-        <Link href="/" className={styles.logo}>
-          <Compass size={28} color="#00f0ff" />
-          <span>Read Meter</span>
-        </Link>
-        <div className={styles.navLinks}>
-          <Link href="/tools" className={styles.navBtn}>
-            <ArrowLeft size={16} style={{ display: 'inline', marginRight: 4 }} />
-            All Tools
-          </Link>
-          <Link href="/blog" className={styles.navBtn}>
-            Blog
-          </Link>
-          <Link href="/guest" className={styles.navBtnPrimary}>
-            My Dashboard
-          </Link>
-        </div>
-      </header>
+      <div style={{ width: '100%', maxWidth: '1100px', marginBottom: '1rem' }}>
+        <Navbar maxWidth="1100px" />
+      </div>
 
       {/* Scanner Interactive Tool Component */}
       <main style={{ width: '100%', marginTop: '1.5rem' }}>
         <DigitalLcdMeterScanner />
       </main>
+
+      <Footer maxWidth="1100px" />
     </div>
   )
 }

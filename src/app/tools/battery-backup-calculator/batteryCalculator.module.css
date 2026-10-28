@@ -159,7 +159,7 @@
 .sectionHeader h3 {
   font-size: 1.15rem;
   font-weight: 700;
-  color: #f8fafc;
+  color: #0f172a;
   margin: 0;
 }
 
@@ -189,8 +189,8 @@
 
 .radioBtn {
   background: #f8fafc;
-  border: 1px solid #e2e8f0;
-  color: #64748b;
+  border: 1px solid #cbd5e1;
+  color: #475569;
   padding: 0.55rem 0.9rem;
   border-radius: 8px;
   font-size: 0.85rem;
@@ -200,39 +200,41 @@
 }
 
 .radioBtn:hover {
-  border-color: rgba(0, 240, 255, 0.4);
-  color: #e2e8f0;
+  border-color: #2563eb;
+  color: #2563eb;
+  background: #eff6ff;
 }
 
 .radioBtnActive {
   background: #eff6ff;
   border-color: #2563eb;
   color: #2563eb;
-  box-shadow: 0 4px 14px rgba(37, 99, 235, 0.25);
+  box-shadow: 0 2px 8px rgba(37, 99, 235, 0.15);
 }
 
 .inputField {
   width: 100%;
-  background: rgba(10, 15, 29, 0.8);
-  border: 1px solid #e2e8f0;
+  background: #f8fafc;
+  border: 1px solid #cbd5e1;
   border-radius: 10px;
   padding: 0.7rem 1rem;
   color: #0f172a;
   font-size: 1rem;
   font-weight: 600;
   outline: none;
-  transition: border-color 0.2s ease;
+  transition: all 0.2s ease;
 }
 
 .inputField:focus {
   border-color: #2563eb;
-  box-shadow: 0 4px 14px rgba(37, 99, 235, 0.25);
+  box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.15);
+  background: #ffffff;
 }
 
 .selectField {
   width: 100%;
-  background: #0f172a;
-  border: 1px solid #e2e8f0;
+  background: #f8fafc;
+  border: 1px solid #cbd5e1;
   border-radius: 10px;
   padding: 0.7rem 1rem;
   color: #0f172a;
@@ -290,9 +292,9 @@
   width: 30px;
   height: 30px;
   border-radius: 6px;
-  background: #f8fafc;
-  border: 1px solid #e2e8f0;
-  color: #f8fafc;
+  background: #ffffff;
+  border: 1px solid #cbd5e1;
+  color: #0f172a;
   font-size: 1.1rem;
   font-weight: bold;
   cursor: pointer;
@@ -324,12 +326,12 @@
 }
 
 .heroResultCard {
-  background: linear-gradient(135deg, rgba(0, 240, 255, 0.1) 0%, rgba(14, 165, 233, 0.05) 100%);
-  border: 1px solid rgba(0, 240, 255, 0.35);
+  background: linear-gradient(135deg, #eff6ff 0%, #f0fdf4 100%);
+  border: 1px solid #bfdbfe;
   border-radius: 16px;
   padding: 1.5rem;
   text-align: center;
-  box-shadow: 0 4px 14px rgba(37, 99, 235, 0.25);
+  box-shadow: 0 4px 14px rgba(37, 99, 235, 0.1);
   position: relative;
   overflow: hidden;
 }
@@ -407,21 +409,21 @@
 }
 
 .healthGood {
-  background: rgba(16, 185, 129, 0.1);
-  border-color: rgba(16, 185, 129, 0.3);
-  color: #6ee7b7;
+  background: #ecfdf5;
+  border-color: #a7f3d0;
+  color: #047857;
 }
 
 .healthWarn {
-  background: rgba(245, 158, 11, 0.1);
-  border-color: rgba(245, 158, 11, 0.3);
-  color: #fcd34d;
+  background: #fffbeb;
+  border-color: #fde68a;
+  color: #b45309;
 }
 
 .healthBad {
-  background: rgba(239, 68, 68, 0.1);
-  border-color: rgba(239, 68, 68, 0.3);
-  color: #fca5a5;
+  background: #fef2f2;
+  border-color: #fecaca;
+  color: #dc2626;
 }
 
 .shareBtn {

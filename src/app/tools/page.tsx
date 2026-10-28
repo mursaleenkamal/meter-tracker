@@ -3,6 +3,7 @@ import Link from 'next/link'
 import styles from './toolsHub.module.css'
 import ToolsGrid from './ToolsGrid'
 import Navbar from '@/components/Navbar'
+import Footer from '@/components/Footer'
 import {
   Compass,
   Camera,
@@ -228,6 +229,8 @@ export default function ToolsHubPage() {
           </Link>
         </section>
       </main>
+
+      <Footer maxWidth="1100px" />
     </div>
   )
 }
