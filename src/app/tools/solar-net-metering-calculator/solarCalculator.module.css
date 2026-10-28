@@ -1,7 +1,7 @@
 .pageContainer {
   min-height: 100vh;
-  background: radial-gradient(circle at 50% 10%, #0c1527 0%, #060913 70%, #03050a 100%);
-  color: #f1f5f9;
+  background: #f8fafc;
+  color: #0f172a;
   padding: 1.5rem 1rem 4rem;
   font-family: var(--font-outfit), sans-serif;
   display: flex;
@@ -16,13 +16,13 @@
   justify-content: space-between;
   align-items: center;
   padding: 1rem 0 2rem;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  border-bottom: 1px solid #e2e8f0;
 }
 
 .logo {
   font-size: 1.5rem;
   font-weight: 800;
-  color: #ffffff;
+  color: #0f172a;
   display: flex;
   align-items: center;
   gap: 0.5rem;
@@ -31,8 +31,8 @@
 }
 
 .logo span {
-  color: #00f0ff;
-  text-shadow: 0 0 12px rgba(0, 240, 255, 0.4);
+  color: #2563eb;
+  text-shadow: none;
 }
 
 .navLinks {
@@ -42,9 +42,9 @@
 }
 
 .navBtn {
-  background: rgba(255, 255, 255, 0.06);
-  border: 1px solid rgba(255, 255, 255, 0.15);
-  color: #cbd5e1;
+  background: #f8fafc;
+  border: 1px solid #e2e8f0;
+  color: #334155;
   padding: 0.5rem 1rem;
   border-radius: 8px;
   font-size: 0.9rem;
@@ -54,25 +54,25 @@
 }
 
 .navBtn:hover {
-  background: rgba(255, 255, 255, 0.12);
-  color: #ffffff;
+  background: #eff6ff;
+  color: #0f172a;
 }
 
 .navBtnPrimary {
-  background: linear-gradient(135deg, #00f0ff 0%, #0070f3 100%);
+  background: #2563eb;
   color: #030712;
   padding: 0.5rem 1.25rem;
   border-radius: 8px;
   font-size: 0.9rem;
   font-weight: 800;
   text-decoration: none;
-  box-shadow: 0 0 15px rgba(0, 240, 255, 0.3);
+  box-shadow: 0 4px 14px rgba(37, 99, 235, 0.25);
   transition: all 0.2s ease;
 }
 
 .navBtnPrimary:hover {
   transform: translateY(-1px);
-  box-shadow: 0 0 20px rgba(0, 240, 255, 0.5);
+  box-shadow: 0 4px 14px rgba(37, 99, 235, 0.25);
 }
 
 .hero {
@@ -112,7 +112,7 @@
 
 .subtitle {
   font-size: 1.15rem;
-  color: #94a3b8;
+  color: #64748b;
   line-height: 1.6;
   max-width: 760px;
 }
@@ -126,12 +126,12 @@
 }
 
 .calculatorCard {
-  background: rgba(15, 23, 42, 0.75);
+  background: #ffffff;
   backdrop-filter: blur(16px);
-  border: 1px solid rgba(255, 255, 255, 0.12);
+  border: 1px solid #e2e8f0;
   border-radius: 20px;
   padding: 2rem;
-  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
+  box-shadow: 0 4px 20px -2px rgba(15, 23, 42, 0.08);
   display: flex;
   flex-direction: column;
   gap: 2rem;
@@ -140,12 +140,12 @@
 .cardSectionTitle {
   font-size: 1.25rem;
   font-weight: 700;
-  color: #ffffff;
+  color: #0f172a;
   display: flex;
   align-items: center;
   gap: 0.6rem;
   padding-bottom: 0.75rem;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  border-bottom: 1px solid #e2e8f0;
 }
 
 .controlGrid {
@@ -167,7 +167,7 @@
 .label {
   font-size: 0.88rem;
   font-weight: 600;
-  color: #cbd5e1;
+  color: #334155;
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -175,7 +175,7 @@
 
 .labelHint {
   font-size: 0.75rem;
-  color: #94a3b8;
+  color: #64748b;
   font-weight: 500;
 }
 
@@ -187,11 +187,11 @@
 
 .inputField {
   width: 100%;
-  background: rgba(3, 7, 18, 0.6);
-  border: 1px solid rgba(255, 255, 255, 0.16);
+  background: #f8fafc;
+  border: 1px solid #e2e8f0;
   border-radius: 10px;
   padding: 0.75rem 3.5rem 0.75rem 1rem;
-  color: #ffffff;
+  color: #0f172a;
   font-size: 1.1rem;
   font-weight: 600;
   outline: none;
@@ -201,16 +201,14 @@
 .inputField:focus {
   border-color: #fbbf24;
   box-shadow: 0 0 12px rgba(251, 191, 36, 0.25);
-  background: rgba(3, 7, 18, 0.85);
+  background: #f8fafc;
 }
 
 .select {
   width: 100%;
-  background: rgba(3, 7, 18, 0.6);
-  border: 1px solid rgba(255, 255, 255, 0.16);
-  border-radius: 10px;
-  padding: 0.75rem 1rem;
-  color: #ffffff;
+  background: #f8fafc;
+  border: 1px solid #e2e8f0;
+  border-radius: 10px; padding: 0.75rem 1rem; color: #0f172a; border: 1px solid #cbd5e1;
   font-size: 0.95rem;
   font-weight: 600;
   outline: none;
@@ -249,9 +247,9 @@
 }
 
 .quickPill {
-  background: rgba(255, 255, 255, 0.05);
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  color: #cbd5e1;
+  background: #f8fafc;
+  border: 1px solid #e2e8f0;
+  color: #334155;
   padding: 0.35rem 0.75rem;
   border-radius: 6px;
   font-size: 0.82rem;
@@ -267,8 +265,8 @@
 }
 
 .resultPanel {
-  background: rgba(3, 7, 18, 0.7);
-  border: 1px solid rgba(255, 255, 255, 0.1);
+  background: #f8fafc;
+  border: 1px solid #e2e8f0;
   border-radius: 16px;
   padding: 1.75rem;
   display: flex;
@@ -283,8 +281,8 @@
 }
 
 .kpiCard {
-  background: rgba(255, 255, 255, 0.03);
-  border: 1px solid rgba(255, 255, 255, 0.07);
+  background: #f8fafc;
+  border: 1px solid #e2e8f0;
   border-radius: 12px;
   padding: 1.25rem;
   display: flex;
@@ -294,7 +292,7 @@
 
 .kpiLabel {
   font-size: 0.78rem;
-  color: #94a3b8;
+  color: #64748b;
   font-weight: 600;
   text-transform: uppercase;
   letter-spacing: 0.5px;
@@ -303,7 +301,7 @@
 .kpiValue {
   font-size: 1.6rem;
   font-weight: 800;
-  color: #ffffff;
+  color: #0f172a;
 }
 
 .kpiSub {
@@ -337,7 +335,7 @@
 .paybackYears {
   font-size: 2rem;
   font-weight: 900;
-  color: #ffffff;
+  color: #0f172a;
 }
 
 .breakdownTableWrapper {
@@ -353,19 +351,19 @@
 
 .breakdownTable th {
   padding: 0.75rem 1rem;
-  background: rgba(255, 255, 255, 0.04);
-  color: #94a3b8;
+  background: #f8fafc;
+  color: #64748b;
   font-weight: 600;
   font-size: 0.8rem;
   text-transform: uppercase;
   letter-spacing: 0.5px;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  border-bottom: 1px solid #e2e8f0;
 }
 
 .breakdownTable td {
   padding: 0.85rem 1rem;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
-  color: #f1f5f9;
+  border-bottom: 1px solid #e2e8f0;
+  color: #0f172a;
 }
 
 .pwaCtaBanner {
@@ -388,13 +386,13 @@
 .ctaTitle {
   font-size: 1.1rem;
   font-weight: 800;
-  color: #ffffff;
+  color: #0f172a;
   margin-bottom: 0.4rem;
 }
 
 .ctaDescription {
   font-size: 0.88rem;
-  color: #94a3b8;
+  color: #64748b;
   line-height: 1.5;
 }
 
@@ -420,8 +418,8 @@
 }
 
 .contentSection {
-  background: rgba(15, 23, 42, 0.6);
-  border: 1px solid rgba(255, 255, 255, 0.08);
+  background: #ffffff;
+  border: 1px solid #e2e8f0;
   border-radius: 20px;
   padding: 2.5rem 2rem;
   display: flex;
@@ -432,20 +430,20 @@
 .contentH2 {
   font-size: 1.6rem;
   font-weight: 800;
-  color: #ffffff;
+  color: #0f172a;
   border-left: 4px solid #fbbf24;
   padding-left: 1rem;
 }
 
 .contentP {
   font-size: 1rem;
-  color: #cbd5e1;
+  color: #334155;
   line-height: 1.7;
 }
 
 .faqItem {
-  background: rgba(3, 7, 18, 0.5);
-  border: 1px solid rgba(255, 255, 255, 0.08);
+  background: #f8fafc;
+  border: 1px solid #e2e8f0;
   border-radius: 12px;
   padding: 1.25rem;
   display: flex;
@@ -456,12 +454,12 @@
 .faqQuestion {
   font-size: 1.05rem;
   font-weight: 700;
-  color: #ffffff;
+  color: #0f172a;
 }
 
 .faqAnswer {
   font-size: 0.92rem;
-  color: #94a3b8;
+  color: #64748b;
   line-height: 1.6;
 }
 

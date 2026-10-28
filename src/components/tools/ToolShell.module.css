@@ -196,14 +196,14 @@
 
 /* Instant Result Card */
 .resultBox {
-  background: rgba(15, 23, 42, 0.8);
-  border: 1px solid rgba(0, 240, 255, 0.25);
+  background: #f8fafc;
+  border: 1px solid #e2e8f0;
   border-radius: 14px;
   padding: 1.5rem;
   display: flex;
   flex-direction: column;
   gap: 1.25rem;
-  box-shadow: 0 10px 30px -10px rgba(0, 240, 255, 0.15);
+  box-shadow: 0 4px 15px -3px rgba(15, 23, 42, 0.05);
 }
 
 .readingDisplay {
@@ -212,24 +212,24 @@
   justify-content: center;
   gap: 0.75rem;
   padding: 1rem;
-  background: #030712;
-  border-radius: 10px;
-  border: 1px solid rgba(255, 255, 255, 0.1);
+  background: #ffffff;
+  border-radius: 12px;
+  border: 2px solid #2563eb;
+  box-shadow: 0 2px 8px rgba(37, 99, 235, 0.1);
 }
 
 .readingValue {
   font-size: clamp(2.5rem, 6vw, 3.5rem);
   font-weight: 800;
-  color: #00f0ff;
+  color: #0f172a;
   font-family: monospace, monospace;
   letter-spacing: 2px;
-  text-shadow: 0 0 15px rgba(0, 240, 255, 0.3);
 }
 
 .readingUnit {
   font-size: 1.25rem;
   font-weight: 700;
-  color: #94a3b8;
+  color: #2563eb;
 }
 
 .adjusterRow {
@@ -239,13 +239,14 @@
   gap: 1rem;
   flex-wrap: wrap;
   padding: 0.75rem 1rem;
-  background: rgba(255, 255, 255, 0.04);
+  background: #ffffff;
+  border: 1px solid #e2e8f0;
   border-radius: 8px;
 }
 
 .adjusterLabel {
   font-size: 0.85rem;
-  color: #cbd5e1;
+  color: #334155;
   font-weight: 600;
 }
 
@@ -256,9 +257,9 @@
 }
 
 .adjusterInput {
-  background: #030712;
-  border: 1px solid rgba(255, 255, 255, 0.2);
-  color: #ffffff;
+  background: #f8fafc;
+  border: 1px solid #cbd5e1;
+  color: #0f172a;
   font-size: 1.1rem;
   font-weight: 700;
   padding: 0.4rem 0.75rem;
@@ -281,7 +282,7 @@
 }
 
 .btnPrimary {
-  background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+  background: #2563eb;
   color: #ffffff;
   font-weight: 700;
   font-size: 0.95rem;
@@ -294,19 +295,20 @@
   justify-content: center;
   gap: 0.5rem;
   transition: all 0.2s ease;
-  box-shadow: 0 4px 15px rgba(16, 185, 129, 0.25);
+  box-shadow: 0 4px 14px rgba(37, 99, 235, 0.25);
   text-decoration: none;
 }
 
 .btnPrimary:hover {
   transform: translateY(-1px);
-  box-shadow: 0 6px 20px rgba(16, 185, 129, 0.4);
+  background: #1d4ed8;
+  box-shadow: 0 6px 20px rgba(37, 99, 235, 0.35);
 }
 
 .btnSecondary {
-  background: rgba(255, 255, 255, 0.06);
-  border: 1px solid rgba(255, 255, 255, 0.15);
-  color: #f1f5f9;
+  background: #ffffff;
+  border: 1px solid #cbd5e1;
+  color: #0f172a;
   font-weight: 600;
   font-size: 0.95rem;
   padding: 0.85rem 1.25rem;
@@ -320,14 +322,14 @@
 }
 
 .btnSecondary:hover {
-  background: rgba(255, 255, 255, 0.12);
-  border-color: rgba(255, 255, 255, 0.3);
+  background: #f1f5f9;
+  border-color: #94a3b8;
 }
 
 .btnReset {
   background: transparent;
   border: none;
-  color: #94a3b8;
+  color: #64748b;
   font-size: 0.85rem;
   cursor: pointer;
   text-decoration: underline;
@@ -336,7 +338,7 @@
 }
 
 .btnReset:hover {
-  color: #ffffff;
+  color: #0f172a;
 }
 
 /* Reading Slip Modal / Card */

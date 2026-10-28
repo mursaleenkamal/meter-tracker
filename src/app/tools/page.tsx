@@ -209,14 +209,14 @@ export default function ToolsHubPage() {
         {/* PWA Integration Banner */}
         <section className={styles.pwaBanner}>
           <div style={{ maxWidth: '640px' }}>
-            <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', color: '#00f0ff', fontWeight: 700, fontSize: '0.85rem', textTransform: 'uppercase', letterSpacing: '1px' }}>
+            <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', color: '#2563eb', fontWeight: 700, fontSize: '0.85rem', textTransform: 'uppercase', letterSpacing: '1px' }}>
               <ShieldCheck size={18} />
               <span>Zero-Friction Camera Scanner</span>
             </div>
-            <h2 style={{ fontSize: '1.6rem', fontWeight: 800, color: '#ffffff', margin: '0.5rem 0' }}>
+            <h2 style={{ fontSize: '1.6rem', fontWeight: 800, color: '#0f172a', margin: '0.5rem 0' }}>
               Want to skip manual numbers entry?
             </h2>
-            <p style={{ color: '#94a3b8', fontSize: '0.95rem', lineHeight: 1.6 }}>
+            <p style={{ color: '#475569', fontSize: '0.95rem', lineHeight: 1.6 }}>
               Read Meter PWA provides instant on-device OCR. Snap your electricity meter, gas dial, solar bidirectional
               green meter, or car odometer to automatically track intervals without typing!
             </p>

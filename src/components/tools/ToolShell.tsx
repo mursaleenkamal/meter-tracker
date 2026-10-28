@@ -537,8 +537,8 @@ export default function ToolShell({
         {readingValue && !isScanning && (
           <div className={styles.resultBox}>
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-              <span style={{ fontSize: '0.85rem', fontWeight: 700, color: '#38bdf8' }}>
-                DETECTED METER VALUE
+              <span style={{ fontSize: '0.85rem', fontWeight: 800, color: '#2563eb', letterSpacing: '0.5px' }}>
+                VERIFIED METER READING
               </span>
               <div style={{ display: 'flex', gap: '0.4rem' }}>
                 {unitOptions.map((unit) => (
@@ -547,11 +547,11 @@ export default function ToolShell({
                     type="button"
                     onClick={() => setSelectedUnit(unit)}
                     style={{
-                      background: selectedUnit === unit ? categoryColor : 'rgba(255,255,255,0.06)',
-                      color: selectedUnit === unit ? '#030712' : '#cbd5e1',
-                      border: '1px solid rgba(255,255,255,0.15)',
+                      background: selectedUnit === unit ? '#2563eb' : '#ffffff',
+                      color: selectedUnit === unit ? '#ffffff' : '#475569',
+                      border: `1px solid ${selectedUnit === unit ? '#2563eb' : '#cbd5e1'}`,
                       borderRadius: '6px',
-                      padding: '2px 8px',
+                      padding: '3px 8px',
                       fontSize: '0.75rem',
                       fontWeight: 700,
                       cursor: 'pointer',
@@ -803,7 +803,7 @@ export default function ToolShell({
 
       {/* Below the Fold: 2-Column Documentation & FAQ */}
       <section className={styles.guideSection}>
-        <h2 style={{ fontSize: '1.4rem', fontWeight: 800, color: '#f1f5f9', margin: 0 }}>
+        <h2 style={{ fontSize: '1.4rem', fontWeight: 800, color: '#0f172a', margin: 0 }}>
           How to Read {meterTypeLabel} Accurately
         </h2>
         <div className={styles.guideGrid}>
@@ -812,8 +812,9 @@ export default function ToolShell({
               <div className={styles.guideCardTitle}>
                 <span
                   style={{
-                    background: 'rgba(0, 240, 255, 0.15)',
-                    color: '#00f0ff',
+                    background: '#eff6ff',
+                    color: '#2563eb',
+                    border: '1px solid #bfdbfe',
                     width: 24,
                     height: 24,
                     borderRadius: '50%',
@@ -821,6 +822,7 @@ export default function ToolShell({
                     alignItems: 'center',
                     justifyContent: 'center',
                     fontSize: '0.8rem',
+                    fontWeight: 700,
                   }}
                 >
                   {idx + 1}
@@ -838,7 +840,7 @@ export default function ToolShell({
             style={{
               fontSize: '1.2rem',
               fontWeight: 800,
-              color: '#f1f5f9',
+              color: '#0f172a',
               marginBottom: '1rem',
             }}
           >

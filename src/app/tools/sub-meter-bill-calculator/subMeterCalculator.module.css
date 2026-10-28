@@ -1,7 +1,7 @@
 .pageContainer {
   min-height: 100vh;
-  background: radial-gradient(circle at 50% 10%, #0c1527 0%, #060913 70%, #03050a 100%);
-  color: #f1f5f9;
+  background: #f8fafc;
+  color: #0f172a;
   padding: 1.5rem 1rem 4rem;
   font-family: var(--font-outfit), sans-serif;
   display: flex;
@@ -16,13 +16,13 @@
   justify-content: space-between;
   align-items: center;
   padding: 1rem 0 2rem;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  border-bottom: 1px solid #e2e8f0;
 }
 
 .logo {
   font-size: 1.5rem;
   font-weight: 800;
-  color: #ffffff;
+  color: #0f172a;
   display: flex;
   align-items: center;
   gap: 0.5rem;
@@ -31,8 +31,8 @@
 }
 
 .logo span {
-  color: #00f0ff;
-  text-shadow: 0 0 12px rgba(0, 240, 255, 0.4);
+  color: #2563eb;
+  text-shadow: none;
 }
 
 .navLinks {
@@ -42,9 +42,9 @@
 }
 
 .navBtn {
-  background: rgba(255, 255, 255, 0.06);
-  border: 1px solid rgba(255, 255, 255, 0.15);
-  color: #cbd5e1;
+  background: #ffffff;
+  border: 1px solid #e2e8f0;
+  color: #475569;
   padding: 0.5rem 1rem;
   border-radius: 8px;
   font-size: 0.9rem;
@@ -54,25 +54,26 @@
 }
 
 .navBtn:hover {
-  background: rgba(255, 255, 255, 0.12);
-  color: #ffffff;
+  background: #f1f5f9;
+  color: #0f172a;
 }
 
 .navBtnPrimary {
-  background: linear-gradient(135deg, #00f0ff 0%, #0070f3 100%);
-  color: #030712;
+  background: #2563eb;
+  color: #ffffff;
   padding: 0.5rem 1.25rem;
   border-radius: 8px;
   font-size: 0.9rem;
   font-weight: 800;
   text-decoration: none;
-  box-shadow: 0 0 15px rgba(0, 240, 255, 0.3);
+  box-shadow: 0 4px 12px rgba(37, 99, 235, 0.25);
   transition: all 0.2s ease;
 }
 
 .navBtnPrimary:hover {
   transform: translateY(-1px);
-  box-shadow: 0 0 20px rgba(0, 240, 255, 0.5);
+  background: #1d4ed8;
+  box-shadow: 0 6px 16px rgba(37, 99, 235, 0.35);
 }
 
 .hero {
@@ -86,9 +87,9 @@
 }
 
 .badge {
-  background: rgba(0, 240, 255, 0.1);
-  border: 1px solid rgba(0, 240, 255, 0.4);
-  color: #00f0ff;
+  background: #eff6ff;
+  border: 1px solid #bfdbfe;
+  color: #2563eb;
   padding: 0.4rem 1.2rem;
   border-radius: 9999px;
   font-size: 0.85rem;
@@ -104,15 +105,13 @@
   font-size: 2.5rem;
   font-weight: 800;
   line-height: 1.15;
-  background: linear-gradient(180deg, #ffffff 30%, #94a3b8 100%);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
+  color: #0f172a;
   letter-spacing: -1px;
 }
 
 .subtitle {
   font-size: 1.15rem;
-  color: #94a3b8;
+  color: #475569;
   line-height: 1.6;
   max-width: 760px;
 }
@@ -126,12 +125,11 @@
 }
 
 .calculatorCard {
-  background: rgba(15, 23, 42, 0.75);
-  backdrop-filter: blur(16px);
-  border: 1px solid rgba(255, 255, 255, 0.12);
+  background: #ffffff;
+  border: 1px solid #e2e8f0;
   border-radius: 20px;
   padding: 2rem;
-  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
+  box-shadow: 0 4px 20px -2px rgba(15, 23, 42, 0.08);
   display: flex;
   flex-direction: column;
   gap: 2rem;
@@ -140,16 +138,16 @@
 .cardSectionTitle {
   font-size: 1.25rem;
   font-weight: 700;
-  color: #ffffff;
+  color: #0f172a;
   display: flex;
   align-items: center;
   gap: 0.6rem;
   padding-bottom: 0.75rem;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  border-bottom: 1px solid #e2e8f0;
 }
 
 .cardSectionTitle span {
-  color: #00f0ff;
+  color: #2563eb;
 }
 
 .controlGrid {
@@ -171,7 +169,7 @@
 .label {
   font-size: 0.88rem;
   font-weight: 600;
-  color: #cbd5e1;
+  color: #334155;
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -179,7 +177,7 @@
 
 .labelHint {
   font-size: 0.75rem;
-  color: #94a3b8;
+  color: #64748b;
   font-weight: 500;
 }
 
@@ -191,11 +189,11 @@
 
 .inputField {
   width: 100%;
-  background: rgba(3, 7, 18, 0.6);
-  border: 1px solid rgba(255, 255, 255, 0.16);
+  background: #f8fafc;
+  border: 1px solid #cbd5e1;
   border-radius: 10px;
   padding: 0.75rem 3.5rem 0.75rem 1rem;
-  color: #ffffff;
+  color: #0f172a;
   font-size: 1.1rem;
   font-weight: 600;
   outline: none;
@@ -203,9 +201,9 @@
 }
 
 .inputField:focus {
-  border-color: #00f0ff;
-  box-shadow: 0 0 12px rgba(0, 240, 255, 0.25);
-  background: rgba(3, 7, 18, 0.85);
+  border-color: #2563eb;
+  box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.15);
+  background: #ffffff;
 }
 
 .unitSuffix {
@@ -218,8 +216,8 @@
 }
 
 .portionCard {
-  background: rgba(3, 7, 18, 0.45);
-  border: 1px solid rgba(255, 255, 255, 0.08);
+  background: #f8fafc;
+  border: 1px solid #e2e8f0;
   border-radius: 12px;
   padding: 1.25rem;
   display: flex;
@@ -230,7 +228,7 @@
 }
 
 .portionCard:hover {
-  border-color: rgba(0, 240, 255, 0.3);
+  border-color: #93c5fd;
 }
 
 .portionHeader {
@@ -242,8 +240,8 @@
 .portionTitleInput {
   background: transparent;
   border: none;
-  border-bottom: 1px dashed rgba(255, 255, 255, 0.3);
-  color: #ffffff;
+  border-bottom: 1px dashed #94a3b8;
+  color: #0f172a;
   font-size: 1rem;
   font-weight: 700;
   padding: 0.2rem 0;
@@ -252,13 +250,13 @@
 }
 
 .portionTitleInput:focus {
-  border-bottom-color: #00f0ff;
+  border-bottom-color: #2563eb;
 }
 
 .removePortionBtn {
-  background: rgba(239, 68, 68, 0.1);
-  border: 1px solid rgba(239, 68, 68, 0.3);
-  color: #ef4444;
+  background: #fef2f2;
+  border: 1px solid #fecaca;
+  color: #dc2626;
   padding: 0.3rem 0.6rem;
   border-radius: 6px;
   font-size: 0.75rem;
@@ -268,7 +266,7 @@
 }
 
 .removePortionBtn:hover {
-  background: rgba(239, 68, 68, 0.2);
+  background: #fee2e2;
 }
 
 .portionInputs {
@@ -278,9 +276,9 @@
 }
 
 .addPortionBtn {
-  background: rgba(0, 240, 255, 0.08);
-  border: 1px dashed rgba(0, 240, 255, 0.4);
-  color: #00f0ff;
+  background: #eff6ff;
+  border: 1px dashed #2563eb;
+  color: #2563eb;
   padding: 0.85rem;
   border-radius: 10px;
   font-size: 0.95rem;
@@ -294,14 +292,13 @@
 }
 
 .addPortionBtn:hover {
-  background: rgba(0, 240, 255, 0.16);
-  border-color: #00f0ff;
+  background: #dbeafe;
 }
 
 .toggleContainer {
   display: flex;
-  background: rgba(3, 7, 18, 0.6);
-  border: 1px solid rgba(255, 255, 255, 0.12);
+  background: #f1f5f9;
+  border: 1px solid #e2e8f0;
   border-radius: 8px;
   padding: 0.25rem;
   gap: 0.25rem;
@@ -311,7 +308,7 @@
   flex: 1;
   background: transparent;
   border: none;
-  color: #94a3b8;
+  color: #64748b;
   padding: 0.5rem 0.75rem;
   border-radius: 6px;
   font-size: 0.82rem;
@@ -325,13 +322,14 @@
 }
 
 .toggleBtnActive {
-  background: rgba(255, 255, 255, 0.12);
-  color: #ffffff;
+  background: #ffffff;
+  color: #2563eb;
+  box-shadow: 0 1px 3px rgba(15, 23, 42, 0.08);
 }
 
 .resultPanel {
-  background: rgba(3, 7, 18, 0.7);
-  border: 1px solid rgba(255, 255, 255, 0.1);
+  background: #f8fafc;
+  border: 1px solid #e2e8f0;
   border-radius: 16px;
   padding: 1.75rem;
   display: flex;
@@ -348,9 +346,9 @@
 }
 
 .effectiveRateBadge {
-  background: rgba(16, 185, 129, 0.12);
-  border: 1px solid rgba(16, 185, 129, 0.35);
-  color: #10b981;
+  background: #ecfdf5;
+  border: 1px solid #a7f3d0;
+  color: #059669;
   padding: 0.6rem 1.2rem;
   border-radius: 10px;
   display: flex;
@@ -361,14 +359,14 @@
 .effectiveRateValue {
   font-size: 1.4rem;
   font-weight: 800;
-  color: #10b981;
+  color: #059669;
 }
 
 .effectiveRateLabel {
   font-size: 0.75rem;
   text-transform: uppercase;
   letter-spacing: 0.5px;
-  color: #6ee7b7;
+  color: #047857;
 }
 
 .portionsTableWrapper {
@@ -384,37 +382,38 @@
 
 .portionsTable th {
   padding: 0.75rem 1rem;
-  background: rgba(255, 255, 255, 0.04);
-  color: #94a3b8;
-  font-weight: 600;
+  background: #eff6ff;
+  color: #1e40af;
+  font-weight: 700;
   font-size: 0.8rem;
   text-transform: uppercase;
   letter-spacing: 0.5px;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  border-bottom: 2px solid #bfdbfe;
 }
 
 .portionsTable td {
   padding: 1rem;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
-  color: #f1f5f9;
+  border-bottom: 1px solid #e2e8f0;
+  color: #334155;
 }
 
 .portionBillCell {
   font-size: 1.15rem;
   font-weight: 800;
-  color: #00f0ff;
+  color: #2563eb;
 }
 
 .totalRow td {
-  background: rgba(0, 240, 255, 0.05);
+  background: #eff6ff;
   font-weight: 700;
-  border-top: 1px solid rgba(0, 240, 255, 0.3);
+  border-top: 2px solid #bfdbfe;
   border-bottom: none;
+  color: #0f172a;
 }
 
 .whatsappShareBtn {
   background: #25d366;
-  color: #030712;
+  color: #ffffff;
   border: none;
   border-radius: 10px;
   padding: 0.85rem 1.5rem;
@@ -438,7 +437,7 @@
 
 .copySuccessMessage {
   font-size: 0.85rem;
-  color: #10b981;
+  color: #059669;
   display: flex;
   align-items: center;
   gap: 0.4rem;
@@ -446,9 +445,9 @@
 }
 
 .alertBox {
-  background: rgba(245, 158, 11, 0.1);
-  border: 1px solid rgba(245, 158, 11, 0.3);
-  color: #fde68a;
+  background: #fffbeb;
+  border: 1px solid #fde68a;
+  color: #92400e;
   padding: 1rem;
   border-radius: 10px;
   font-size: 0.85rem;
@@ -459,8 +458,8 @@
 }
 
 .pwaCtaBanner {
-  background: linear-gradient(135deg, rgba(0, 240, 255, 0.1) 0%, rgba(0, 112, 243, 0.15) 100%);
-  border: 1px solid rgba(0, 240, 255, 0.35);
+  background: linear-gradient(135deg, #eff6ff 0%, #f0fdf4 100%);
+  border: 1px solid #bfdbfe;
   border-radius: 16px;
   padding: 1.5rem;
   display: flex;
@@ -478,19 +477,19 @@
 .ctaTitle {
   font-size: 1.1rem;
   font-weight: 800;
-  color: #ffffff;
+  color: #0f172a;
   margin-bottom: 0.4rem;
 }
 
 .ctaDescription {
   font-size: 0.88rem;
-  color: #94a3b8;
+  color: #475569;
   line-height: 1.5;
 }
 
 .ctaButton {
-  background: linear-gradient(135deg, #00f0ff 0%, #0070f3 100%);
-  color: #030712;
+  background: #2563eb;
+  color: #ffffff;
   font-weight: 800;
   font-size: 0.9rem;
   padding: 0.75rem 1.4rem;
@@ -499,43 +498,45 @@
   display: inline-flex;
   align-items: center;
   gap: 0.5rem;
-  box-shadow: 0 0 15px rgba(0, 240, 255, 0.3);
+  box-shadow: 0 4px 14px rgba(37, 99, 235, 0.25);
   transition: all 0.2s ease;
   white-space: nowrap;
 }
 
 .ctaButton:hover {
   transform: translateY(-2px);
-  box-shadow: 0 0 20px rgba(0, 240, 255, 0.5);
+  background: #1d4ed8;
+  box-shadow: 0 6px 20px rgba(37, 99, 235, 0.35);
 }
 
 .contentSection {
-  background: rgba(15, 23, 42, 0.6);
-  border: 1px solid rgba(255, 255, 255, 0.08);
+  background: #ffffff;
+  border: 1px solid #e2e8f0;
   border-radius: 20px;
   padding: 2.5rem 2rem;
   display: flex;
   flex-direction: column;
   gap: 2rem;
+  box-shadow: 0 1px 3px rgba(15, 23, 42, 0.05);
 }
 
 .contentH2 {
   font-size: 1.6rem;
   font-weight: 800;
-  color: #ffffff;
-  border-left: 4px solid #00f0ff;
+  color: #0f172a;
+  border-left: 4px solid #2563eb;
   padding-left: 1rem;
 }
 
 .contentP {
   font-size: 1rem;
-  color: #cbd5e1;
+  color: #334155;
   line-height: 1.7;
 }
 
 .faqItem {
-  background: rgba(3, 7, 18, 0.5);
-  border: 1px solid rgba(255, 255, 255, 0.08);
+  background: #f8fafc;
+  border: 1px solid #e2e8f0;
   border-radius: 12px;
   padding: 1.25rem;
   display: flex;
@@ -546,12 +547,12 @@
 .faqQuestion {
   font-size: 1.05rem;
   font-weight: 700;
-  color: #ffffff;
+  color: #0f172a;
 }
 
 .faqAnswer {
   font-size: 0.92rem;
-  color: #94a3b8;
+  color: #475569;
   line-height: 1.6;
 }
 
@@ -576,15 +577,15 @@
 
 /* Monetization Gate B: Commercial Pilot Banner (>= 3 units) */
 .commercialPilotBanner {
-  background: linear-gradient(135deg, rgba(16, 185, 129, 0.12) 0%, rgba(6, 182, 212, 0.08) 100%);
-  border: 1px solid rgba(16, 185, 129, 0.35);
+  background: #eff6ff;
+  border: 1px solid #bfdbfe;
   border-radius: 14px;
   padding: 1.5rem;
   margin-top: 1.5rem;
   display: flex;
   flex-direction: column;
   gap: 1.25rem;
-  box-shadow: 0 10px 30px -10px rgba(16, 185, 129, 0.15);
+  box-shadow: 0 4px 15px -3px rgba(37, 99, 235, 0.1);
   animation: fadeIn 0.3s ease;
 }
 
@@ -600,7 +601,7 @@
 }
 
 .commercialPilotIcon {
-  color: #10b981;
+  color: #2563eb;
   flex-shrink: 0;
   margin-top: 2px;
 }
@@ -608,13 +609,13 @@
 .commercialPilotTitle {
   font-size: 1.15rem;
   font-weight: 800;
-  color: #ffffff;
+  color: #0f172a;
   margin: 0 0 0.4rem 0;
 }
 
 .commercialPilotDesc {
   font-size: 0.9rem;
-  color: #94a3b8;
+  color: #475569;
   line-height: 1.55;
   margin: 0;
 }
@@ -626,12 +627,12 @@
   gap: 1rem;
   flex-wrap: wrap;
   padding-top: 0.75rem;
-  border-top: 1px solid rgba(255, 255, 255, 0.08);
+  border-top: 1px solid #e2e8f0;
 }
 
 .commercialPilotBtn {
-  background: linear-gradient(135deg, #10b981 0%, #059669 100%);
-  color: #030712;
+  background: #2563eb;
+  color: #ffffff;
   font-size: 0.92rem;
   font-weight: 800;
   padding: 0.65rem 1.4rem;
@@ -640,17 +641,18 @@
   display: inline-flex;
   align-items: center;
   gap: 0.5rem;
-  box-shadow: 0 4px 15px rgba(16, 185, 129, 0.3);
+  box-shadow: 0 4px 14px rgba(37, 99, 235, 0.25);
   transition: all 0.2s ease;
 }
 
 .commercialPilotBtn:hover {
   transform: translateY(-1px);
-  box-shadow: 0 6px 20px rgba(16, 185, 129, 0.45);
+  background: #1d4ed8;
+  box-shadow: 0 6px 20px rgba(37, 99, 235, 0.35);
 }
 
 .commercialPilotBadge {
   font-size: 0.8rem;
-  color: #a7f3d0;
+  color: #2563eb;
   font-weight: 600;
 }

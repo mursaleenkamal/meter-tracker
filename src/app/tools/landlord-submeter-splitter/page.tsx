@@ -2,6 +2,7 @@ import type { Metadata } from 'next'
 import Link from 'next/link'
 import styles from '../sub-meter-bill-calculator/subMeterCalculator.module.css'
 import SubMeterBillCalculator from '../sub-meter-bill-calculator/SubMeterBillCalculator'
+import Navbar from '@/components/Navbar'
 import { Compass, ArrowRight, ShieldCheck, HelpCircle, Users, CheckCircle2, Zap } from 'lucide-react'
 
 const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://www.readmeter.online'
@@ -109,19 +110,9 @@ export default function LandlordSubmeterSplitterPage() {
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
       />
       {/* Header */}
-      <header className={styles.header}>
-        <Link href="/" className={styles.logo}>
-          Read<span>Meter</span>
-        </Link>
-        <div className={styles.navLinks}>
-          <Link href="/tools" className={styles.navBtn}>
-            All Tools
-          </Link>
-          <Link href="/guest" className={styles.navBtnPrimary}>
-            Open Guest Dashboard
-          </Link>
-        </div>
-      </header>
+      <div style={{ width: '100%', maxWidth: '1100px', marginBottom: '1rem' }}>
+        <Navbar maxWidth="1100px" />
+      </div>
 
       {/* Hero Banner */}
       <section className={styles.hero}>

@@ -1,7 +1,7 @@
 .pageContainer {
   min-height: 100vh;
-  background: radial-gradient(circle at 50% 10%, #0c1c2e 0%, #060e19 70%, #03060c 100%);
-  color: #f1f5f9;
+  background: #f8fafc;
+  color: #0f172a;
   padding: 1.5rem 1rem 4rem;
   font-family: var(--font-outfit), sans-serif;
   display: flex;
@@ -16,13 +16,13 @@
   justify-content: space-between;
   align-items: center;
   padding: 1rem 0 2rem;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  border-bottom: 1px solid #e2e8f0;
 }
 
 .logo {
   font-size: 1.5rem;
   font-weight: 800;
-  color: #ffffff;
+  color: #0f172a;
   display: flex;
   align-items: center;
   gap: 0.5rem;
@@ -32,7 +32,7 @@
 
 .logo span {
   color: #14b8a6;
-  text-shadow: 0 0 12px rgba(20, 184, 166, 0.4);
+  text-shadow: none;
 }
 
 .navLinks {
@@ -42,9 +42,9 @@
 }
 
 .navBtn {
-  background: rgba(255, 255, 255, 0.06);
-  border: 1px solid rgba(255, 255, 255, 0.15);
-  color: #cbd5e1;
+  background: #f8fafc;
+  border: 1px solid #e2e8f0;
+  color: #334155;
   padding: 0.5rem 1rem;
   border-radius: 8px;
   font-size: 0.9rem;
@@ -54,8 +54,8 @@
 }
 
 .navBtn:hover {
-  background: rgba(255, 255, 255, 0.12);
-  color: #ffffff;
+  background: #eff6ff;
+  color: #0f172a;
 }
 
 .hero {
@@ -87,18 +87,18 @@
   font-size: 2.5rem;
   font-weight: 800;
   line-height: 1.15;
-  color: #ffffff;
+  color: #0f172a;
   letter-spacing: -1px;
 }
 
 .titleHighlight {
   color: #2dd4bf;
-  text-shadow: 0 0 20px rgba(45, 212, 191, 0.35);
+  text-shadow: none;
 }
 
 .subtitle {
   font-size: 1.05rem;
-  color: #94a3b8;
+  color: #64748b;
   line-height: 1.55;
   max-width: 740px;
 }
@@ -122,12 +122,12 @@
 }
 
 .card {
-  background: rgba(15, 23, 42, 0.75);
+  background: #ffffff;
   backdrop-filter: blur(12px);
-  border: 1px solid rgba(255, 255, 255, 0.1);
+  border: 1px solid #e2e8f0;
   border-radius: 18px;
   padding: 1.75rem;
-  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
+  box-shadow: 0 4px 20px -2px rgba(15, 23, 42, 0.08);
 }
 
 .cardHeader {
@@ -135,7 +135,7 @@
   align-items: center;
   justify-content: space-between;
   margin-bottom: 1.5rem;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  border-bottom: 1px solid #e2e8f0;
   padding-bottom: 1rem;
 }
 
@@ -145,7 +145,7 @@
   display: flex;
   align-items: center;
   gap: 0.5rem;
-  color: #ffffff;
+  color: #0f172a;
 }
 
 .inputGroup {
@@ -156,7 +156,7 @@
   display: block;
   font-size: 0.88rem;
   font-weight: 600;
-  color: #cbd5e1;
+  color: #334155;
   margin-bottom: 0.5rem;
 }
 
@@ -174,9 +174,9 @@
 }
 
 .presetBtn {
-  background: rgba(30, 41, 59, 0.6);
-  border: 1px solid rgba(255, 255, 255, 0.12);
-  color: #cbd5e1;
+  background: #f8fafc;
+  border: 1px solid #e2e8f0;
+  color: #334155;
   padding: 0.6rem 0.5rem;
   border-radius: 8px;
   font-size: 0.85rem;
@@ -190,9 +190,9 @@
 }
 
 .presetBtn:hover {
-  background: rgba(30, 41, 59, 0.9);
+  background: #f8fafc;
   border-color: rgba(45, 212, 191, 0.4);
-  color: #ffffff;
+  color: #0f172a;
 }
 
 .presetBtnActive {
@@ -204,7 +204,7 @@
 
 .presetSub {
   font-size: 0.72rem;
-  color: #94a3b8;
+  color: #64748b;
   font-weight: 400;
 }
 
@@ -214,11 +214,9 @@
 
 .input, .select {
   width: 100%;
-  background: rgba(30, 41, 59, 0.7);
-  border: 1px solid rgba(255, 255, 255, 0.15);
-  border-radius: 10px;
-  padding: 0.75rem 1rem;
-  color: #f1f5f9;
+  background: #f8fafc;
+  border: 1px solid #e2e8f0;
+  border-radius: 10px; padding: 0.75rem 1rem; color: #0f172a; border: 1px solid #cbd5e1;
   font-size: 0.95rem;
   font-family: inherit;
   transition: all 0.2s ease;
@@ -232,8 +230,8 @@
 
 .tabButtons {
   display: flex;
-  background: rgba(15, 23, 42, 0.8);
-  border: 1px solid rgba(255, 255, 255, 0.1);
+  background: #ffffff;
+  border: 1px solid #e2e8f0;
   border-radius: 10px;
   padding: 0.25rem;
   margin-bottom: 1.25rem;
@@ -243,7 +241,7 @@
   flex: 1;
   background: transparent;
   border: none;
-  color: #94a3b8;
+  color: #64748b;
   padding: 0.55rem;
   border-radius: 8px;
   font-size: 0.85rem;
@@ -288,7 +286,7 @@
 }
 
 .heroStat {
-  background: rgba(2, 6, 23, 0.6);
+  background: #f8fafc;
   border: 1px solid rgba(45, 212, 191, 0.25);
   border-radius: 14px;
   padding: 1.25rem;
@@ -298,7 +296,7 @@
 
 .heroStatLabel {
   font-size: 0.8rem;
-  color: #94a3b8;
+  color: #64748b;
   text-transform: uppercase;
   letter-spacing: 0.8px;
   font-weight: 700;
@@ -310,12 +308,12 @@
   color: #2dd4bf;
   margin-top: 0.25rem;
   letter-spacing: -0.5px;
-  text-shadow: 0 0 18px rgba(45, 212, 191, 0.3);
+  text-shadow: none;
 }
 
 .heroStatSub {
   font-size: 0.82rem;
-  color: #cbd5e1;
+  color: #334155;
   margin-top: 0.2rem;
 }
 
@@ -327,15 +325,15 @@
 }
 
 .statBox {
-  background: rgba(2, 6, 23, 0.5);
-  border: 1px solid rgba(255, 255, 255, 0.08);
+  background: #f8fafc;
+  border: 1px solid #e2e8f0;
   border-radius: 12px;
   padding: 1rem;
 }
 
 .statLabel {
   font-size: 0.74rem;
-  color: #94a3b8;
+  color: #64748b;
   text-transform: uppercase;
   letter-spacing: 0.5px;
   font-weight: 700;
@@ -344,7 +342,7 @@
 .statNumber {
   font-size: 1.45rem;
   font-weight: 800;
-  color: #ffffff;
+  color: #0f172a;
   margin-top: 0.35rem;
   letter-spacing: -0.5px;
 }
@@ -352,12 +350,12 @@
 .statUnit {
   font-size: 0.8rem;
   font-weight: 500;
-  color: #94a3b8;
+  color: #64748b;
   margin-left: 0.25rem;
 }
 
 .statHighlight {
-  color: #38bdf8;
+  color: #2563eb;
 }
 
 .statWarning {
@@ -390,7 +388,7 @@
 
 .threatText {
   font-size: 0.8rem;
-  color: #cbd5e1;
+  color: #334155;
   line-height: 1.4;
 }
 
@@ -415,13 +413,13 @@
 .splitValue {
   font-size: 1.35rem;
   font-weight: 800;
-  color: #ffffff;
+  color: #0f172a;
 }
 
 .actionBtn {
   width: 100%;
   background: linear-gradient(135deg, #14b8a6 0%, #0d9488 100%);
-  color: #ffffff;
+  color: #0f172a;
   font-weight: 700;
   font-size: 0.95rem;
   padding: 0.85rem;
@@ -455,8 +453,8 @@
 }
 
 .tipCard {
-  background: rgba(15, 23, 42, 0.6);
-  border: 1px solid rgba(255, 255, 255, 0.08);
+  background: #ffffff;
+  border: 1px solid #e2e8f0;
   border-radius: 14px;
   padding: 1.25rem;
   display: flex;
@@ -467,7 +465,7 @@
 .tipTitle {
   font-size: 0.95rem;
   font-weight: 700;
-  color: #f1f5f9;
+  color: #0f172a;
   display: flex;
   align-items: center;
   gap: 0.4rem;
@@ -475,7 +473,7 @@
 
 .tipText {
   font-size: 0.82rem;
-  color: #94a3b8;
+  color: #64748b;
   line-height: 1.5;
 }
 
@@ -488,13 +486,13 @@
 .sectionHeader {
   font-size: 1.4rem;
   font-weight: 800;
-  color: #ffffff;
+  color: #0f172a;
   margin-bottom: 1.25rem;
 }
 
 .faqItem {
-  background: rgba(15, 23, 42, 0.5);
-  border: 1px solid rgba(255, 255, 255, 0.07);
+  background: #ffffff;
+  border: 1px solid #e2e8f0;
   border-radius: 12px;
   padding: 1.25rem;
   margin-bottom: 0.75rem;
@@ -509,6 +507,6 @@
 
 .faqAnswer {
   font-size: 0.88rem;
-  color: #94a3b8;
+  color: #64748b;
   line-height: 1.55;
 }

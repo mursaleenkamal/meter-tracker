@@ -283,17 +283,17 @@ export default async function BlogPostPage({ params }: PageProps) {
 
         {/* FAQs */}
         {post.faqs && post.faqs.length > 0 && (
-          <div style={{ marginTop: '3rem', borderTop: '1px solid rgba(255,255,255,0.1)', paddingTop: '2rem' }}>
-            <h2 style={{ fontSize: '1.6rem', fontWeight: 800, color: '#ffffff', marginBottom: '1.5rem' }}>
+          <div style={{ marginTop: '3rem', borderTop: '1px solid #e2e8f0', paddingTop: '2rem' }}>
+            <h2 style={{ fontSize: '1.6rem', fontWeight: 800, color: '#0f172a', marginBottom: '1.5rem' }}>
               Frequently Asked Questions (FAQs)
             </h2>
             <div style={{ display: 'flex', flexDirection: 'column', gap: '1.5rem' }}>
               {post.faqs.map((faq, i) => (
-                <div key={i} style={{ background: 'rgba(15,23,42,0.6)', padding: '1.2rem', borderRadius: '12px', border: '1px solid rgba(255,255,255,0.06)' }}>
-                  <h3 style={{ fontSize: '1.1rem', fontWeight: 700, color: '#38bdf8', marginBottom: '0.4rem' }}>
+                <div key={i} style={{ background: '#ffffff', padding: '1.2rem', borderRadius: '12px', border: '1px solid #e2e8f0', boxShadow: '0 1px 3px rgba(15,23,42,0.04)' }}>
+                  <h3 style={{ fontSize: '1.1rem', fontWeight: 700, color: '#2563eb', marginBottom: '0.4rem' }}>
                     {faq.question}
                   </h3>
-                  <p style={{ fontSize: '0.98rem', color: '#cbd5e1', lineHeight: 1.6 }}>{faq.answer}</p>
+                  <p style={{ fontSize: '0.98rem', color: '#475569', lineHeight: 1.6 }}>{faq.answer}</p>
                 </div>
               ))}
             </div>

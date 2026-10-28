@@ -65,18 +65,18 @@ export default function ContactPage() {
                   placeholder="John Doe"
                   required
                   style={{
-                    background: 'rgba(6, 9, 19, 0.75)',
-                    border: '1px solid rgba(255, 255, 255, 0.15)',
+                    background: '#f8fafc',
+                    border: '1px solid #cbd5e1',
                     borderRadius: '8px',
                     padding: '12px 14px',
-                    color: '#fff',
+                    color: '#0f172a',
                     fontSize: '0.95rem',
                   }}
                 />
               </div>
 
               <div style={{ display: 'flex', flexDirection: 'column', gap: '0.4rem' }}>
-                <label htmlFor="contactEmail" style={{ fontSize: '0.88rem', fontWeight: 600, color: '#e2e8f0' }}>
+                <label htmlFor="contactEmail" style={{ fontSize: '0.88rem', fontWeight: 600, color: '#334155' }}>
                   Email Address
                 </label>
                 <input
@@ -86,18 +86,18 @@ export default function ContactPage() {
                   placeholder="john@example.com"
                   required
                   style={{
-                    background: 'rgba(6, 9, 19, 0.75)',
-                    border: '1px solid rgba(255, 255, 255, 0.15)',
+                    background: '#f8fafc',
+                    border: '1px solid #cbd5e1',
                     borderRadius: '8px',
                     padding: '12px 14px',
-                    color: '#fff',
+                    color: '#0f172a',
                     fontSize: '0.95rem',
                   }}
                 />
               </div>
 
               <div style={{ display: 'flex', flexDirection: 'column', gap: '0.4rem' }}>
-                <label htmlFor="message" style={{ fontSize: '0.88rem', fontWeight: 600, color: '#e2e8f0' }}>
+                <label htmlFor="message" style={{ fontSize: '0.88rem', fontWeight: 600, color: '#334155' }}>
                   Your Inquiry / Feedback
                 </label>
                 <textarea
@@ -107,11 +107,11 @@ export default function ContactPage() {
                   placeholder="Describe your issue or question in detail..."
                   required
                   style={{
-                    background: 'rgba(6, 9, 19, 0.75)',
-                    border: '1px solid rgba(255, 255, 255, 0.15)',
+                    background: '#f8fafc',
+                    border: '1px solid #cbd5e1',
                     borderRadius: '8px',
                     padding: '12px 14px',
-                    color: '#fff',
+                    color: '#0f172a',
                     fontSize: '0.95rem',
                     fontFamily: 'inherit',
                   }}
