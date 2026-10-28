@@ -60,7 +60,7 @@
 
 .navBtnPrimary {
   background: #2563eb;
-  color: #030712;
+  color: #ffffff;
   padding: 0.5rem 1.25rem;
   border-radius: 8px;
   font-size: 0.9rem;
@@ -109,7 +109,7 @@
 }
 
 .heroTitle span {
-  background: linear-gradient(135deg, #00f0ff 0%, #38bdf8 100%);
+  background: linear-gradient(135deg, #1e40af 0%, #2563eb 50%, #0284c7 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
 }
@@ -263,7 +263,7 @@
 }
 
 .applianceRow:hover {
-  border-color: rgba(255, 255, 255, 0.16);
+  border-color: #93c5fd;
 }
 
 .applianceInfo {
@@ -310,12 +310,18 @@
   color: #2563eb;
 }
 
+.counterBtn:active {
+  transform: scale(0.92);
+  background: #dbeafe;
+}
+
 .counterValue {
   min-width: 24px;
   text-align: center;
   font-size: 0.95rem;
   font-weight: 700;
   color: #2563eb;
+  font-variant-numeric: tabular-nums;
 }
 
 /* Results Sidebar */
@@ -357,6 +363,7 @@
   line-height: 1.1;
   color: #0f172a;
   text-shadow: none;
+  font-variant-numeric: tabular-nums;
 }
 
 .mainBackupSubtext {
@@ -393,6 +400,7 @@
   font-size: 1.25rem;
   font-weight: 700;
   color: #0f172a;
+  font-variant-numeric: tabular-nums;
 }
 
 .metricSub {
