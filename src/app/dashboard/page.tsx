@@ -244,6 +244,8 @@ export default async function DashboardPage(props: {
   // Limit line Y position
   const limitYPct = limit / maxYScale
   const limitY = svgHeight - paddingY - limitYPct * plotHeight
+  const keCliffYPct = keThreshold / maxYScale
+  const keCliffY = svgHeight - paddingY - keCliffYPct * plotHeight
 
   return (
     <div className={styles.container}>
@@ -421,7 +423,7 @@ export default async function DashboardPage(props: {
                     viewBox={`0 0 ${svgWidth} ${svgHeight}`}
                     width="100%"
                     height="100%"
-                    style={{ background: 'rgba(6,9,19,0.3)', borderRadius: '12px' }}
+                    style={{ background: '#f8fafc', border: '1px solid var(--border-color)', borderRadius: '12px' }}
                   >
                     <defs>
                       <linearGradient id="chartGradient" x1="0" y1="0" x2="0" y2="1">
@@ -447,6 +449,32 @@ export default async function DashboardPage(props: {
                       stroke="var(--border-color)"
                       strokeWidth="1"
                     />
+
+                    {/* 200 kWh Protected Slab Cliff Line */}
+                    {keCliffY > paddingY && keCliffY < svgHeight - paddingY && limit !== keThreshold && (
+                      <>
+                        <line
+                          x1={paddingX}
+                          y1={keCliffY}
+                          x2={svgWidth - paddingX}
+                          y2={keCliffY}
+                          stroke="#ef4444"
+                          strokeWidth="1.5"
+                          strokeDasharray="4,4"
+                          strokeOpacity="0.8"
+                        />
+                        <text
+                          x={paddingX + 10}
+                          y={keCliffY - 6}
+                          fill="#ef4444"
+                          fontSize="9"
+                          textAnchor="start"
+                          fontWeight="700"
+                        >
+                          200 kWh PROTECTED SLAB CLIFF
+                        </text>
+                      </>
+                    )}
 
                     {/* Limit Line */}
                     {limitY > paddingY && limitY < svgHeight - paddingY && (

@@ -139,7 +139,7 @@ export default async function RootLayout({
   }
 
   return (
-    <html lang="en" className={`${outfit.variable} ${shareTechMono.variable}`}>
+    <html lang="en" className={`${outfit.variable} ${geistMono.variable}`}>
       <head>
         <meta
           name="google-site-verification"

@@ -799,6 +799,35 @@
   .statValue {
     font-size: 1.55rem;
   }
+
+  /* Responsive Card Layout for Reading History Table */
+  .historyTable thead {
+    display: none;
+  }
+  .historyTable, .historyTable tbody, .historyTable tr, .historyTable td {
+    display: block;
+    width: 100%;
+    min-width: 0 !important;
+  }
+  .historyTable tr {
+    background: #f8fafc;
+    border: 1px solid var(--border-color);
+    border-radius: 12px;
+    padding: 12px 14px;
+    margin-bottom: 10px;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+  }
+  .historyTable td {
+    padding: 2px 0;
+    border-bottom: none;
+  }
+  .historyTable td.actionCell {
+    margin-top: 6px;
+    padding-top: 8px;
+    border-top: 1px solid var(--border-color);
+  }
 }
 
 @media (max-width: 480px) {

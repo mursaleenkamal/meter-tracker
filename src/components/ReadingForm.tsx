@@ -363,7 +363,9 @@ export default function ReadingForm({ meterId, meterNumber, onClose, onSuccess, 
             id="readingValue"
             value={readingValue}
             onChange={(e) => setReadingValue(e.target.value)}
-            step="1"
+            step="any"
+            inputMode="decimal"
+            pattern="[0-9]*"
             placeholder="e.g. 1284"
             className={styles.input}
             required
@@ -384,7 +386,7 @@ export default function ReadingForm({ meterId, meterNumber, onClose, onSuccess, 
             style={{ width: '18px', height: '18px', cursor: 'pointer', accentColor: 'var(--primary)', marginTop: '0.2rem' }}
           />
           <label htmlFor="isBillingReset" className={styles.label} style={{ marginBottom: 0, cursor: 'pointer', display: 'flex', flexDirection: 'column', gap: '0.15rem' }}>
-            <span style={{ fontWeight: 600, fontSize: '0.9rem', color: '#fff' }}>Start New Billing Cycle</span>
+            <span style={{ fontWeight: 600, fontSize: '0.9rem', color: 'var(--text-primary)' }}>Start New Billing Cycle</span>
             <span style={{ fontSize: '0.78rem', color: 'var(--text-muted)', fontWeight: 'normal', lineHeight: '1.4' }}>
               Check this if this reading represents the official monthly bill reset date.
             </span>
@@ -397,8 +399,8 @@ export default function ReadingForm({ meterId, meterNumber, onClose, onSuccess, 
             style={{
               padding: '0.85rem 1rem',
               borderRadius: '8px',
-              background: 'rgba(37, 99, 235, 0.1)',
-              border: '1px solid rgba(59, 130, 246, 0.25)',
+              background: '#eff6ff',
+              border: '1px solid #bfdbfe',
               marginBottom: '1rem',
               display: 'flex',
               flexDirection: 'column',
@@ -410,7 +412,7 @@ export default function ReadingForm({ meterId, meterNumber, onClose, onSuccess, 
               style={{
                 fontSize: '0.85rem',
                 fontWeight: 600,
-                color: '#fff',
+                color: 'var(--text-primary)',
                 display: 'flex',
                 alignItems: 'center',
                 gap: '0.4rem',
@@ -427,11 +429,11 @@ export default function ReadingForm({ meterId, meterNumber, onClose, onSuccess, 
               disabled={isLoading || isScanning}
               style={{
                 maxWidth: '240px',
-                background: 'rgba(6, 9, 19, 0.8)',
+                background: '#ffffff',
                 border: '1px solid var(--border-color)',
                 borderRadius: '6px',
                 padding: '8px 12px',
-                color: '#fff',
+                color: 'var(--text-primary)',
                 fontSize: '0.88rem',
               }}
             />

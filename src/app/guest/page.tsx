@@ -407,7 +407,7 @@ export default function GuestDashboardPage() {
 
             <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', fontSize: '0.82rem', color: 'var(--text-secondary)' }}>
               <Calendar size={14} style={{ color: trafficTheme.accentColor }} />
-              <span>Cycle Ends: <strong style={{ color: '#fff' }}>{meter.next_reading_date || 'Day 30'}</strong></span>
+              <span>Cycle Ends: <strong style={{ color: 'var(--text-primary)' }}>{meter.next_reading_date || 'Day 30'}</strong></span>
               <button
                 type="button"
                 onClick={() => {
@@ -415,8 +415,8 @@ export default function GuestDashboardPage() {
                   setIsEditingExpectedDate(!isEditingExpectedDate)
                 }}
                 style={{
-                  background: 'rgba(255,255,255,0.06)',
-                  border: '1px solid rgba(255,255,255,0.12)',
+                  background: 'rgba(0,0,0,0.04)',
+                  border: '1px solid var(--border-color)',
                   borderRadius: '6px',
                   color: 'var(--text-primary)',
                   padding: '3px 8px',
@@ -440,10 +440,10 @@ export default function GuestDashboardPage() {
                 alignItems: 'center',
                 gap: '0.5rem',
                 marginBottom: '1.25rem',
-                background: 'rgba(0,0,0,0.3)',
+                background: '#f8fafc',
                 padding: '8px 12px',
                 borderRadius: '10px',
-                border: '1px solid rgba(255,255,255,0.08)',
+                border: '1px solid var(--border-color)',
               }}
             >
               <input
@@ -454,8 +454,8 @@ export default function GuestDashboardPage() {
                   padding: '6px 10px',
                   borderRadius: '6px',
                   border: '1px solid var(--border-color)',
-                  background: 'rgba(15,23,42,0.8)',
-                  color: '#fff',
+                  background: '#ffffff',
+                  color: 'var(--text-primary)',
                   fontSize: '0.85rem',
                 }}
               />
@@ -517,7 +517,7 @@ export default function GuestDashboardPage() {
                   textAlign: 'center',
                 }}
               >
-                <div style={{ fontSize: '2.5rem', fontWeight: 800, color: '#fff', lineHeight: 1 }}>
+                <div style={{ fontSize: '2.5rem', fontWeight: 800, color: 'var(--text-primary)', lineHeight: 1, fontFamily: 'var(--font-mono)', fontVariantNumeric: 'tabular-nums' }}>
                   {currentUsage.toFixed(0)}
                 </div>
                 <div style={{ fontSize: '0.85rem', color: 'var(--text-secondary)', marginTop: '4px' }}>
@@ -532,34 +532,36 @@ export default function GuestDashboardPage() {
 
             {/* Velocity Indicators */}
             <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: '0.75rem' }}>
-              <div style={{ background: 'rgba(0,0,0,0.3)', padding: '12px', borderRadius: '12px', border: '1px solid rgba(255,255,255,0.05)' }}>
+              <div style={{ background: '#f8fafc', padding: '12px', borderRadius: '12px', border: '1px solid var(--border-color)' }}>
                 <div style={{ fontSize: '0.72rem', color: 'var(--text-secondary)', marginBottom: '2px' }}>Safe Buffer</div>
-                <div style={{ fontSize: '1.3rem', fontWeight: 700, color: trafficTheme.accentColor }}>
+                <div style={{ fontSize: '1.3rem', fontWeight: 700, color: trafficTheme.accentColor, fontFamily: 'var(--font-mono)', fontVariantNumeric: 'tabular-nums' }}>
                   {remainingUnits.toFixed(0)} <span style={{ fontSize: '0.75rem', fontWeight: 400 }}>units</span>
                 </div>
               </div>
 
-              <div style={{ background: 'rgba(0,0,0,0.3)', padding: '12px', borderRadius: '12px', border: '1px solid rgba(255,255,255,0.05)' }}>
+              <div style={{ background: '#f8fafc', padding: '12px', borderRadius: '12px', border: '1px solid var(--border-color)' }}>
                 <div style={{ fontSize: '0.72rem', color: 'var(--text-secondary)', marginBottom: '2px' }}>Days Left</div>
-                <div style={{ fontSize: '1.3rem', fontWeight: 700, color: '#fff' }}>
+                <div style={{ fontSize: '1.3rem', fontWeight: 700, color: 'var(--text-primary)', fontFamily: 'var(--font-mono)', fontVariantNumeric: 'tabular-nums' }}>
                   {daysRemaining} <span style={{ fontSize: '0.75rem', fontWeight: 400 }}>days</span>
                 </div>
               </div>
 
-              <div style={{ background: 'rgba(0,0,0,0.3)', padding: '12px', borderRadius: '12px', border: '1px solid rgba(255,255,255,0.05)' }}>
+              <div style={{ background: '#f8fafc', padding: '12px', borderRadius: '12px', border: '1px solid var(--border-color)' }}>
                 <div style={{ fontSize: '0.72rem', color: 'var(--text-secondary)', marginBottom: '2px' }}>Safe Daily Allowance</div>
-                <div style={{ fontSize: '1.3rem', fontWeight: 700, color: '#6ee7b7' }}>
+                <div style={{ fontSize: '1.3rem', fontWeight: 700, color: '#059669', fontFamily: 'var(--font-mono)', fontVariantNumeric: 'tabular-nums' }}>
                   ≤ {targetBurnRate.toFixed(1)} <span style={{ fontSize: '0.72rem', fontWeight: 400 }}>u/day</span>
                 </div>
               </div>
 
-              <div style={{ background: 'rgba(0,0,0,0.3)', padding: '12px', borderRadius: '12px', border: '1px solid rgba(255,255,255,0.05)' }}>
+              <div style={{ background: '#f8fafc', padding: '12px', borderRadius: '12px', border: '1px solid var(--border-color)' }}>
                 <div style={{ fontSize: '0.72rem', color: 'var(--text-secondary)', marginBottom: '2px' }}>Current Pace</div>
                 <div
                   style={{
                     fontSize: '1.3rem',
                     fontWeight: 700,
-                    color: dailyAverage > targetBurnRate && !isBreached ? '#f59e0b' : dailyAverage > targetBurnRate ? '#ef4444' : '#38bdf8',
+                    fontFamily: 'var(--font-mono)',
+                    fontVariantNumeric: 'tabular-nums',
+                    color: dailyAverage > targetBurnRate && !isBreached ? '#d97706' : dailyAverage > targetBurnRate ? '#dc2626' : '#0284c7',
                   }}
                 >
                   {dailyAverage.toFixed(1)} <span style={{ fontSize: '0.72rem', fontWeight: 400 }}>u/day</span>
@@ -572,7 +574,7 @@ export default function GuestDashboardPage() {
         {/* TIER 2 (MIDDLE): Household Financial Comparison Card */}
         <section
           style={{
-            background: 'var(--card-bg, #0f172a)',
+            background: 'var(--card-bg, #ffffff)',
             border: '1px solid var(--border-color)',
             borderRadius: '24px',
             padding: '1.5rem',
@@ -583,7 +585,7 @@ export default function GuestDashboardPage() {
             <h2 style={{ fontSize: '1.05rem', fontWeight: 700, margin: 0, display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
               <span>💰 Household Bill & Penalty Comparison</span>
             </h2>
-            <span style={{ fontSize: '0.75rem', color: 'var(--text-secondary)', background: 'rgba(255,255,255,0.06)', padding: '3px 9px', borderRadius: '6px' }}>
+            <span style={{ fontSize: '0.75rem', color: 'var(--text-secondary)', background: '#f1f5f9', padding: '3px 9px', borderRadius: '6px' }}>
               NEPRA / KE Tariff Slabs
             </span>
           </div>
@@ -608,7 +610,7 @@ export default function GuestDashboardPage() {
               <div style={{ display: 'flex', alignItems: 'center', gap: '0.4rem', color: '#10b981', fontSize: '0.82rem', fontWeight: 700 }}>
                 <ShieldCheck size={16} /> PROTECTED TARIFF (Safe)
               </div>
-              <div style={{ fontSize: '1.85rem', fontWeight: 800, color: '#fff', margin: '0.45rem 0' }}>
+              <div style={{ fontSize: '1.85rem', fontWeight: 800, color: 'var(--text-primary)', margin: '0.45rem 0', fontFamily: 'var(--font-mono)', fontVariantNumeric: 'tabular-nums' }}>
                 Rs {currentSafeBill.total.toLocaleString()}
               </div>
               <div style={{ fontSize: '0.78rem', color: 'var(--text-secondary)', lineHeight: 1.4 }}>
@@ -628,7 +630,7 @@ export default function GuestDashboardPage() {
               <div style={{ display: 'flex', alignItems: 'center', gap: '0.4rem', color: '#ef4444', fontSize: '0.82rem', fontWeight: 700 }}>
                 <ShieldAlert size={16} /> UNPROTECTED CLIFF (Breach)
               </div>
-              <div style={{ fontSize: '1.85rem', fontWeight: 800, color: '#fca5a5', margin: '0.45rem 0' }}>
+              <div style={{ fontSize: '1.85rem', fontWeight: 800, color: '#dc2626', margin: '0.45rem 0', fontFamily: 'var(--font-mono)', fontVariantNumeric: 'tabular-nums' }}>
                 Rs {cliffUnprotectedBill.total.toLocaleString()}
               </div>
               <div style={{ fontSize: '0.78rem', color: 'var(--text-secondary)', lineHeight: 1.4 }}>
@@ -656,12 +658,12 @@ export default function GuestDashboardPage() {
               {isBreached ? (
                 <span>
                   <strong style={{ color: '#ef4444' }}>Penalty Active:</strong> You are incurring approximately{' '}
-                  <strong style={{ color: '#fff' }}>Rs {penaltySurge.toLocaleString()}</strong> in penalty rates this month.
+                  <strong style={{ color: 'var(--text-primary)' }}>Rs {penaltySurge.toLocaleString()}</strong> in penalty rates this month.
                 </span>
               ) : (
                 <span>
                   <strong style={{ color: '#10b981' }}>Family Savings:</strong> Staying under 200 units saves your household{' '}
-                  <strong style={{ color: '#fff' }}>Rs {penaltySurge.toLocaleString()}+</strong> in electricity bills!
+                  <strong style={{ color: 'var(--text-primary)' }}>Rs {penaltySurge.toLocaleString()}+</strong> in electricity bills!
                 </span>
               )}
             </div>
@@ -674,7 +676,7 @@ export default function GuestDashboardPage() {
         {/* TIER 3 (BOTTOM ACTION DOCK): Domestic Prescription & Thumb-Friendly Actions */}
         <section
           style={{
-            background: 'var(--card-bg, #0f172a)',
+            background: 'var(--card-bg, #ffffff)',
             border: '1px solid var(--border-color)',
             borderRadius: '24px',
             padding: '1.5rem',
@@ -684,7 +686,8 @@ export default function GuestDashboardPage() {
           {/* Actionable Domestic Prescription Banner (Urdu + English) */}
           <div
             style={{
-              background: 'rgba(0,0,0,0.35)',
+              background: '#f8fafc',
+              border: '1px solid var(--border-color)',
               borderLeft: `4px solid ${trafficTheme.badgeBorder}`,
               borderRadius: '0 12px 12px 0',
               padding: '14px 18px',
@@ -780,11 +783,11 @@ export default function GuestDashboardPage() {
                 marginTop: '1.25rem',
                 padding: '1.25rem',
                 borderRadius: '16px',
-                background: 'rgba(0, 0, 0, 0.45)',
+                background: '#f8fafc',
                 border: '1px solid var(--border-color)',
               }}
             >
-              <h4 style={{ margin: '0 0 0.75rem 0', fontSize: '0.92rem', color: '#fff', display: 'flex', alignItems: 'center', gap: '0.4rem' }}>
+              <h4 style={{ margin: '0 0 0.75rem 0', fontSize: '0.92rem', color: 'var(--text-primary)', display: 'flex', alignItems: 'center', gap: '0.4rem' }}>
                 <Hash size={16} style={{ color: 'var(--primary)' }} /> 4-Digit Dial Logger
               </h4>
 
@@ -793,7 +796,7 @@ export default function GuestDashboardPage() {
                   style={{
                     background: 'rgba(239, 68, 68, 0.15)',
                     border: '1px solid rgba(239, 68, 68, 0.3)',
-                    color: '#fca5a5',
+                    color: '#dc2626',
                     padding: '8px 12px',
                     borderRadius: '8px',
                     fontSize: '0.82rem',
@@ -812,17 +815,19 @@ export default function GuestDashboardPage() {
                   <input
                     type="number"
                     step="1"
+                    inputMode="decimal"
+                    pattern="[0-9]*"
                     placeholder="Enter current reading (e.g. 5420)"
                     value={quickReading}
                     onChange={(e) => setQuickReading(e.target.value)}
                     required
                     style={{
                       flex: '1 1 200px',
-                      background: 'rgba(6, 9, 19, 0.8)',
+                      background: '#ffffff',
                       border: '1px solid var(--border-color)',
                       borderRadius: '10px',
                       padding: '11px 14px',
-                      color: '#fff',
+                      color: 'var(--text-primary)',
                       fontSize: '0.95rem',
                     }}
                   />
@@ -859,14 +864,14 @@ export default function GuestDashboardPage() {
                     style={{
                       padding: '0.85rem',
                       borderRadius: '10px',
-                      background: 'rgba(37, 99, 235, 0.1)',
-                      border: '1px solid rgba(59, 130, 246, 0.3)',
+                      background: '#eff6ff',
+                      border: '1px solid #bfdbfe',
                       display: 'flex',
                       flexDirection: 'column',
                       gap: '0.4rem',
                     }}
                   >
-                    <label style={{ fontSize: '0.82rem', color: '#fff', fontWeight: 600 }}>
+                    <label style={{ fontSize: '0.82rem', color: 'var(--text-primary)', fontWeight: 600 }}>
                       Expected Cycle End Date:
                     </label>
                     <input
@@ -875,11 +880,11 @@ export default function GuestDashboardPage() {
                       onChange={(e) => setQuickNextReadingDate(e.target.value)}
                       style={{
                         maxWidth: '220px',
-                        background: 'rgba(6, 9, 19, 0.9)',
+                        background: '#ffffff',
                         border: '1px solid var(--border-color)',
                         borderRadius: '6px',
                         padding: '6px 10px',
-                        color: '#fff',
+                        color: 'var(--text-primary)',
                         fontSize: '0.85rem',
                       }}
                     />
