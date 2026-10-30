@@ -45,6 +45,9 @@ URL_LIST = [
     f"https://{HOST}/blog/electric-bike-car-charging-cost-units-pakistan-2026",
     f"https://{HOST}/blog/single-phase-vs-3-phase-meter-charges-tariff-pakistan-2026",
     f"https://{HOST}/blog/refrigerator-deep-freezer-electricity-consumption-pakistan-2026",
+    f"https://{HOST}/blog/solar-system-sizing-inverter-capacity-guide-pakistan-2026",
+    f"https://{HOST}/blog/washing-machine-dryer-electricity-consumption-pakistan-2026",
+    f"https://{HOST}/blog/how-to-split-electric-utility-bills-fairly-between-tenants-submeter-guide-2026",
     f"https://{HOST}/guest",
     f"https://{HOST}/about",
     f"https://{HOST}/disclaimer"

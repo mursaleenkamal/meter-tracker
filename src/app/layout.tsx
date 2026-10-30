@@ -1,5 +1,5 @@
 import type { Metadata, Viewport } from 'next'
-import { Outfit, Share_Tech_Mono } from 'next/font/google'
+import { Outfit, Geist_Mono } from 'next/font/google'
 import dynamic from 'next/dynamic'
 import Script from 'next/script'
 import './globals.css'
@@ -21,8 +21,7 @@ const outfit = Outfit({
   variable: '--font-outfit',
 })
 
-const shareTechMono = Share_Tech_Mono({
-  weight: '400',
+const geistMono = Geist_Mono({
   subsets: ['latin'],
   display: 'swap',
   variable: '--font-mono',
