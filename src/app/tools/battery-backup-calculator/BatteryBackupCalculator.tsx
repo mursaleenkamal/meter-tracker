@@ -3,6 +3,7 @@
 import React, { useState, useMemo } from 'react'
 import Link from 'next/link'
 import styles from './batteryCalculator.module.css'
+import VerifiedQuoteModal from '@/components/VerifiedQuoteModal'
 import {
   Battery,
   Zap,
@@ -83,6 +84,7 @@ export default function BatteryBackupCalculator() {
   const [inverterEfficiency, setInverterEfficiency] = useState<number>(85)
   const [customWatts, setCustomWatts] = useState<string>('')
   const [copied, setCopied] = useState<boolean>(false)
+  const [isQuoteModalOpen, setIsQuoteModalOpen] = useState<boolean>(false)
 
   // Appliance counts
   const [counts, setCounts] = useState<Record<string, number>>({
@@ -437,6 +439,27 @@ export default function BatteryBackupCalculator() {
           <span>{copied ? '✓ Calculation Copied to Clipboard!' : 'Share WhatsApp Summary'}</span>
         </button>
 
+        {/* High-Intent Monetization Hook: Verified Battery Installation Quotes */}
+        <div className={styles.quoteLeadBanner}>
+          <div>
+            <div className={styles.quoteLeadTitle}>
+              <Zap size={22} style={{ color: '#00f0ff' }} />
+              <span>Get Verified Battery &amp; Inverter Quotes (Karachi, Lahore, Islamabad)</span>
+            </div>
+            <p className={styles.quoteLeadDesc}>
+              Connect with authorized battery distributors (Phoenix, AGS, Daewoo, Narada LiFePO4) for your {batteryAh} Ah backup setup with official warranty.
+            </p>
+          </div>
+          <button
+            type="button"
+            className={styles.quoteLeadBtn}
+            onClick={() => setIsQuoteModalOpen(true)}
+          >
+            <span>⚡ Request Free Battery Quotes</span>
+            <ArrowRight size={16} />
+          </button>
+        </div>
+
         {/* Deep link to OCR Scanner */}
         <div style={{ marginTop: '0.5rem', textAlign: 'center' }}>
           <Link
@@ -455,6 +478,16 @@ export default function BatteryBackupCalculator() {
           </Link>
         </div>
       </div>
+
+      {/* Verified Battery Quote Lead Capture Modal */}
+      <VerifiedQuoteModal
+        isOpen={isQuoteModalOpen}
+        onClose={() => setIsQuoteModalOpen(false)}
+        serviceType="battery"
+        systemSize={`${batteryAh} Ah (${systemVoltage}V) ${BATTERY_TYPES[batteryType].name.split(' (')[0]}`}
+        defaultCity="Karachi"
+        estimatedMetric={`${calc.hours}h ${calc.minutes}m backup @ ${activeWatts}W load`}
+      />
     </div>
   )
 }

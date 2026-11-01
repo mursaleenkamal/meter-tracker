@@ -595,3 +595,59 @@
     overflow-x: auto;
   }
 }
+
+/* Monetization: Verified Installation Quotes CTA Card */
+.quoteLeadBanner {
+  background: linear-gradient(135deg, #0b1329 0%, #0f172a 100%);
+  border: 1.5px solid rgba(0, 240, 255, 0.4);
+  border-radius: 16px;
+  padding: 1.5rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 1.25rem;
+  box-shadow: 0 10px 30px -5px rgba(0, 240, 255, 0.15);
+  margin-top: 1.5rem;
+}
+
+.quoteLeadTitle {
+  font-size: 1.2rem;
+  font-weight: 800;
+  color: #ffffff;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-bottom: 0.35rem;
+}
+
+.quoteLeadDesc {
+  font-size: 0.88rem;
+  color: #94a3b8;
+  line-height: 1.5;
+  margin: 0;
+  max-width: 580px;
+}
+
+.quoteLeadBtn {
+  background: linear-gradient(135deg, #00f0ff 0%, #0284c7 100%);
+  color: #040915;
+  font-weight: 800;
+  font-size: 0.92rem;
+  padding: 0.8rem 1.4rem;
+  border-radius: 10px;
+  border: none;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  cursor: pointer;
+  box-shadow: 0 0 20px rgba(0, 240, 255, 0.35);
+  transition: all 0.2s ease;
+  white-space: nowrap;
+}
+
+.quoteLeadBtn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 0 25px rgba(0, 240, 255, 0.6);
+}
+

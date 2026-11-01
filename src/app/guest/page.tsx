@@ -180,6 +180,27 @@ export default function GuestDashboardPage() {
   const [isEditingExpectedDate, setIsEditingExpectedDate] = useState(false)
   const [expectedDateInput, setExpectedDateInput] = useState('')
 
+  // DISCO Utility Preset State (Persisted in localStorage)
+  const [selectedDiscoKey, setSelectedDiscoKey] = useState<string>('kelectric')
+
+  useEffect(() => {
+    if (typeof window !== 'undefined') {
+      const saved = localStorage.getItem('read_meter_guest_disco')
+      if (saved && DISCO_PRESETS[saved]) {
+        setSelectedDiscoKey(saved)
+      }
+    }
+  }, [])
+
+  const handleSelectDisco = (key: string) => {
+    setSelectedDiscoKey(key)
+    if (typeof window !== 'undefined') {
+      localStorage.setItem('read_meter_guest_disco', key)
+    }
+  }
+
+  const currentDisco = DISCO_PRESETS[selectedDiscoKey] || DISCO_PRESETS.kelectric
+
   const checkShouldPromptSignup = (count: number) => {
     if (typeof window === 'undefined') return false
     if (count < 3) return false
@@ -322,9 +343,9 @@ export default function GuestDashboardPage() {
 
   // Tier 2 Financial Comparison Figures
   const unitsForSafeCalc = Math.min(currentUsage || (isSingleBaselineOnly ? 45 : 1), 200)
-  const currentSafeBill = calculateProtectedBill(unitsForSafeCalc)
+  const currentSafeBill = calculateProtectedBill(unitsForSafeCalc, currentDisco)
   const cliffComparisonUnits = Math.max(currentUsage, 201)
-  const cliffUnprotectedBill = calculateUnprotectedBill(cliffComparisonUnits)
+  const cliffUnprotectedBill = calculateUnprotectedBill(cliffComparisonUnits, currentDisco)
   const penaltySurge = Math.max(cliffUnprotectedBill.total - currentSafeBill.total, 4800)
 
   // Handlers
@@ -641,13 +662,34 @@ export default function GuestDashboardPage() {
             marginBottom: '1.25rem',
           }}
         >
-          <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '1.2rem' }}>
+          <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', flexWrap: 'wrap', gap: '0.75rem', marginBottom: '1.2rem' }}>
             <h2 style={{ fontSize: '1.05rem', fontWeight: 700, margin: 0, display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
               <span>💰 Household Bill & Penalty Comparison</span>
             </h2>
-            <span style={{ fontSize: '0.75rem', color: 'var(--text-secondary)', background: '#f1f5f9', padding: '3px 9px', borderRadius: '6px' }}>
-              NEPRA / KE Tariff Slabs
-            </span>
+            <div style={{ display: 'flex', alignItems: 'center', gap: '0.45rem' }}>
+              <span style={{ fontSize: '0.76rem', color: 'var(--text-secondary)', fontWeight: 600 }}>DISCO:</span>
+              <select
+                value={selectedDiscoKey}
+                onChange={(e) => handleSelectDisco(e.target.value)}
+                style={{
+                  padding: '5px 10px',
+                  borderRadius: '8px',
+                  border: '1px solid var(--border-color)',
+                  background: 'var(--card-bg, #ffffff)',
+                  color: 'var(--text-primary)',
+                  fontSize: '0.8rem',
+                  fontWeight: 600,
+                  cursor: 'pointer',
+                  outline: 'none',
+                }}
+              >
+                {Object.entries(DISCO_PRESETS).map(([key, item]) => (
+                  <option key={key} value={key}>
+                    {item.name}
+                  </option>
+                ))}
+              </select>
+            </div>
           </div>
 
           <div
@@ -668,13 +710,13 @@ export default function GuestDashboardPage() {
               }}
             >
               <div style={{ display: 'flex', alignItems: 'center', gap: '0.4rem', color: '#10b981', fontSize: '0.82rem', fontWeight: 700 }}>
-                <ShieldCheck size={16} /> PROTECTED TARIFF (Safe)
+                <ShieldCheck size={16} /> PROTECTED TARIFF ({currentDisco.shortLabel})
               </div>
               <div style={{ fontSize: '1.85rem', fontWeight: 800, color: 'var(--text-primary)', margin: '0.45rem 0', fontFamily: 'var(--font-mono)', fontVariantNumeric: 'tabular-nums' }}>
                 Rs {currentSafeBill.total.toLocaleString()}
               </div>
               <div style={{ fontSize: '0.78rem', color: 'var(--text-secondary)', lineHeight: 1.4 }}>
-                Subsidized slab (~Rs 7.74 - 14.95/unit) with zero heavy surcharge penalties.
+                Subsidized slab (~Rs 7.74 - 14.95/u) + {currentDisco.shortLabel} FPA @ Rs {currentDisco.protectedFpa.toFixed(2)}. Zero heavy penalties.
               </div>
             </div>
 
@@ -688,13 +730,13 @@ export default function GuestDashboardPage() {
               }}
             >
               <div style={{ display: 'flex', alignItems: 'center', gap: '0.4rem', color: '#ef4444', fontSize: '0.82rem', fontWeight: 700 }}>
-                <ShieldAlert size={16} /> UNPROTECTED CLIFF (Breach)
+                <ShieldAlert size={16} /> UNPROTECTED CLIFF ({currentDisco.shortLabel})
               </div>
               <div style={{ fontSize: '1.85rem', fontWeight: 800, color: '#dc2626', margin: '0.45rem 0', fontFamily: 'var(--font-mono)', fontVariantNumeric: 'tabular-nums' }}>
                 Rs {cliffUnprotectedBill.total.toLocaleString()}
               </div>
               <div style={{ fontSize: '0.78rem', color: 'var(--text-secondary)', lineHeight: 1.4 }}>
-                Commercial unprotected slab (~Rs 22.95 - 34.26/unit) + 18% GST + double FPA.
+                Commercial unprotected slab (~Rs 22.95 - 34.26/u) + 18% GST + {currentDisco.shortLabel} FPA @ Rs {currentDisco.unprotectedFpa.toFixed(2)}.
               </div>
             </div>
           </div>
@@ -821,7 +863,7 @@ export default function GuestDashboardPage() {
               dailyAverage={dailyAverage}
               daysRemaining={daysRemaining}
               projectedUsage={projectedUsage}
-              slabStatus={trafficTheme.slabLabel}
+              slabStatus={`${currentDisco.shortLabel} — ${trafficTheme.slabLabel}`}
               variant="button"
               label="WhatsApp Share"
               style={{

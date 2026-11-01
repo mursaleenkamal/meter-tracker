@@ -3,6 +3,7 @@
 import React, { useState, useMemo } from 'react'
 import Link from 'next/link'
 import styles from './solarCalculator.module.css'
+import VerifiedQuoteModal from '@/components/VerifiedQuoteModal'
 import {
   Sun,
   Zap,
@@ -41,6 +42,7 @@ export default function SolarNetMeteringCalculator() {
   const [gridRetailRate, setGridRetailRate] = useState<number>(44)
   const [exportBuybackRate, setExportBuybackRate] = useState<number>(21)
   const [customCostOverride, setCustomCostOverride] = useState<number | null>(null)
+  const [isQuoteModalOpen, setIsQuoteModalOpen] = useState(false)
 
   // Calculations
   const calculations = useMemo(() => {
@@ -363,6 +365,27 @@ export default function SolarNetMeteringCalculator() {
           </table>
         </div>
 
+        {/* High-Intent Monetization Hook: Verified Solar Installation Quotes */}
+        <div className={styles.quoteLeadBanner}>
+          <div>
+            <div className={styles.quoteLeadTitle}>
+              <Zap size={22} style={{ color: '#00f0ff' }} />
+              <span>Get Verified Solar Installation Quotes (Karachi, Lahore, Islamabad)</span>
+            </div>
+            <p className={styles.quoteLeadDesc}>
+              Compare competitive proposals from vetted Tier-1 solar EPC contractors for your {capacityKw} kW net-metered system with 0 broker markups.
+            </p>
+          </div>
+          <button
+            type="button"
+            className={styles.quoteLeadBtn}
+            onClick={() => setIsQuoteModalOpen(true)}
+          >
+            <span>⚡ Request Free Solar Quotes</span>
+            <ArrowRight size={16} />
+          </button>
+        </div>
+
         {/* PWA Tracking Conversion CTA */}
         <div className={styles.pwaCtaBanner}>
           <div className={styles.ctaTextContent}>
@@ -381,6 +404,16 @@ export default function SolarNetMeteringCalculator() {
           </Link>
         </div>
       </div>
+
+      {/* Verified Solar Quote Lead Capture Modal */}
+      <VerifiedQuoteModal
+        isOpen={isQuoteModalOpen}
+        onClose={() => setIsQuoteModalOpen(false)}
+        serviceType="solar"
+        systemSize={`${capacityKw} kW On-Grid Net Metering System`}
+        defaultCity={selectedCity.split(' ')[0]}
+        estimatedMetric={`~${calculations.monthlyUnits} Units/mo (Rs ${calculations.totalMonthlySavings.toLocaleString()}/mo saving)`}
+      />
     </div>
   )
 }
