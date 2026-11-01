@@ -45,7 +45,21 @@ interface ToolsGridProps {
 }
 
 export const ALL_TOOLS: ToolItem[] = [
-  // 1. Digital LCD Scanner
+  // 1. Core Live Meter Reading & Consumption Velocity Calculator (Dashboard Engine)
+  {
+    id: 'live-meter-reading-calculator',
+    title: 'Live Meter Reading & Real-Time Bill Calculator',
+    description:
+      'The core Read Meter dashboard calculator. Track daily kWh burn rate, safe unit buffer, monthly bill forecast, and 200-unit protected slab penalty in real time. Fast manual entry + Camera OCR with zero login required.',
+    href: '/guest',
+    category: 'Electricity & Tariffs',
+    filterTag: 'electricity',
+    icon: <Zap size={24} color="#2563eb" />,
+    badge: '⭐ Core Dashboard Tool',
+    cardClass: styles.toolCardElectric,
+    searchTerms: 'dashboard meter reading calculator bill forecast daily burn rate units kwh protected slab k-electric wapda live guest sandbox',
+  },
+  // 2. Digital LCD Scanner
   {
     id: 'digital-meter-scanner',
     title: 'Instant Digital Meter Scanner (kWh)',
@@ -385,7 +399,7 @@ export default function ToolsGrid({
           <input
             type="text"
             className={styles.searchInput}
-            placeholder="Search all 15 utility tools (e.g. AC cost, solar, meter scan, submeter, battery, gas)..."
+            placeholder="Search all utility calculators & tools (e.g. meter reading, AC cost, solar, submeter, battery)..."
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
           />

@@ -21,8 +21,8 @@ export default function ElectricLoader({
         width: '100vw',
         height: '100vh',
         zIndex: 99999,
-        background: '#060913',
-        backgroundImage: 'radial-gradient(circle at 50% 50%, #0d1b38 0%, #060913 85%)',
+        background: '#f8fafc',
+        backgroundImage: 'radial-gradient(circle at 50% 50%, #ffffff 0%, #f1f5f9 85%)',
         display: 'flex',
         flexDirection: 'column',
         alignItems: 'center',
@@ -63,8 +63,8 @@ export default function ElectricLoader({
             cy="65"
             r="58"
             fill="none"
-            stroke="rgba(0, 240, 255, 0.12)"
-            strokeWidth="2"
+            stroke="rgba(37, 99, 235, 0.12)"
+            strokeWidth="2.5"
           />
           <circle
             cx="65"
@@ -72,10 +72,10 @@ export default function ElectricLoader({
             r="58"
             fill="none"
             stroke="var(--primary)"
-            strokeWidth="3"
+            strokeWidth="3.5"
             strokeDasharray="80 180"
             strokeLinecap="round"
-            style={{ filter: 'drop-shadow(0 0 8px var(--primary))' }}
+            style={{ filter: 'drop-shadow(0 2px 8px rgba(37, 99, 235, 0.35))' }}
           />
         </svg>
 
@@ -92,7 +92,7 @@ export default function ElectricLoader({
             cy="50"
             r="44"
             fill="none"
-            stroke="rgba(139, 92, 246, 0.15)"
+            stroke="rgba(2, 132, 199, 0.12)"
             strokeWidth="2"
           />
           <circle
@@ -104,7 +104,7 @@ export default function ElectricLoader({
             strokeWidth="3"
             strokeDasharray="60 140"
             strokeLinecap="round"
-            style={{ filter: 'drop-shadow(0 0 8px var(--accent))' }}
+            style={{ filter: 'drop-shadow(0 2px 6px rgba(2, 132, 199, 0.3))' }}
           />
         </svg>
 
@@ -112,15 +112,15 @@ export default function ElectricLoader({
         <div
           className="electric-pulse-bolt"
           style={{
-            width: '54px',
-            height: '54px',
+            width: '56px',
+            height: '56px',
             borderRadius: '50%',
-            background: 'rgba(0, 240, 255, 0.08)',
-            border: '1px solid rgba(0, 240, 255, 0.3)',
+            background: '#ffffff',
+            border: '2px solid rgba(37, 99, 235, 0.2)',
             display: 'flex',
             alignItems: 'center',
             justifyContent: 'center',
-            boxShadow: '0 0 25px rgba(0, 240, 255, 0.25), inset 0 0 15px rgba(0, 240, 255, 0.15)',
+            boxShadow: '0 8px 24px -4px rgba(37, 99, 235, 0.18), inset 0 2px 6px rgba(37, 99, 235, 0.08)',
           }}
         >
           <Zap size={28} fill="var(--primary)" color="var(--primary)" />
@@ -132,15 +132,16 @@ export default function ElectricLoader({
         {showBrand && (
           <div
             style={{
-              fontSize: '1.4rem',
-              fontWeight: 700,
-              color: '#fff',
-              letterSpacing: '0.05em',
-              marginBottom: '0.4rem',
+              fontSize: '1.45rem',
+              fontWeight: 800,
+              color: '#0f172a',
+              letterSpacing: '-0.02em',
+              marginBottom: '0.35rem',
               display: 'flex',
               alignItems: 'center',
               justifyContent: 'center',
-              gap: '0.3rem',
+              gap: '0.2rem',
+              fontFamily: 'var(--font-sans)',
             }}
           >
             Read<span style={{ color: 'var(--primary)' }}>Meter</span>
@@ -149,10 +150,11 @@ export default function ElectricLoader({
 
         <div
           style={{
-            fontSize: '0.88rem',
-            color: 'var(--text-secondary)',
-            letterSpacing: '0.02em',
+            fontSize: '0.9rem',
+            color: '#475569',
+            letterSpacing: '0.01em',
             fontFamily: 'var(--font-mono)',
+            fontWeight: 500,
           }}
         >
           {message}
@@ -162,10 +164,10 @@ export default function ElectricLoader({
         <div
           style={{
             width: '160px',
-            height: '3px',
-            background: 'rgba(255, 255, 255, 0.08)',
-            borderRadius: '4px',
-            margin: '0.8rem auto 0 auto',
+            height: '4px',
+            background: '#e2e8f0',
+            borderRadius: '999px',
+            margin: '0.85rem auto 0 auto',
             overflow: 'hidden',
           }}
         >
@@ -174,7 +176,7 @@ export default function ElectricLoader({
             style={{
               width: '100%',
               height: '100%',
-              borderRadius: '4px',
+              borderRadius: '999px',
             }}
           />
         </div>

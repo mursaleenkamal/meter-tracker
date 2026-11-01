@@ -26,6 +26,17 @@ export default function AddReadingModal({
   useEffect(() => {
     if (isOpen) {
       document.body.style.overflow = 'hidden'
+      // Preload Tesseract.js when modal opens so camera OCR is instantaneous
+      const preload = () => {
+        import('tesseract.js').catch(() => {})
+      }
+      if (typeof window !== 'undefined') {
+        if ('requestIdleCallback' in window) {
+          ;(window as unknown as { requestIdleCallback: (cb: () => void) => void }).requestIdleCallback(preload)
+        } else {
+          setTimeout(preload, 300)
+        }
+      }
     } else {
       document.body.style.overflow = ''
     }

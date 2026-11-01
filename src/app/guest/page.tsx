@@ -32,8 +32,68 @@ import {
   Sparkles,
 } from 'lucide-react'
 
-// Realistic NEPRA / K-Electric Tariff Calculation Models (2026 Domestic Slabs)
-function calculateProtectedBill(units: number) {
+// DISCO Presets (Pakistan National NEPRA Domestic 2026 Tariffs)
+interface DiscoPreset {
+  id: string
+  name: string
+  shortLabel: string
+  region: string
+  protectedFpa: number
+  unprotectedFpa: number
+}
+
+const DISCO_PRESETS: Record<string, DiscoPreset> = {
+  kelectric: {
+    id: 'kelectric',
+    name: 'K-Electric (Karachi)',
+    shortLabel: 'K-Electric',
+    region: 'Karachi & Coastal Sindh',
+    protectedFpa: 1.50,
+    unprotectedFpa: 3.20,
+  },
+  lesco: {
+    id: 'lesco',
+    name: 'LESCO (Lahore / Punjab)',
+    shortLabel: 'LESCO',
+    region: 'Lahore, Kasur, Okara',
+    protectedFpa: 1.50,
+    unprotectedFpa: 3.10,
+  },
+  iesco: {
+    id: 'iesco',
+    name: 'IESCO (Islamabad / Rawalpindi)',
+    shortLabel: 'IESCO',
+    region: 'Islamabad, Rawalpindi, Attock',
+    protectedFpa: 1.50,
+    unprotectedFpa: 2.90,
+  },
+  gepco: {
+    id: 'gepco',
+    name: 'GEPCO (Gujranwala / Sialkot)',
+    shortLabel: 'GEPCO',
+    region: 'Gujranwala, Sialkot, Gujrat',
+    protectedFpa: 1.50,
+    unprotectedFpa: 3.05,
+  },
+  fesco: {
+    id: 'fesco',
+    name: 'FESCO (Faisalabad)',
+    shortLabel: 'FESCO',
+    region: 'Faisalabad, Jhang, Sargodha',
+    protectedFpa: 1.50,
+    unprotectedFpa: 3.00,
+  },
+  mepco: {
+    id: 'mepco',
+    name: 'MEPCO (Multan / South Punjab)',
+    shortLabel: 'MEPCO',
+    region: 'Multan, Bahawalpur, D.G. Khan',
+    protectedFpa: 1.50,
+    unprotectedFpa: 3.15,
+  },
+}
+
+function calculateProtectedBill(units: number, disco: DiscoPreset = DISCO_PRESETS.kelectric) {
   const u = Math.max(0, units)
   let energyCost = 0
   if (u <= 100) {
@@ -41,7 +101,7 @@ function calculateProtectedBill(units: number) {
   } else {
     energyCost = 100 * 7.74 + (u - 100) * 14.95
   }
-  const fpa = u * 1.5 // Subsidized domestic FPA
+  const fpa = u * disco.protectedFpa // Subsidized domestic FPA
   const fixedCharge = 50 // Minimal fixed charge
   const tvFee = 35
   const duty = energyCost * 0.015 // 1.5% Electricity duty
@@ -56,7 +116,7 @@ function calculateProtectedBill(units: number) {
   }
 }
 
-function calculateUnprotectedBill(units: number) {
+function calculateUnprotectedBill(units: number, disco: DiscoPreset = DISCO_PRESETS.kelectric) {
   const u = Math.max(0, units)
   let energyCost = 0
   if (u <= 100) {
@@ -68,7 +128,7 @@ function calculateUnprotectedBill(units: number) {
   } else {
     energyCost = 100 * 16.48 + 100 * 22.95 + 100 * 34.26 + (u - 300) * 42.10
   }
-  const fpa = u * 3.20 // Full FPA
+  const fpa = u * disco.unprotectedFpa // Regional FPA based on DISCO
   const fixedCharge = 200 // Unprotected fixed charge
   const tvFee = 35
   const duty = energyCost * 0.015 // Electricity duty
@@ -346,7 +406,7 @@ export default function GuestDashboardPage() {
         {/* TIER 1 (TOP): 200-Unit Safe Progress Gauge & High-Contrast Traffic Light Badge */}
         <section
           style={{
-            background: 'var(--card-bg, #0f172a)',
+            background: 'var(--card-bg, #ffffff)',
             border: `1.5px solid ${trafficTheme.badgeBorder}`,
             borderRadius: '24px',
             padding: '1.5rem',

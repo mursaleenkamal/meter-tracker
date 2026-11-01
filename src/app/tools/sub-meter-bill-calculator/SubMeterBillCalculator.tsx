@@ -17,7 +17,10 @@ import {
   ArrowRight,
   ShieldCheck,
   Building,
-  HelpCircle
+  HelpCircle,
+  Printer,
+  FileText,
+  X
 } from 'lucide-react'
 
 interface Portion {
@@ -35,6 +38,20 @@ export default function SubMeterBillCalculator() {
   const [commonLoadUnits, setCommonLoadUnits] = useState<number>(50)
   const [commonLoadSplitMethod, setCommonLoadSplitMethod] = useState<'equal' | 'proportional'>('equal')
   const [copied, setCopied] = useState<boolean>(false)
+  const [dueDate, setDueDate] = useState<string>(() => {
+    const d = new Date()
+    d.setDate(d.getDate() + 7)
+    return d.toISOString().split('T')[0]
+  })
+  const [activePrintPortion, setActivePrintPortion] = useState<{
+    id: string
+    name: string
+    consumedUnits: number
+    commonShareUnits: number
+    totalPortionUnits: number
+    portionBill: number
+    portionPercentage: string
+  } | null>(null)
 
   const [portions, setPortions] = useState<Portion[]>([
     {
@@ -198,6 +215,34 @@ export default function SubMeterBillCalculator() {
       // Fallback
       setCopied(false)
     }
+  }
+
+  // Individual Tenant Utility Slip Formatter
+  const generateTenantSlipText = (p: { name: string; consumedUnits: number; portionBill: number }) => {
+    const energyCost = Math.round(p.consumedUnits * calculations.effectiveUnitRate)
+    const fixedShare = Math.max(0, p.portionBill - energyCost)
+    return [
+      `📄 *Read Meter — Monthly Utility Bill Slip*`,
+      `🏠 Tenant: ${p.name}`,
+      `⚡ Consumed Units: ${p.consumedUnits.toFixed(0)} kWh`,
+      `💰 Effective Rate: Rs. ${calculations.effectiveUnitRate.toFixed(2)} / unit`,
+      `🔌 Electricity Share: Rs. ${energyCost.toLocaleString()}`,
+      `🏢 Fixed Charges / Taxes Share: Rs. ${fixedShare.toLocaleString()}`,
+      `━━━━━━━━━━━━━━━━━━━`,
+      `💵 *Total Payable: Rs. ${p.portionBill.toLocaleString()}*`,
+      `Due Date: ${dueDate}`,
+      `Verified via: https://www.readmeter.online`,
+    ].join('\n')
+  }
+
+  const handleOpenWhatsAppSlip = (p: { name: string; consumedUnits: number; portionBill: number }) => {
+    const text = generateTenantSlipText(p)
+    const url = `https://wa.me/?text=${encodeURIComponent(text)}`
+    window.open(url, '_blank')
+    trackConversionEvent('share_tenant_whatsapp_slip', {
+      tenant: p.name,
+      amount: p.portionBill,
+    })
   }
 
   return (
@@ -483,6 +528,96 @@ export default function SubMeterBillCalculator() {
           </table>
         </div>
 
+        {/* Generate Tenant Utility Slips (WhatsApp & Print PDF) */}
+        <div className={styles.tenantSlipsContainer}>
+          <div className={styles.slipsHeader}>
+            <div>
+              <div className={styles.slipsTitle}>
+                <FileText size={20} style={{ color: '#2563eb' }} />
+                <span>Generate Tenant Utility Slips</span>
+              </div>
+              <p style={{ margin: '0.25rem 0 0', fontSize: '0.84rem', color: '#64748b' }}>
+                One-click individual bill slips for every tenant with verified sub-meter calculation.
+              </p>
+            </div>
+
+            <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
+              <label htmlFor="slipDueDate" style={{ fontSize: '0.82rem', fontWeight: 600, color: '#475569' }}>
+                Due Date:
+              </label>
+              <input
+                id="slipDueDate"
+                type="date"
+                value={dueDate}
+                onChange={(e) => setDueDate(e.target.value)}
+                style={{
+                  border: '1px solid #cbd5e1',
+                  borderRadius: '6px',
+                  padding: '4px 8px',
+                  fontSize: '0.82rem',
+                  color: '#0f172a',
+                  background: '#f8fafc',
+                }}
+              />
+            </div>
+          </div>
+
+          <div className={styles.slipsGrid}>
+            {calculations.portionsDetailed.map((p) => {
+              const energyCost = Math.round(p.consumedUnits * calculations.effectiveUnitRate)
+              const fixedShare = Math.max(0, p.portionBill - energyCost)
+              return (
+                <div key={p.id} className={styles.tenantSlipCard}>
+                  <div>
+                    <div className={styles.slipTenantName}>{p.name}</div>
+                    <div style={{ display: 'flex', flexDirection: 'column', gap: '0.2rem', marginTop: '0.5rem' }}>
+                      <div className={styles.slipMetaRow}>
+                        <span>Submeter Units:</span>
+                        <strong style={{ color: '#0f172a' }}>{p.consumedUnits.toFixed(0)} kWh</strong>
+                      </div>
+                      <div className={styles.slipMetaRow}>
+                        <span>Effective Rate:</span>
+                        <span>Rs. {calculations.effectiveUnitRate.toFixed(2)}/u</span>
+                      </div>
+                      <div className={styles.slipMetaRow}>
+                        <span>Electricity Share:</span>
+                        <span>Rs. {energyCost.toLocaleString()}</span>
+                      </div>
+                      <div className={styles.slipMetaRow}>
+                        <span>Fixed / Common Share:</span>
+                        <span>Rs. {fixedShare.toLocaleString()}</span>
+                      </div>
+                      <div className={styles.slipTotalRow}>
+                        <span>Total Payable:</span>
+                        <span className={styles.slipTotalAmount}>Rs. {p.portionBill.toLocaleString()}</span>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div className={styles.slipBtnGroup}>
+                    <button
+                      type="button"
+                      className={styles.slipWhatsAppBtn}
+                      onClick={() => handleOpenWhatsAppSlip(p)}
+                      title="Send bill via WhatsApp"
+                    >
+                      <Share2 size={14} /> WhatsApp Slip
+                    </button>
+                    <button
+                      type="button"
+                      className={styles.slipPrintBtn}
+                      onClick={() => setActivePrintPortion(p)}
+                      title="Print or Save PDF Receipt"
+                    >
+                      <Printer size={14} /> Print / PDF
+                    </button>
+                  </div>
+                </div>
+              )
+            })}
+          </div>
+        </div>
+
         {/* WhatsApp Share Button */}
         <div style={{ display: 'flex', flexDirection: 'column', gap: '0.5rem', marginTop: '0.5rem' }}>
           <button type="button" className={styles.whatsappShareBtn} onClick={handleCopyWhatsApp}>
@@ -552,6 +687,153 @@ export default function SubMeterBillCalculator() {
           </Link>
         </div>
       </div>
+
+      {/* Printable Receipt Modal */}
+      {activePrintPortion && (
+        <div className={styles.printOverlay} onClick={() => setActivePrintPortion(null)}>
+          <div
+            className={`${styles.printReceiptModal} ${styles.printableReceipt}`}
+            onClick={(e) => e.stopPropagation()}
+          >
+            <div className={styles.noPrint} style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+              <span style={{ fontSize: '0.85rem', fontWeight: 700, color: '#2563eb' }}>
+                PRINT / PDF PREVIEW
+              </span>
+              <button
+                type="button"
+                onClick={() => setActivePrintPortion(null)}
+                style={{ background: 'transparent', border: 'none', cursor: 'pointer', color: '#64748b' }}
+              >
+                <X size={20} />
+              </button>
+            </div>
+
+            {/* Receipt Body */}
+            <div style={{ textAlign: 'center', borderBottom: '2px solid #0f172a', paddingBottom: '1rem' }}>
+              <h2 style={{ margin: '0 0 0.25rem 0', fontSize: '1.4rem', fontWeight: 900, letterSpacing: '-0.02em', color: '#0f172a' }}>
+                READ METER UTILITY SLIP
+              </h2>
+              <div style={{ fontSize: '0.82rem', color: '#475569' }}>
+                Sub-Meter Proportional Electricity Receipt
+              </div>
+              <div style={{ fontSize: '0.78rem', color: '#64748b', marginTop: '0.2rem' }}>
+                Ref ID: RM-{activePrintPortion.id.toUpperCase()}-{Date.now().toString().slice(-4)}
+              </div>
+            </div>
+
+            <div style={{ display: 'flex', flexDirection: 'column', gap: '0.6rem', fontSize: '0.9rem', color: '#1e293b' }}>
+              <div style={{ display: 'flex', justifyContent: 'space-between' }}>
+                <span style={{ color: '#64748b' }}>Tenant / Unit:</span>
+                <strong style={{ color: '#0f172a' }}>{activePrintPortion.name}</strong>
+              </div>
+              <div style={{ display: 'flex', justifyContent: 'space-between' }}>
+                <span style={{ color: '#64748b' }}>Date of Issue:</span>
+                <span>{new Date().toLocaleDateString(undefined, { year: 'numeric', month: 'short', day: 'numeric' })}</span>
+              </div>
+              <div style={{ display: 'flex', justifyContent: 'space-between' }}>
+                <span style={{ color: '#64748b' }}>Payment Due Date:</span>
+                <strong style={{ color: '#dc2626' }}>{dueDate}</strong>
+              </div>
+              <div style={{ borderBottom: '1px dashed #cbd5e1', margin: '0.4rem 0' }} />
+
+              <div style={{ display: 'flex', justifyContent: 'space-between' }}>
+                <span>Sub-Meter Consumed Units:</span>
+                <strong>{activePrintPortion.consumedUnits.toFixed(0)} kWh</strong>
+              </div>
+              {commonLoadUnits > 0 && (
+                <div style={{ display: 'flex', justifyContent: 'space-between' }}>
+                  <span>Shared Common Load Portion:</span>
+                  <span>+{activePrintPortion.commonShareUnits.toFixed(1)} kWh</span>
+                </div>
+              )}
+              <div style={{ display: 'flex', justifyContent: 'space-between' }}>
+                <span>Total Accounted Units:</span>
+                <strong>{activePrintPortion.totalPortionUnits.toFixed(1)} kWh</strong>
+              </div>
+              <div style={{ display: 'flex', justifyContent: 'space-between' }}>
+                <span>Effective Blended Rate:</span>
+                <span>Rs. {calculations.effectiveUnitRate.toFixed(2)} / kWh</span>
+              </div>
+              <div style={{ display: 'flex', justifyContent: 'space-between' }}>
+                <span>Electricity Energy Charge:</span>
+                <span>Rs. {Math.round(activePrintPortion.consumedUnits * calculations.effectiveUnitRate).toLocaleString()}</span>
+              </div>
+              <div style={{ display: 'flex', justifyContent: 'space-between' }}>
+                <span>Fixed Charges / Taxes Share:</span>
+                <span>
+                  Rs. {Math.max(0, activePrintPortion.portionBill - Math.round(activePrintPortion.consumedUnits * calculations.effectiveUnitRate)).toLocaleString()}
+                </span>
+              </div>
+
+              <div
+                style={{
+                  borderTop: '2px solid #0f172a',
+                  borderBottom: '2px solid #0f172a',
+                  padding: '0.75rem 0',
+                  marginTop: '0.5rem',
+                  display: 'flex',
+                  justifyContent: 'space-between',
+                  alignItems: 'baseline',
+                }}
+              >
+                <span style={{ fontSize: '1.1rem', fontWeight: 800, color: '#0f172a' }}>TOTAL PAYABLE:</span>
+                <span style={{ fontSize: '1.6rem', fontWeight: 900, color: '#2563eb' }}>
+                  Rs. {activePrintPortion.portionBill.toLocaleString()}
+                </span>
+              </div>
+            </div>
+
+            <div style={{ textAlign: 'center', fontSize: '0.75rem', color: '#64748b' }}>
+              Verified mathematically via Read Meter PWA<br />
+              https://www.readmeter.online
+            </div>
+
+            <div className={styles.noPrint} style={{ display: 'flex', gap: '0.75rem', marginTop: '0.5rem' }}>
+              <button
+                type="button"
+                onClick={() => window.print()}
+                className="glow-btn-solid"
+                style={{
+                  flex: 1,
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  gap: '0.5rem',
+                  padding: '11px',
+                  borderRadius: '10px',
+                  fontSize: '0.9rem',
+                  cursor: 'pointer',
+                  background: '#2563eb',
+                  color: '#fff',
+                  border: 'none',
+                  fontWeight: 700,
+                }}
+              >
+                <Printer size={16} /> Print / Save PDF
+              </button>
+              <button
+                type="button"
+                onClick={() => handleOpenWhatsAppSlip(activePrintPortion)}
+                style={{
+                  background: '#25d366',
+                  color: '#fff',
+                  border: 'none',
+                  borderRadius: '10px',
+                  padding: '11px 16px',
+                  fontWeight: 700,
+                  fontSize: '0.9rem',
+                  cursor: 'pointer',
+                  display: 'flex',
+                  alignItems: 'center',
+                  gap: '0.4rem',
+                }}
+              >
+                <Share2 size={16} /> WhatsApp
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   )
 }

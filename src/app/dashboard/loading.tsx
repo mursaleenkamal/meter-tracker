@@ -8,7 +8,7 @@ export default function DashboardLoading() {
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'center',
-        background: '#060913',
+        background: '#f8fafc',
       }}
     >
       <ElectricLoader fullScreen message="Loading Meter Dashboard & Telemetry..." />

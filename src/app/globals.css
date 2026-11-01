@@ -278,8 +278,8 @@ input::placeholder, textarea::placeholder {
 }
 
 @keyframes electric-pulse-bolt {
-  0%, 100% { transform: scale(1); filter: drop-shadow(0 0 12px var(--primary)); opacity: 0.9; }
-  50% { transform: scale(1.15); filter: drop-shadow(0 0 24px var(--primary)) drop-shadow(0 0 45px rgba(0, 240, 255, 0.8)); opacity: 1; }
+  0%, 100% { transform: scale(1); filter: drop-shadow(0 2px 6px rgba(37, 99, 235, 0.25)); opacity: 0.95; }
+  50% { transform: scale(1.08); filter: drop-shadow(0 4px 14px rgba(37, 99, 235, 0.45)); opacity: 1; }
 }
 
 @keyframes electric-shimmer {
@@ -300,7 +300,7 @@ input::placeholder, textarea::placeholder {
 }
 
 .electric-shimmer-bar {
-  background: linear-gradient(90deg, #00f0ff 0%, #8b5cf6 50%, #00f0ff 100%);
+  background: linear-gradient(90deg, #2563eb 0%, #0284c7 50%, #2563eb 100%);
   background-size: 200% 100%;
   animation: electric-shimmer 2s linear infinite;
 }

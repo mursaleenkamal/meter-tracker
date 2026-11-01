@@ -13,6 +13,7 @@ URL_LIST = [
     f"https://{HOST}/",
     f"https://{HOST}/protected-slab-calculator",
     f"https://{HOST}/tools",
+    f"https://{HOST}/tools/meter-reading-calculator",
     f"https://{HOST}/tools/sub-meter-bill-calculator",
     f"https://{HOST}/tools/solar-net-metering-calculator",
     f"https://{HOST}/tools/car-oil-change-calculator",

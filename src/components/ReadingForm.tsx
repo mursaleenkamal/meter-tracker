@@ -1,6 +1,6 @@
 'use client'
 
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { useRouter } from 'next/navigation'
 import Link from 'next/link'
 import styles from '../app/scanner.module.css'
@@ -58,6 +58,24 @@ export default function ReadingForm({ meterId, meterNumber, onClose, onSuccess, 
   const [offlineSuccessMsg, setOfflineSuccessMsg] = useState<string | null>(null)
   const [isBillingReset, setIsBillingReset] = useState(false)
   const [nextReadingDate, setNextReadingDate] = useState('')
+
+  // Preload Tesseract.js worker/chunks in background during idle time for instant OCR response
+  useEffect(() => {
+    const preload = () => {
+      import('tesseract.js')
+        .then(() => {
+          // Worker module cached in memory/browser
+        })
+        .catch(() => {})
+    }
+    if (typeof window !== 'undefined') {
+      if ('requestIdleCallback' in window) {
+        ;(window as unknown as { requestIdleCallback: (cb: () => void) => void }).requestIdleCallback(preload)
+      } else {
+        setTimeout(preload, 1200)
+      }
+    }
+  }, [])
 
   const handleImageChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0]

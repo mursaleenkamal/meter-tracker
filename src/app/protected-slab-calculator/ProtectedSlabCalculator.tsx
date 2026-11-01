@@ -62,6 +62,17 @@ const DISCOS: Record<string, DiscoRates> = {
     fixedCharge: 200,
     fpaPerUnit: 3.00,
   },
+  gepco: {
+    name: 'GEPCO (Gujranwala / Sialkot)',
+    protectedRate100: 7.74,
+    protectedRate200: 14.95,
+    unprotectedRate100: 16.48,
+    unprotectedRate200: 22.95,
+    unprotectedRate300: 34.26,
+    unprotectedRateAbove: 42.10,
+    fixedCharge: 200,
+    fpaPerUnit: 3.05,
+  },
   mepco: {
     name: 'MEPCO (Multan / South Punjab)',
     protectedRate100: 7.74,

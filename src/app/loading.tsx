@@ -8,7 +8,7 @@ export default function Loading() {
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'center',
-        background: '#060913',
+        background: '#f8fafc',
       }}
     >
       <ElectricLoader fullScreen message="Loading Read Meter..." />

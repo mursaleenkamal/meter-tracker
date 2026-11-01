@@ -42,7 +42,7 @@ export default function AppPreloader() {
         width: '100vw',
         height: '100vh',
         zIndex: 999999,
-        background: '#060913',
+        background: '#f8fafc',
         opacity: isFading ? 0 : 1,
         transition: 'opacity 0.3s cubic-bezier(0.4, 0, 0.2, 1)',
         pointerEvents: isFading ? 'none' : 'auto',
