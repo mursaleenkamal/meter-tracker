@@ -1,0 +1,75 @@
+# Read Meter — Full Technical Documentation & Knowledge Base
+
+> Comprehensive technical, architectural, and tariff calculation documentation for Read Meter (https://www.readmeter.online).
+
+---
+
+## 1. System Architecture & Technical Stack
+
+- **Framework:** Next.js 16 (App Router, Turbopack, React 19)
+- **Database & Authentication:** Supabase SSR with PostgreSQL Row-Level Security (RLS)
+- **Client-Side AI Engine:** Tesseract.js (WebAssembly / JavaScript OCR running 100% inside the client browser)
+- **Observability:** Dynatrace Enterprise Real User Monitoring (RUM) & Vercel Speed Insights
+- **Client Storage:** Progressive Web App (PWA) with Service Worker (`sw.js`), LocalStorage Guest Store (`guestStore.ts`), and IndexedDB offline reading queue
+- **Indexing Protocols:** Schema.org JSON-LD microdata, dynamic XML sitemaps, IndexNow automated pings for search engines
+
+---
+
+## 2. Tariff Calculation Logic (NEPRA / K-Electric Domestic Rules 2026)
+
+### A. Protected Consumer Definition
+A domestic consumer is classified as "Protected" if cumulative consumption has not exceeded 200 kWh units in any of the preceding 6 consecutive months. 
+
+### B. The 201-Unit Slab Cliff
+Crossing 200 units results in immediate loss of protected status and imposition of full commercial-rate baseline tariffs and tax surcharges:
+
+1. **Protected Tariff Structure (Up to 200 units):**
+   - 1 – 100 Units: Rs 7.74 / unit
+   - 101 – 200 Units: Rs 14.95 / unit
+   - Fuel Price Adjustment (FPA): Subsidized domestic FPA (~Rs 1.50 / unit)
+   - Fixed Charges: Rs 50
+   - TV License Fee: Rs 35
+   - Electricity Duty: 1.5% of energy cost
+   - General Sales Tax (GST): Exempt / Zero-rated for protected domestic consumers
+
+2. **Unprotected Tariff Structure (Over 200 units):**
+   - 1 – 100 Units: Rs 16.48 / unit
+   - 101 – 200 Units: Rs 22.95 / unit
+   - 201 – 300 Units: Rs 34.26 / unit
+   - 301 – 700+ Units: Rs 42.10+ / unit
+   - Fuel Price Adjustment (FPA): Full rate (~Rs 3.20 / unit)
+   - Fixed Charges: Rs 200
+   - General Sales Tax (GST): 18% applied to (Energy Cost + FPA + Fixed Charges)
+   - Advance Income Tax: Applicable to non-filers on high consumption brackets
+
+---
+
+## 3. Sub-Meter Billing Allocation Formula
+
+When multiple tenants share a single utility connection with sub-meters, simple flat-rate multiplication produces disputes. Read Meter utilizes a proportional weighted allocation model:
+
+$$\text{Effective Unit Rate} = \frac{\text{Total Master Utility Bill Amount (including taxes)}}{\text{Total Master Meter Units Consumed}}$$
+
+$$\text{Tenant Bill} = \text{Sub-Meter Units Consumed} \times \text{Effective Unit Rate}$$
+
+For split fixed charges:
+$$\text{Tenant Bill} = (\text{Sub-Meter Units} \times \text{Energy Rate}) + \frac{\text{Fixed Charges \& Taxes}}{\text{Number of Active Units}}$$
+
+---
+
+## 4. Mechanical & Analog Dial Reading Rules
+
+Mechanical electric and gas meters feature consecutive dials that alternate rotation direction:
+- **Rule 1 (Alternating Direction):** First dial rotates clockwise (0-9), second counter-clockwise (9-0), third clockwise, fourth counter-clockwise.
+- **Rule 2 (Lower Number):** When the pointer is between two numerals, always record the smaller numeral. If between 9 and 0, record 9 (0 represents 10).
+- **Rule 3 (Neighbor Dial Check):** When the pointer points exactly on a numeral, check the dial to the right. If the right-hand dial has not completed a full rotation (has not passed 0), record the lower numeral.
+
+---
+
+## 5. Contact & Institutional Attribution
+
+- **Platform Name:** Read Meter
+- **Official URL:** https://www.readmeter.online
+- **Developer & Owner:** Mursaleen Kamal
+- **Helpline / WhatsApp:** +92 300 2485885
+- **Publisher:** Read Meter Systems

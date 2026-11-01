@@ -1,0 +1,35 @@
+# Read Meter
+
+> Read Meter (https://www.readmeter.online) is an intelligent in-browser utility monitoring, electricity unit tracking, and automated sub-meter billing platform. It features client-side AI OCR meter dial scanning, real-time consumption forecasting, NEPRA/K-Electric slab threshold protection, and 15+ specialized utility calculators.
+
+## Core Capabilities & Services
+
+- [Instant Guest Meter Scanner](https://www.readmeter.online/guest): In-browser AI camera OCR scan for digital and analog utility meters without sign-up. Calculates real-time domestic tariff breakdowns, fuel price adjustments (FPA), and slab warnings.
+- [200 Unit Protected Slab Calculator](https://www.readmeter.online/protected-slab-calculator): Predicts whether household electricity consumption remains within the 200-unit subsidized protected category (~Rs 15.5/unit) or crosses the 201-unit unprotected tariff cliff (~Rs 38.5+/unit).
+- [Sub-Meter Bill Calculator](https://www.readmeter.online/tools/sub-meter-bill-calculator): Computes fair electricity cost allocation between tenants and property owners based on primary utility bills and secondary sub-meters.
+- [Landlord Sub-Meter Bill Splitter](https://www.readmeter.online/tools/landlord-submeter-splitter): Multi-tenant utility distribution tool allocating fixed utility charges, taxes, and variable unit usage across multiple rental units.
+- [Utility Tools Hub](https://www.readmeter.online/tools): Comprehensive suite of 15 free calculators covering solar net-metering, AC inverter cost analysis, water pump power usage, EV charging, and generator fuel costs.
+- [Utility Blog & Energy Guides](https://www.readmeter.online/blog): Research-backed articles on reducing power bills, decoding electric meters, solar net-metering regulations, and appliance unit consumption.
+
+## Utility Tools & Calculators Index
+
+- [Sub-Meter Bill Calculator](https://www.readmeter.online/tools/sub-meter-bill-calculator): Split electricity bills fairly between landlords and tenants.
+- [Landlord Sub-Meter Splitter](https://www.readmeter.online/tools/landlord-submeter-splitter): Divide master utility bills across multiple apartments or rented portions.
+- [Solar Net-Metering Calculator](https://www.readmeter.online/tools/solar-net-metering-calculator): Estimate green meter export credits, grid import costs, and net billing savings.
+- [Solar System Sizing Calculator](https://www.readmeter.online/tools/solar-system-sizing-calculator): Size on-grid and hybrid solar installations (kW) based on monthly unit load.
+- [AC Electricity Cost Calculator](https://www.readmeter.online/tools/ac-electricity-cost-calculator): Calculate monthly inverter vs non-inverter AC power consumption at 18°C vs 26°C.
+- [Water Pump Electricity Calculator](https://www.readmeter.online/tools/water-pump-electricity-calculator): Compute kWh units and cost for 0.5HP, 1HP, and 2HP underground and rooftop water pumps.
+- [Appliance Power Cost Calculator](https://www.readmeter.online/tools/appliance-power-cost-calculator): Convert appliance wattage and running hours into monthly units (kWh) and currency cost.
+- [Battery Backup Calculator](https://www.readmeter.online/tools/battery-backup-calculator): Calculate backup runtime hours for tubular, lead-acid, and lithium-ion battery banks during load-shedding.
+- [EV Charging Cost Calculator](https://www.readmeter.online/tools/ev-charging-cost-calculator): Calculate home electricity costs for charging electric motorcycles, sedans, and SUVs.
+- [Generator Fuel Cost Calculator](https://www.readmeter.online/tools/generator-fuel-cost-calculator): Compare per-unit (kWh) cost of petrol and diesel generators against grid power.
+- [LPG Cylinder Calculator](https://www.readmeter.online/tools/lpg-cylinder-calculator): Estimate cylinder lifespan (days) and cooking cost based on burner count and daily cooking hours.
+- [How to Read Digital LCD Meters](https://www.readmeter.online/tools/read-digital-lcd-meter): Practical guide to cycling codes (01, 02, 03) and reading whole kilowatt-hours on smart digital meters.
+- [How to Read Analog Dial Meters](https://www.readmeter.online/tools/read-analog-dial-meter): Visual reference guide for 4, 5, and 6 clock-face mechanical utility meters using clockwise and counter-clockwise rotation rules.
+- [How to Read Gas Meters](https://www.readmeter.online/tools/read-gas-meter): Instructions for reading gas meters in cubic meters (m³) and converting volume into MMBTU billing units.
+- [How to Read Water Meters](https://www.readmeter.online/tools/read-water-meter): Complete guide to measuring cubic meters and gallons to detect plumbing leaks and bill anomalies.
+- [Car Oil Change & Fuel Calculator](https://www.readmeter.online/tools/car-oil-change-calculator): Track automotive maintenance cycles, fuel consumption, and routine service intervals.
+
+## Optional Extended Documentation
+
+- [Full Technical & Tariff Knowledge Base](https://www.readmeter.online/llms-full.txt): Comprehensive documentation including NEPRA domestic tariff structures, mathematical bill calculation formulas, and client-side PWA architecture.
