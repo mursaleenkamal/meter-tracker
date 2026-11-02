@@ -49,6 +49,7 @@ URL_LIST = [
     f"https://{HOST}/blog/solar-system-sizing-inverter-capacity-guide-pakistan-2026",
     f"https://{HOST}/blog/washing-machine-dryer-electricity-consumption-pakistan-2026",
     f"https://{HOST}/blog/how-to-split-electric-utility-bills-fairly-between-tenants-submeter-guide-2026",
+    f"https://{HOST}/blog/how-to-calculate-home-ev-charging-cost-kwh-level-2-charger-guide",
     f"https://{HOST}/guest",
     f"https://{HOST}/about",
     f"https://{HOST}/disclaimer"
